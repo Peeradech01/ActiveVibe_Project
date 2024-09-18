@@ -161,10 +161,6 @@ nav>a:hover:after {
     padding: 20px;
 }
 
-.card-body h2 {
-    margin-top: 0;
-}
-
 .card-body p {
     font-size: 1.5rem;
 }
@@ -349,4 +345,3 @@ nav>a:hover:after {
     color: white;
     transition: 0.3s;
 }
-
