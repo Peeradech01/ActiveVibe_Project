@@ -18,9 +18,24 @@ body {
     background-size: cover;
 }
 
-body::-webkit-scrollbar {
+/* body::-webkit-scrollbar {
     display: none;
-}
+} */
+
+/* Custom scrollbar styles */
+body::-webkit-scrollbar {
+    width: 15px; /* width of the scrollbar */
+    height: 10px; /* height of the scrollbar */
+  }
+  
+body::-webkit-scrollbar-thumb {
+    background-color: orangered; /* color of the scrollbar thumb */
+  }
+  
+body::-webkit-scrollbar-track {
+    background-color: #f0f0f0; /* color of the scrollbar track */
+    border-radius: 10px; /* rounded corners of the scrollbar track */
+  }
 
 .logo {
     width: 100%;
@@ -315,9 +330,9 @@ nav>a:hover:after {
     text-align: center;
 }
 
-.login-form input[type="checkbox"] {
-    margin-right: 1rem;
-    transform: scale(1.5);
+.login-form p>a {
+    text-decoration: none;
+    color: orangered;
 }
 
 .login-form input[type="text"], .login-form input[type="password"], .login-form input[type="email"], .login-form input[type="tel"] {
@@ -326,6 +341,11 @@ nav>a:hover:after {
     margin-bottom: 10px;
     border: 1px solid #ccc;
     font-size: 1.5rem;
+}
+
+.login-form input:focus {
+    box-shadow: 0 0 10px orangered;
+    outline: none;
 }
 
 .login-form input[type="submit"] {
