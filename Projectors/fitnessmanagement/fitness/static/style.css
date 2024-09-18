@@ -324,6 +324,7 @@ h1>span {
     height: 75dvh;
     flex: 1;
     transition: 0.5s;
+    -webkit-user-select: none;
 }
 
 .card-mem:hover {
