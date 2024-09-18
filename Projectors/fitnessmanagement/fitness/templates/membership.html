@@ -1,0 +1,31 @@
+{% extends 'layout.html' %}
+
+{% load static %}
+
+{% block title %}
+Membership
+{% endblock %}
+{% block content %}
+<div class="mem-box">
+    <div class="card-row"></div>
+        <div class="card-mem">
+            <img src="{% static 'logo.png' %}" alt="Card 1 Image">
+            <h5>Card 1</h5>
+            <p>Card content 1</p>
+            <button class="card-button">Subscribed</button>
+        </div>
+        <div class="card-mem">
+            <img src="{% static 'logo.png' %}" alt="Card 2 Image">
+            <h5>Card 2</h5>
+            <p>Card content 2</p>
+            <button class="card-button">Subscribed</button>
+        </div>
+        <div class="card-mem">
+            <img src="{% static 'logo.png' %}" alt="Card 3 Image">
+            <h5>Card 3</h5>
+            <p>Card content 3</p>
+            <button class="card-button">Subscribed</button>
+        </div>
+    </div>
+</div>
+{% endblock %}

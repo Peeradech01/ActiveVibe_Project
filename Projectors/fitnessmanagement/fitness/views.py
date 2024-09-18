@@ -18,3 +18,7 @@ class RegisterFormView(View):
 
     def post(self, request):
         return redirect('login')  
+    
+class MembershipView(View):
+    def get(self, request):
+        return render(request, 'membership.html')

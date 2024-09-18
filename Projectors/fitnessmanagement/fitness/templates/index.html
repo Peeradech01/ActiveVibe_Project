@@ -18,13 +18,9 @@
         <div class="logo">
             <h1>Active <span>Vibe</span></h1>
         </div>
-        <nav>
-            <a href="{% url 'index' %}">Home</a>
-            <a href="">Membership</a>
-            <a href="">Class</a>
-            <a href="">About</a>
-            <a class="split" href="{% url 'login' %}">Login</a>
-        </nav>
+        {% block nav%}
+            {% include 'nav.html' %}
+        {% endblock%}
         <div class="text">
             <h1 class="word">Nothing Comes Easy.</h1>
             <h1 class="word">Everything Begins With Your First Step.</h1>
