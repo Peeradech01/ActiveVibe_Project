@@ -276,11 +276,25 @@ nav>a:hover:after {
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: #f0f0f0;
-    padding: 30px 50px;
+    padding: 30px;
     border: 1px solid #ddd;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     -webkit-user-select: none;
+}
+
+.left-form {
+    float: left;
+    width: 50%;
+}
+
+.left-form img {
+    border-radius: 10px;
+}
+
+.right-form {
+    float: left;
+    width: 50%;
 }
 
 .login-form input:hover {

@@ -16,21 +16,22 @@
     </style>
 </head>
 <body>
-    <div class="logo">
-        <h1>Active <span>Vibe</span></h1>
-    </div>
     <div class="login-form">
-        <form method="post" action="{% url 'login' %}">
-            {% csrf_token %}
-            <h1>Login</h1>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" autocomplete="off"><br><br>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" autocomplete="off"><br><br>
-            <input type="submit" value="Login">
-        </form>
-        <p>Don't you have an account? <a href="{% url 'register' %}">Sign up</a></p>
+        <div class="left-form">
+            <img src="{%static 'logo.png'%}" alt="">
+        </div>
+        <div class="right-form">
+            <form method="post" action="{% url 'login' %}">
+                {% csrf_token %}
+                <h1>Login</h1>
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" autocomplete="off">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" autocomplete="off"><br><br><br>
+                <input type="submit" value="Login">
+            </form>
+            <p>Don't you have an account? <a href="{% url 'register' %}">Sign up</a></p>
+        </div>
     </div>
-
 </body>
 </html>
