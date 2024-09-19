@@ -469,15 +469,10 @@ h1>span {
     background-color: orangered;
     transition: 0.3s;
 }
+
+
 /* ---------------------- */
 
-
-.label-redio label {
-    font-size: 50px;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-}
 
 .div-radio input[type="radio"] {
     transform: scale(2);

@@ -38,14 +38,12 @@
                 <br><br>
             {% endfor %}
             <div class="div-radio">
-                <label>
-                    <input type="radio" name="role" value="Customer">
-                    Customer
-                </label>
-                <label>
-                    <input type="radio" name="role" value="Trainer">
-                    Trainer
-                </label>
+                {% for radio in form.role %}
+                    <label for="{{ radio.id_for_label }}">
+                        {{ radio.tag }}
+                        {{ radio.choice_label }}
+                    </label>
+                {% endfor %}
             </div>  
             <input type="submit" value="Sign Up">
         </form>
