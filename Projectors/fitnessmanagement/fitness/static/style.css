@@ -20,18 +20,23 @@ body {
 
 /* Custom scrollbar styles */
 body::-webkit-scrollbar {
-    width: 15px; /* width of the scrollbar */
-    height: 10px; /* height of the scrollbar */
-  }
-  
+    width: 15px;
+    /* width of the scrollbar */
+    height: 10px;
+    /* height of the scrollbar */
+}
+
 body::-webkit-scrollbar-thumb {
-    background-color: orangered; /* color of the scrollbar thumb */
-  }
-  
+    background-color: orangered;
+    /* color of the scrollbar thumb */
+}
+
 body::-webkit-scrollbar-track {
-    background-color: #f0f0f0; /* color of the scrollbar track */
-    border-radius: 10px; /* rounded corners of the scrollbar track */
-  }
+    background-color: #f0f0f0;
+    /* color of the scrollbar track */
+    border-radius: 10px;
+    /* rounded corners of the scrollbar track */
+}
 
 .logo {
     width: 100%;
@@ -39,7 +44,7 @@ body::-webkit-scrollbar-track {
     padding: 1.5rem;
     height: 11dvh;
     -webkit-user-select: none;
-    background: linear-gradient(black,transparent);
+    background: linear-gradient(black, transparent);
 
 }
 
@@ -101,6 +106,7 @@ h1>span {
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     transition: 0.5s;
+    -webkit-user-select: none;
 }
 
 .card:hover {
@@ -187,6 +193,7 @@ h1>span {
     color: orangered;
     -webkit-user-select: none;
 }
+
 .right p {
     font-family: "Kanit", sans-serif;
     font-weight: 400;
@@ -261,7 +268,8 @@ h1>span {
     border-radius: 50%;
     width: 50%;
     margin: 100px 350px;
-    filter: drop-shadow(0 0 10px #FFD700); /* or #C7F464 for a different neon yellow shade */
+    filter: drop-shadow(0 0 10px #FFD700);
+    /* or #C7F464 for a different neon yellow shade */
 }
 
 .right-form {
@@ -295,7 +303,7 @@ h1>span {
 
 .form-mem input[type="checkbox"] {
     transform: scale(2);
-     margin: 10px; 
+    margin: 10px;
 }
 
 .form-mem input[type="date"] {
@@ -303,7 +311,9 @@ h1>span {
     font-size: 1.5rem;
 }
 
-.form-mem input[type="text"], .form-mem input[type="email"], .form-mem input[type="tel"]{
+.form-mem input[type="text"],
+.form-mem input[type="email"],
+.form-mem input[type="tel"] {
     padding: 10px;
     font-size: 1.5rem;
     width: 60%;
@@ -317,7 +327,7 @@ h1>span {
 }
 
 .form-mem input[type="submit"] {
-    background-color:orangered;
+    background-color: orangered;
     color: white;
     padding: 10px 20px;
     font-size: 1.7rem;
@@ -325,7 +335,7 @@ h1>span {
 }
 
 .form-mem input[type="submit"]:hover {
-    background-color:orange;
+    background-color: orange;
     color: whitesmoke;
     transition: 0.3s;
 }
@@ -365,7 +375,10 @@ h1>span {
     color: orangered;
 }
 
-.login-form input[type="text"], .login-form input[type="password"], .login-form input[type="email"], .login-form input[type="tel"] {
+.login-form input[type="text"],
+.login-form input[type="password"],
+.login-form input[type="email"],
+.login-form input[type="tel"] {
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
@@ -397,8 +410,8 @@ h1>span {
 }
 
 .mem-box {
-    display: flex; 
-    height: 93dvh; 
+    display: flex;
+    height: 93dvh;
     backdrop-filter: blur(10px);
 }
 
@@ -421,12 +434,12 @@ h1>span {
 }
 
 .card-mem:nth-child(2) {
-    border: 10px solid #cd7f32 ;
+    border: 10px solid #cd7f32;
 }
 
 .card-mem:nth-child(2):hover {
     transform: scale(1.05);
-    box-shadow: 0 0 10px #cd7f32 , 0 0 15px #cd7f32 , 0 0 30px #cd7f32 ;
+    box-shadow: 0 0 10px #cd7f32, 0 0 15px #cd7f32, 0 0 30px #cd7f32;
     transition: 0.5s;
 }
 
@@ -436,17 +449,17 @@ h1>span {
 
 .card-mem:nth-child(3):hover {
     transform: scale(1.05);
-    box-shadow: 0 0 10px #d7d7d7 , 0 0 15px #d7d7d7 , 0 0 30px #d7d7d7 ;
+    box-shadow: 0 0 10px #d7d7d7, 0 0 15px #d7d7d7, 0 0 30px #d7d7d7;
     transition: 0.5s;
 }
 
 .card-mem:nth-child(4) {
-    border: 10px solid #c9b037 ;
+    border: 10px solid #c9b037;
 }
 
 .card-mem:nth-child(4):hover {
     transform: scale(1.05);
-    box-shadow: 0 0 10px #c9b037 , 0 0 15px #c9b037 , 0 0 30px #c9b037 ;
+    box-shadow: 0 0 10px #c9b037, 0 0 15px #c9b037, 0 0 30px #c9b037;
     transition: 0.5s;
 }
 
@@ -483,11 +496,7 @@ h1>span {
     transition: 0.3s;
 }
 
-
-/* ---------------------- */
-
-
 .div-radio input[type="radio"] {
     transform: scale(2);
-    margin: 15px; 
+    margin: 15px;
 }

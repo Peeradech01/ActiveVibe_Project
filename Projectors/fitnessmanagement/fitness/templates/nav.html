@@ -77,7 +77,7 @@
     <nav>
         <a href="{% url 'index' %}">Home</a>
         <a href="{% url 'membership' %}">Membership</a>
-        <a href="">Class</a>
+        <a href="{% url 'class' %}">Class</a>
         <a href="">About</a>
         {% if user.is_authenticated %}
             <a class="split" href="{% url 'logout' %}">Logout</a>
