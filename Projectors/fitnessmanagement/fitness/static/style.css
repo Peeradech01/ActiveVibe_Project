@@ -345,13 +345,19 @@ h1>span {
     float: right;
 }
 
+.card-mem a {
+    text-decoration: none;
+    margin-left: 2.6rem;
+    color: black;
+}
+
 .card-button {
-    margin-top: 20px;
-    padding: 10px 20px;
+    padding: 10px 250px;
     border-radius: 10px;
-    width: 100%;
     transition: 0.3s;
     font-size: 1.5rem;
+    border: 1px solid black;
+    background-color: #ebebeb;
 }
 
 .card-button:hover {

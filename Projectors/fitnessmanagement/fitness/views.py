@@ -22,3 +22,7 @@ class RegisterFormView(View):
 class MembershipView(View):
     def get(self, request):
         return render(request, 'membership.html')
+    
+class MembershipFormView(View):
+    def get(self, request):
+        return render(request, 'membership_form.html')

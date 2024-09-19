@@ -20,15 +20,9 @@
         <form method="post" action="{% url 'register' %}">
             {% csrf_token %}
             <h1>Register</h1>
-            <label for="first_name">First Name:</label><br>
-            <small class="text-muted">Please enter your first name as it appears on your identification.</small>
-            <input type="text" id="first_name" name="first_name" placeholder="Enter your first name" autocomplete="off"><br><br>
-            <label for="last_name">Last Name:</label><br>
-            <small class="text-muted">Please enter your last name as it appears on your identification.</small>
-            <input type="text" id="last_name" name="last_name" placeholder="Enter your last name" autocomplete="off"><br><br>
-            <label for="phone_number">Phone Number:</label><br>
-            <small class="text-muted">Please enter a valid phone number in the format XXX-XXX-XXXX.</small>
-            <input type="tel" id="phone_number" name="phone_number" placeholder="XXX-XXX-XXXX" autocomplete="off"><br><br>
+            <label for="user_name">User Name:</label><br>
+            <small class="text-muted">Please enter your user name as it appears on your identification.</small>
+            <input type="text" id="user_name" name="user_name" placeholder="Enter your user name" autocomplete="off"><br><br>
             <label for="email">Email:</label><br>
             <small class="text-muted">Please enter a valid email address that you have access to.</small>
             <input type="email" id="email" name="email" placeholder="Enter your email" autocomplete="off"><br><br>
