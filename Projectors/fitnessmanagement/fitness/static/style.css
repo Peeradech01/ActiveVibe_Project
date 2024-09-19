@@ -231,6 +231,12 @@ h1>span {
     width: 50%;
 }
 
+.mem {
+    backdrop-filter: blur(5px);
+    height: 93dvh;
+    -webkit-user-select: none;
+}
+
 .left-form {
     float: left;
     width: 50%;
@@ -249,6 +255,13 @@ h1>span {
 
 .left-form img {
     border-radius: 10px;
+}
+
+.img-form img {
+    border-radius: 50%;
+    width: 50%;
+    margin: 100px 350px;
+    filter: drop-shadow(0 0 10px #FFD700); /* or #C7F464 for a different neon yellow shade */
 }
 
 .right-form {
@@ -293,7 +306,7 @@ h1>span {
 .form-mem input[type="text"], .form-mem input[type="email"], .form-mem input[type="tel"]{
     padding: 10px;
     font-size: 1.5rem;
-    width: 50%;
+    width: 60%;
     margin-bottom: 15px;
 }
 
