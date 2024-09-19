@@ -64,4 +64,4 @@ class MembershipFormView(View):
     
 class FitnessClassView(View):
     def get(self, request):
-        return render(request, 'fitness_clas.html')
+        return render(request, 'fitness_class.html')
