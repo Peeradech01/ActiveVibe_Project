@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+
+{% load static %}
+
+{% block title %}
+user Profile
+{% endblock %}
+
+{% block content %}
+    <div>
+        <h1 style="color: aliceblue; text-align: center; margin-top: 10%;">This is User Profile Page.</h1>
+    </div>
+    {% if user.is_authenticated %} 
+        
+    {% endif %}
+{% endblock %}
