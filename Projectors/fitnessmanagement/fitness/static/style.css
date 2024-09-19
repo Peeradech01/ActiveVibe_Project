@@ -235,6 +235,17 @@ h1>span {
     width: 50%;
 }
 
+.left-form h1 {
+    color: orangered;
+    font-size: 7rem;
+    padding: 50px;
+    text-shadow: -2px 2px 0 #000, 2px 2px 0 #000, 2px -2px 0 #000, -2px -2px 0 #000;
+}
+
+.left-form h1>span {
+    color: white;
+}
+
 .left-form img {
     border-radius: 10px;
 }
@@ -242,6 +253,75 @@ h1>span {
 .right-form {
     float: left;
     width: 50%;
+}
+
+.form-mem {
+    margin: 50px 0;
+    color: black;
+    background-color: #f0f0f0;
+    height: 85dvh;
+    padding: 70px;
+    width: 48%;
+    border-radius: 20px;
+}
+
+.form-mem h1 {
+    text-align: center;
+    font-size: 4rem;
+}
+
+.form-mem label {
+    font-size: 2rem;
+}
+
+.form-mem a {
+    text-decoration: none;
+    color: orangered;
+}
+
+.form-mem input[type="checkbox"] {
+    transform: scale(2);
+     margin: 10px; 
+}
+
+.form-mem input[type="date"] {
+    padding: 10px;
+    font-size: 1.5rem;
+}
+
+.form-mem input[type="text"], .form-mem input[type="email"], .form-mem input[type="tel"]{
+    padding: 10px;
+    font-size: 1.5rem;
+    width: 50%;
+    margin-bottom: 15px;
+}
+
+.form-mem select {
+    font-size: 1.5rem;
+    padding: 10px;
+    width: 15%;
+}
+
+.form-mem input[type="submit"] {
+    background-color:orangered;
+    color: white;
+    padding: 10px 20px;
+    font-size: 1.7rem;
+    border-radius: 10px;
+}
+
+.form-mem input[type="submit"]:hover {
+    background-color:orange;
+    color: whitesmoke;
+    transition: 0.3s;
+}
+
+.form-mem h1 {
+    margin-bottom: 50px;
+}
+
+.form-mem p {
+    font-size: 1.2rem;
 }
 
 .login-form input:hover {
@@ -316,7 +396,6 @@ h1>span {
 .card-mem {
     position: relative;
     background-color: white;
-    border: 1px solid #ddd;
     border-radius: 10px;
     padding: 20px;
     margin: 100px 50px;
@@ -327,9 +406,33 @@ h1>span {
     -webkit-user-select: none;
 }
 
-.card-mem:hover {
+.card-mem:nth-child(2) {
+    border: 10px solid #cd7f32 ;
+}
+
+.card-mem:nth-child(2):hover {
     transform: scale(1.05);
-    box-shadow: 0 0 10px orangered, 0 0 15px orangered, 0 0 30px orangered;
+    box-shadow: 0 0 10px #cd7f32 , 0 0 15px #cd7f32 , 0 0 30px #cd7f32 ;
+    transition: 0.5s;
+}
+
+.card-mem:nth-child(3) {
+    border: 10px solid #d7d7d7;
+}
+
+.card-mem:nth-child(3):hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px #d7d7d7 , 0 0 15px #d7d7d7 , 0 0 30px #d7d7d7 ;
+    transition: 0.5s;
+}
+
+.card-mem:nth-child(4) {
+    border: 10px solid #c9b037 ;
+}
+
+.card-mem:nth-child(4):hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px #c9b037 , 0 0 15px #c9b037 , 0 0 30px #c9b037 ;
     transition: 0.5s;
 }
 
