@@ -381,7 +381,7 @@ h1>span {
 .login-form input[type="tel"] {
     width: 100%;
     padding: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 30px;
     border: 1px solid #ccc;
     font-size: 1.5rem;
 }

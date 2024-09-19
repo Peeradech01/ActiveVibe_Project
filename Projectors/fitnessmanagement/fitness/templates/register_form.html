@@ -35,7 +35,6 @@
                 {% elif field.name == 'password2' %}
                     <input type="password" id="{{ field.id_for_label }}" name="{{ field.html_name }}" placeholder="CONFIRM your password" autocomplete="off">
                 {% endif %}
-                <br><br>
             {% endfor %}
             <div class="div-radio">
                 {% for radio in form.role %}
