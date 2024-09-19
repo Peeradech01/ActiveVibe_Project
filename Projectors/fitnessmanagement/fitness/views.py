@@ -12,7 +12,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from .forms import LoginForm
 
-from .forms import LoginForm
+from .forms import LoginForm, RegisterForm
 class IndexView(View):
     def get(self, request):
         return render(request, 'index.html')
@@ -34,7 +34,8 @@ class LoginFormView(View):
         else:
             messages.success(request, 'Login error please try again')
             return redirect('login')
-        
+
+
 class LogoutFormView(View):
     def get(self, request):
         logout(request)
@@ -44,11 +45,15 @@ class LogoutFormView(View):
 
 class RegisterFormView(View):
     def get(self, request):
-        return render(request, 'register_form.html')
+        form = RegisterForm()
+        context = {'form':form}
+        return render(request, 'register_form.html', context)
 
     def post(self, request):
         return redirect('login')  
     
+
+
 class MembershipView(View):
     def get(self, request):
         return render(request, 'membership.html')
