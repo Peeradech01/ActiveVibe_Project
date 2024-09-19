@@ -39,6 +39,8 @@ class LogoutFormView(View):
     def get(self, request):
         logout(request)
         messages.success(request, 'Logout Success')
+        storage = messages.get_messages(request)
+        storage.used = True  # clear the messages
         return redirect('login')
 
 class RegisterFormView(View):

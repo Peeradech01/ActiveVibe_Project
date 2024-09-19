@@ -16,6 +16,23 @@
     </style>
 </head>
 <body>
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.tags == 'success' %}
+                <div class="alert alert-success">
+                    {{ message }}
+                </div>
+            {% elif message.tags == 'error' %}
+                <div class="alert alert-danger">
+                    {{ message }}
+                </div>
+            {% else %}
+                <div class="alert alert-{{ message.tags }}">
+                    {{ message }}
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
     <div class="login-form">
         <div class="left-form">
             <img src="{%static 'logo.png'%}" alt="">
@@ -24,10 +41,10 @@
             <form method="post" action="{% url 'login' %}">
                 {% csrf_token %}
                 <h1>Login</h1>
-                    {% for field in form %}
-                        <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
-                        {{ field }}
-                    {% endfor %}
+                {% for field in form %}
+                    <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
+                    {{ field }}
+                {% endfor %}
                 <input type="submit" value="Login">
             </form>
             <p>Don't you have an account? <a href="{% url 'register' %}">Sign up</a></p>
