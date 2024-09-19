@@ -29,19 +29,17 @@ class LoginFormView(View):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            messages.success(request, 'Login Success')
+            messages.success(request, 'You have been logged in successfully')
             return redirect('index')
         else:
-            messages.success(request, 'Login error please try again')
+            messages.error(request, 'There was an error. Please try again.')
             return redirect('login')
-
-
+            
 class LogoutFormView(View):
     def get(self, request):
         logout(request)
         messages.success(request, 'Logout Success')
         return redirect('login')
-
 
 class RegisterFormView(View):
     def get(self, request):
@@ -51,8 +49,6 @@ class RegisterFormView(View):
 
     def post(self, request):
         return redirect('login')  
-    
-
 
 class MembershipView(View):
     def get(self, request):
