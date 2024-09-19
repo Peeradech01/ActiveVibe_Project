@@ -228,6 +228,7 @@ h1>span {
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     -webkit-user-select: none;
+    width: 30%;
 }
 
 .left-form {
@@ -467,4 +468,18 @@ h1>span {
     color: white;
     background-color: orangered;
     transition: 0.3s;
+}
+/* ---------------------- */
+
+
+.label-redio label {
+    font-size: 50px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.div-radio input[type="radio"] {
+    transform: scale(2);
+    margin: 15px; 
 }
