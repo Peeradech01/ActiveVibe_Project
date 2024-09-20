@@ -240,7 +240,8 @@ h1>span {
     width: 50%;
 }
 
-.login-form input[type="text"], input[type="password"]{
+.login-form input[type="text"],
+input[type="password"] {
     font-family: "Roboto", system-ui;
     font-weight: 400;
     font-style: normal;
@@ -536,10 +537,10 @@ input[type="tel"] {
 }
 
 .search {
-    display:flex; 
-    padding: 50px 0; 
-    font-size: 1.5rem; 
-    width: 100%; 
+    display: flex;
+    padding: 50px 0;
+    font-size: 1.5rem;
+    width: 100%;
     justify-content: right;
 }
 
@@ -549,14 +550,14 @@ input[type="tel"] {
 }
 
 .input-bmi-class {
-    padding: 10px 20px; 
-    width: 35%; 
+    padding: 10px 20px;
+    width: 35%;
     border-radius: 5px;
 }
 
 .select-cat {
-    margin: 0 30px; 
-    padding: 10px 20px; 
+    margin: 0 30px;
+    padding: 10px 20px;
     border-radius: 5px;
     appearance: none;
     background-image: url('caret-down-outline.svg');
@@ -567,14 +568,18 @@ input[type="tel"] {
 }
 
 .card-class {
-    width: 24%; /* adjust the width to fit 4 cards in a row *//* add some margin between cards */
-    background-color: #f0f0f0; /* add a background color to the cards */
-    padding: 50px; /* add some padding inside the cards */
+    width: 24%;
+    /* adjust the width to fit 4 cards in a row */
+    /* add some margin between cards */
+    background-color: #f0f0f0;
+    /* add a background color to the cards */
+    padding: 50px;
+    /* add some padding inside the cards */
     border-radius: 5px;
     height: auto;
 }
 
-.card-class a{
+.card-class a {
     float: right;
     padding: 10px 20px;
     font-size: 1.3rem;
@@ -603,6 +608,35 @@ input[type="tel"] {
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.user-profile {
+    backdrop-filter: blur(30px);
+    width: 40%;
+    margin: 100px auto;
+    padding: 30px;
+    color: aliceblue;
+    border-radius: 10px;
+    border: 1px solid orangered;
+}
+
+.info {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.info h2 {
+    margin-bottom: 20px;
+}
+
+.edit-btn {
+    font-size: 1.5rem;
+    background-color: dodgerblue;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
