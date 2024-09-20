@@ -574,7 +574,7 @@ input[type="tel"] {
     height: auto;
 }
 
-.card-class input[type="submit"] {
+.card-class a{
     float: right;
     padding: 10px 20px;
     font-size: 1.3rem;
@@ -582,9 +582,10 @@ input[type="tel"] {
     color: white;
     margin-top: 30px;
     background-color: orangered;
+    text-decoration: none;
 }
 
-.card-class input[type="submit"]:hover {
+.card-class a:hover {
     background-color: orange;
     color: white;
     transition: 0.3s;

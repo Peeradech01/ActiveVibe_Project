@@ -64,6 +64,10 @@ class FitnessClassView(View):
     def get(self, request):
         return render(request, 'fitness_class.html')
     
+class FitnessClassDetailView(View):
+    def get(self, request):
+        return render(request, 'class_detail.html')
+    
 class UserProfileView(View):
     def get(self, request):
         return render(request, 'userprofile.html')
