@@ -309,6 +309,7 @@ h1>span {
 .form-mem input[type="date"] {
     padding: 10px;
     font-size: 1.5rem;
+    margin-bottom: 20px;
 }
 
 .form-mem input[type="text"],
@@ -316,14 +317,15 @@ h1>span {
 .form-mem input[type="tel"] {
     padding: 10px;
     font-size: 1.5rem;
-    width: 60%;
-    margin-bottom: 15px;
+    width: 100%;
+    margin-bottom: 20px;
 }
 
 .form-mem select {
     font-size: 1.5rem;
     padding: 10px;
     width: 15%;
+    margin-bottom: 20px;
 }
 
 .form-mem input[type="submit"] {
