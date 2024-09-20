@@ -321,12 +321,15 @@ h1>span {
 }
 
 .form-mem input[type="text"],
-.form-mem input[type="email"],
-.form-mem input[type="tel"] {
+input[type="email"],
+input[type="tel"] {
     padding: 10px;
     font-size: 1.5rem;
     width: 100%;
     margin-bottom: 20px;
+    font-family: "Roboto", system-ui;
+    font-weight: 400;
+    font-style: normal;
 }
 
 .form-mem select {
@@ -386,9 +389,9 @@ h1>span {
 }
 
 .login-form input[type="text"],
-.login-form input[type="password"],
-.login-form input[type="email"],
-.login-form input[type="tel"] {
+input[type="password"],
+input[type="email"],
+input[type="tel"] {
     width: 100%;
     padding: 10px;
     margin-bottom: 30px;
@@ -425,9 +428,19 @@ h1>span {
     backdrop-filter: blur(10px);
 }
 
-.card-row {
+.card-row2 {
     display: flex;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: first baseline;
+    margin: 30px 50px;
+    padding: 30px;
+    backdrop-filter: blur(20px);
+}
+
+.card-row1 {
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .card-mem {
@@ -520,4 +533,75 @@ h1>span {
 .message {
     font-size: 1.2rem;
     margin: 0 auto;
+}
+
+.search {
+    display:flex; 
+    padding: 50px 0; 
+    font-size: 1.5rem; 
+    width: 100%; 
+    justify-content: right;
+}
+
+.input-class {
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+.input-bmi-class {
+    padding: 10px 20px; 
+    width: 35%; 
+    border-radius: 5px;
+}
+
+.select-cat {
+    margin: 0 30px; 
+    padding: 10px 20px; 
+    border-radius: 5px;
+    appearance: none;
+    background-image: url('caret-down-outline.svg');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 10%;
+    padding-right: 50px;
+}
+
+.card-class {
+    width: 24%; /* adjust the width to fit 4 cards in a row *//* add some margin between cards */
+    background-color: #f0f0f0; /* add a background color to the cards */
+    padding: 50px; /* add some padding inside the cards */
+    border-radius: 5px;
+    height: auto;
+}
+
+.card-class input[type="submit"] {
+    float: right;
+    padding: 10px 20px;
+    font-size: 1.3rem;
+    border-radius: 10px;
+    color: white;
+    margin-top: 30px;
+    background-color: orangered;
+}
+
+.card-class input[type="submit"]:hover {
+    background-color: orange;
+    color: white;
+    transition: 0.3s;
+}
+
+.hover-butt {
+    transition: 0.3s;
+    color: white;
+    background-color: orangered;
+}
+
+.hover-butt:hover {
+    background-color: orange;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
