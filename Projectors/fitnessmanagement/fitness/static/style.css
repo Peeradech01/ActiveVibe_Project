@@ -709,21 +709,8 @@ input[type="email"] {
     margin-bottom: 30px;
 }
 
-.save {
-    margin-right: 10px;
-    font-size: 1.5rem;
-    background-color: rgb(4, 189, 34);
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    transition: 0.3s;
-}
 
-.save:hover {
-    background-color: #46d84b;
-    transition: 0.3s;
-}
+
 
 .close {
     font-size: 1.5rem;
@@ -739,3 +726,36 @@ input[type="email"] {
     background-color: rgb(248, 100, 100);
     transition: 0.3s;
 }
+
+/* change_password.html */
+.div-change-password label {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 1.5rem;
+}
+
+.div-change-password {
+    margin: 200px auto 0;
+    width: 40%;
+    padding: 50px;
+    background-color: #f0f0f0;
+}
+
+.div-change-password input[type=submit] {
+    font-size: 1.5rem;
+    background-color: rgb(4, 189, 34);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.div-change-password input[type=submit]:hover {
+    background-color: #46d84b;
+    transition: 0.3s;
+}
+
+/* edit_profile.html */

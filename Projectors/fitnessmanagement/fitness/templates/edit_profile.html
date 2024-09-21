@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+
+{% load static %}
+
+{% block title %}
+Edit Profile
+{% endblock %}
+
+{% block content %}
+<div class="div-change-password">
+        <h1>Edit Your Profile</h1>
+        <form method="post" action="{% url 'edit_profile' %}">
+            {% csrf_token %}
+            {{ form }}
+            <!-- {% for field in form %} -->
+                <!-- <div> -->
+                    <!-- <label for="{{ field.id_for_label }}">{{ field.label }}:</label><br> -->
+                <!-- </div> -->
+                <!-- {{ field }} -->
+            <!-- {% endfor %} -->
+            <input type="submit" value="Save">
+        </form>
+</div>
+{% endblock %}
+

@@ -16,13 +16,13 @@ User Profile
             <h2>Full Name: {{ user.first_name }} {{ user.last_name }}</h2>
             <h2>Email: {{ user.email }}</h2>
             <h2>Password: ******** </h2>
-            <button class="edit-btn" id="edit-btn">Edit</button>
-            <button class="edit-btn" id="change-password-btn">Change Password</button>
+            <a href="{% url 'edit_profile' %}" class="edit-btn" id="edit-btn">Edit</a>
+            <a href="{% url 'change_password' %}" class="edit-btn" id="change-password-btn">Change Password</a>
         </div>
         
         <!-- Edit form popup -->
         <div class="edit-form-popup" id="edit-form-popup">
-            <form>
+            <form method="post" action="{% url 'edit_profile' %}">
                 <h1 style="text-align: center;">Edit Profile</h1>
                 <label for="username">Username:</label>
                 <input type="text" id="username" placeholder="{{ user.username }}">
@@ -37,41 +37,8 @@ User Profile
             </form>
         </div>
         
-        <!-- Change password form popup -->
-        <div class="change-password-form-popup" id="change-password-form-popup">
-            <form>
-                <h1 style="text-align: center;">Edit Password</h1>
-                <label for="old_password">Old Password:</label>
-                <input type="password" id="old_password" placeholder="Enter old password">
-                <label for="new_password">New Password:</label>
-                <input type="password" id="new_password" placeholder="Enter new password">
-                <label for="confirm_password">Confirm Password:</label>
-                <input type="password" id="confirm_password" placeholder="Confirm new password">
-                <input class="save" type="submit" value="Save Password Chasges">
-                <input class="close" type="submit" value="Close" id="close-change-password-form-btn">
-            </form>
-        </div>
+
         
-        <script>
-            document.getElementById("edit-btn").addEventListener("click", function(){
-                document.getElementById("edit-form-popup").style.display = "block";
-                document.body.classList.add("blurred"); // add blurred class to body
-            });
-            
-            document.getElementById("close-edit-form-btn").addEventListener("click", function(){
-                document.getElementById("edit-form-popup").style.display = "none";
-                document.body.classList.remove("blurred"); // remove blurred class from body
-            });
-            
-            document.getElementById("change-password-btn").addEventListener("click", function(){
-                document.getElementById("change-password-form-popup").style.display = "block";
-                document.body.classList.add("blurred"); // add blurred class to body
-            });
-            
-            document.getElementById("close-change-password-form-btn").addEventListener("click", function(){
-                document.getElementById("change-password-form-popup").style.display = "none";
-                document.body.classList.remove("blurred"); // remove blurred class from body
-            });
-        </script>
+        
     </div>
 {% endblock %}

@@ -6,13 +6,16 @@ from django.contrib.auth.decorators import login_required
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
-
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from .forms import LoginForm
 
-from .forms import LoginForm, RegisterForm
+from .forms import LoginForm, RegisterForm, ChangePasswordForm, EditProfileForm
+
+
 class IndexView(View):
     def get(self, request):
         return render(request, 'index.html')
@@ -71,3 +74,31 @@ class FitnessClassDetailView(View):
 class UserProfileView(View):
     def get(self, request):
         return render(request, 'userprofile.html')
+
+
+
+
+class EditProfileView(View):
+    def get(self, request):
+        form = EditProfileForm()
+        return render(request, 'edit_profile.html', {'form': form})
+
+
+
+# ChangePasswordForm
+class Change_PasswordView(View):
+    def get(self, request):
+        form = PasswordChangeForm(user=request.user)
+        return render(request, 'change_password.html', {'form': form})
+
+    def post(self, request):
+        form = PasswordChangeForm(user=request.user, data=request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            messages.success(request, 'Your password has been changed successfully.')
+            return redirect('profile')
+        else:
+            messages.error(request, 'Please correct the error below.')
+            return render(request, 'change_password.html', {'form': form})
+    
