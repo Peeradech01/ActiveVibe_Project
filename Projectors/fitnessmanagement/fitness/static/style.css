@@ -660,7 +660,7 @@ input::-webkit-inner-spin-button {
 }
 
 .edit-btn:hover {
-    background-color: skyblue;
+    background-color: rgb(80, 80, 253);
     transition: 0.3s;
 }
 

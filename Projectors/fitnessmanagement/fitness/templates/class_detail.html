@@ -1,8 +1,17 @@
 {% extends 'layout.html' %}
 
 {% load static %}
+
 {% block title %}
-Class Detail
+  {{ class.name }} - Fitness Class Detail
 {% endblock %}
+
 {% block content %}
+  <div class="">
+    <h1>Class Name</h1>
+    <p>Instructor:</p>
+    <p>Description:</p>
+    <p>Schedule:</p>
+    <button class="">Sign Up for Class</button>
+  </div>
 {% endblock %}
