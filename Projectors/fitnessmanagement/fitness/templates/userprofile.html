@@ -9,7 +9,7 @@ User Profile
 {% block content %}
     <div class="user-profile">
         <h1 style=" text-align: center;">User Profile</h1>
-        <img style="border-radius: 50%; display: block; margin: 20px auto; width: 15%;" src="{% static 'icon-profile.jpg' %}" alt="">
+        <img style="border-radius: 50%; display: block; margin: 20px auto; width: 20%;" src="{% static 'icon-profile.jpg' %}" alt="">
         
         <div class="info">
             <h2>Username: {{ user.username }}</h2>
@@ -21,34 +21,34 @@ User Profile
         </div>
         
         <!-- Edit form popup -->
-        <div id="edit-form-popup" style="display: none; position: fixed; top: 70%; left: 50%; transform: translate(-50%, -50%); background-color: #f9f9f9; padding: 20px; border: 1px solid orangered; border-radius: 5px; color: orangered; width: 100%; height: 55dvh;">
+        <div class="edit-form-popup" id="edit-form-popup">
             <form>
                 <h1 style="text-align: center;">Edit Profile</h1>
-                <label style="font-size:2rem;" for="username">Username:</label>
-                <input style="font-size:1.5rem; padding: 10px 20px; width: 100%;" type="text" id="username" placeholder="{{ user.username }}"><br><br>
-                <label style="font-size:2rem;" for="first_name">First Name:</label>
-                <input style="font-size:1.5rem; padding: 10px 20px; width: 100%;" type="text" id="first_name" placeholder="{{ user.first_name }}"><br><br>
-                <label style="font-size:2rem;" for="last_name">Last Name:</label>
-                <input style="font-size:1.5rem; padding: 10px 20px; width: 100%;" type="text" id="last_name" placeholder="{{ user.last_name }}"><br><br>
-                <label style="font-size:2rem;" for="email">Email:</label>
-                <input style="font-size:1.5rem; padding: 10px 20px; width: 100%;" type="email" id="email" placeholder="{{ user.email }}"><br><br>
-                <input type="submit" value="Save Changes" style="margin-right: 10px; font-size:1.5rem; background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 5px;">
-                <input type="submit" value="Close" id="close-edit-form-btn" style="font-size:1.5rem; background-color: red; color: white; padding: 10px 20px; border: none; border-radius: 5px;">
+                <label for="username">Username:</label>
+                <input type="text" id="username" placeholder="{{ user.username }}">
+                <label for="first_name">First Name:</label>
+                <input type="text" id="first_name" placeholder="{{ user.first_name }}">
+                <label for="last_name">Last Name:</label>
+                <input type="text" id="last_name" placeholder="{{ user.last_name }}">
+                <label for="email">Email:</label>
+                <input type="email" id="email" placeholder="{{ user.email }}">
+                <input class="save" type="submit" value="Save Changes">
+                <input class="close" type="submit" value="Close" id="close-edit-form-btn">
             </form>
         </div>
         
         <!-- Change password form popup -->
-        <div id="change-password-form-popup" style="display: none; position: fixed; top: 70%; left: 50%; transform: translate(-50%, -50%); background-color: #f9f9f9; padding: 20px; border: 1px solid orangered; border-radius: 5px; color: orangered; width: 100%; height: 50dvh;">
+        <div class="change-password-form-popup" id="change-password-form-popup">
             <form>
                 <h1 style="text-align: center;">Edit Password</h1>
-                <label style="font-size:2rem;" for="old_password">Old Password:</label>
-                <input style="font-size:1.5rem; padding: 10px 20px; width: 100%;" type="password" id="old_password" placeholder="Enter old password"><br><br>
-                <label style="font-size:2rem;" for="new_password">New Password:</label>
-                <input style="font-size:1.5rem; padding: 10px 20px; width: 100%;" type="password" id="new_password" placeholder="Enter new password"><br><br>
-                <label style="font-size:2rem;" for="confirm_password">Confirm Password:</label>
-                <input style="font-size:1.5rem; padding: 10px 20px; width: 100%;" type="password" id="confirm_password" placeholder="Confirm new password"><br><br>
-                <input type="submit" value="Save Password Chasges" style="margin-right: 10px; font-size:1.5rem; background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 5px;">
-                <input type="submit" value="Close" id="close-change-password-form-btn" style="font-size:1.5rem; background-color: red; color: white; padding: 10px 20px; border: none; border-radius: 5px;">
+                <label for="old_password">Old Password:</label>
+                <input type="password" id="old_password" placeholder="Enter old password">
+                <label for="new_password">New Password:</label>
+                <input type="password" id="new_password" placeholder="Enter new password">
+                <label for="confirm_password">Confirm Password:</label>
+                <input type="password" id="confirm_password" placeholder="Confirm new password">
+                <input class="save" type="submit" value="Save Password Chasges">
+                <input class="close" type="submit" value="Close" id="close-change-password-form-btn">
             </form>
         </div>
         
