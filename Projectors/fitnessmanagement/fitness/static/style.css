@@ -657,6 +657,7 @@ input::-webkit-inner-spin-button {
     border: none;
     border-radius: 5px;
     transition: 0.3s;
+    text-decoration: none;
 }
 
 .edit-btn:hover {

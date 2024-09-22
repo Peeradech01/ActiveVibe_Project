@@ -13,7 +13,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from .forms import LoginForm
 
-from .forms import LoginForm, RegisterForm, ChangePasswordForm, EditProfileForm
+from .forms import LoginForm, RegisterForm, EditProfileForm
 
 
 class IndexView(View):
@@ -32,7 +32,7 @@ class LoginFormView(View):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            messages.success(request, 'You have been logged in successfully')
+            # messages.success(request, 'You have been logged in successfully')
             return redirect('index')
         else:
             messages.error(request, 'There was an error. Please try again.')
@@ -96,9 +96,11 @@ class Change_PasswordView(View):
         if form.is_valid():
             user = form.save()
             update_session_auth_hash(request, user)
+            print("save success")
             messages.success(request, 'Your password has been changed successfully.')
-            return redirect('profile')
+            return redirect('change_password')
         else:
-            messages.error(request, 'Please correct the error below.')
+            print("unsave")
+            # messages.error(request, 'Please correct the error below.')
             return render(request, 'change_password.html', {'form': form})
     
