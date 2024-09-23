@@ -7,21 +7,24 @@
 {% endblock %}
 
 {% block content %}
-  <a style="margin: 50px; position: absolute; z-index: 1; padding: 15px 40px; background-color: orangered; text-decoration: none; color: white; font-size: 1.5rem; border-radius: 5px;" href="{% url 'class' %}">Back</a>
-  <div style="padding: 100px; backdrop-filter: blur(20px); color: white; width: 50%; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); border-radius: 10px; border: 1px solid orangered;">
-    <button class="" style="position: absolute; top: 0; right: 0; margin: 50px; font-size: 1.5rem; padding: 15px 30px; background-color: orangered; color: white; border-radius: 10px; float: right;">Edit</button>
-    <h1 style="font-size: 5rem;">Class Name:</h1>
-    <p style="font-size: 3rem;">Category:</p>
-    <p style="font-size: 3rem;">Trainer:
-      <select class="select-cat" style="font-size: 2rem;">
-        <option value="">--- Select Trainer ---</option>
-        {% for trainer in trainers %}
-          <option value="{{ trainer.id }}">{{ trainer.name }}</option>
-        {% endfor %}
-      </select>
-    </p>
-    <p style="font-size: 3rem;">Description:</p>
-    <p style="font-size: 3rem;">Start time:</p>
-    <button class="" style="font-size: 1.5rem; padding: 10px 20px; background-color: orangered; color: white; border-radius: 10px;">Sign Up for Class</button>
-  </div>
+  <a class="back font3" href="{% url 'class' %}">Back</a>
+  <form method="" action="">
+    <div class="class-detail">
+      <a class="edit-class font3" href="">Edit</a>
+      <h1 class="font1">Class Name:</h1>
+      <p>Category:</p>
+      <p>Trainer:
+        <select class="select-cat font3" style="font-size: 1.5rem;">
+          <option value="">--- Select Trainer ---</option>
+          {% for trainer in trainers %}
+            <option value="{{ trainer.id }}">{{ trainer.name }}</option>
+          {% endfor %}
+        </select>
+      </p>
+      <p>Description:</p>
+      <p>Start time:</p>
+      <p>Remaining capacity:</p>
+      <button class="signup-btn font3">Sign Up for Class</button>
+    </div>
+  </form>
 {% endblock %}

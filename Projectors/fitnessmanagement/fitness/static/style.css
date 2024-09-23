@@ -7,9 +7,6 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family: "Anton SC", sans-serif;
-    font-weight: 400;
-    font-style: normal;
 }
 
 body {
@@ -38,6 +35,25 @@ body::-webkit-scrollbar-track {
     /* color of the scrollbar track */
     border-radius: 10px;
     /* rounded corners of the scrollbar track */
+}
+
+.font1 {
+    font-family: "Anton SC", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.font2 {
+    font-family: "Kanit", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.font3 {
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
 }
 
 .logo {
@@ -197,9 +213,6 @@ h1>span {
 }
 
 .right p {
-    font-family: "Kanit", sans-serif;
-    font-weight: 400;
-    font-style: normal;
     font-size: 1.5rem;
     margin: 0 0 10px 80px;
     -webkit-user-select: none;
@@ -337,10 +350,6 @@ input[type="tel"] {
     font-size: 1.5rem;
     width: 100%;
     margin-bottom: 20px;
-    font-family: "Inter", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
 }
 
 .form-mem select {
@@ -467,14 +476,6 @@ input[type="tel"] {
     -webkit-user-select: none;
 }
 
-.card-mem h4 {
-    font-family: "Inter", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
-
-}
-
 .card-mem:nth-child(2) {
     border: 10px solid #cd7f32;
 }
@@ -581,12 +582,8 @@ input[type="tel"] {
 
 .card-class {
     width: 24%;
-    /* adjust the width to fit 4 cards in a row */
-    /* add some margin between cards */
     background-color: #f0f0f0;
-    /* add a background color to the cards */
     padding: 50px;
-    /* add some padding inside the cards */
     border-radius: 5px;
     height: auto;
 }
@@ -646,13 +643,6 @@ input::-webkit-inner-spin-button {
     margin-bottom: 30px;
 }
 
-.info span {
-    font-family: "Inter", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
-}
-
 .edit-btn {
     margin-right: 10px;
     font-size: 1.5rem;
@@ -672,10 +662,6 @@ input::-webkit-inner-spin-button {
 
 /* change_password.html */
 .div-change-password label {
-    font-family: "Inter", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
     font-size: 1.5rem;
 }
 
@@ -702,10 +688,6 @@ input::-webkit-inner-spin-button {
 }
 
 .edit-form {
-    font-family: "Inter", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 400;
-    font-style: normal;
     width: 100%;
     padding: 10px;
     font-size: 1.5rem;
@@ -718,4 +700,76 @@ input::-webkit-inner-spin-button {
     font-weight: 400;
     font-style: normal;
 }
-/* edit_profile.html */
+
+.back {
+    margin: 50px;
+    position: absolute;
+    z-index: 1;
+    padding: 15px 40px;
+    background-color: orangered;
+    text-decoration: none;
+    color: white;
+    font-size: 1.5rem;
+    border-radius: 5px;
+}
+
+.class-detail {
+    padding: 100px;
+    backdrop-filter: blur(20px);
+    color: white;
+    width: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    border: 1px solid orangered;
+}
+
+.class-detail h1 {
+    font-size: 5rem;
+}
+
+.class-detail p {
+    font-size: 3rem;
+}
+
+.edit-class {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 50px;
+    font-size: 1.5rem;
+    padding: 15px 30px;
+    background-color: orangered;
+    color: white;
+    border-radius: 10px;
+    float: right;
+    text-decoration: none;
+}
+
+.signup-btn {
+    margin-top: 30px;
+    font-size: 1.5rem;
+    padding: 15px 30px;
+    background-color: orangered;
+    color: white;
+    border-radius: 10px;
+    border: none;
+}
+
+.creat-class {
+    font-size: 1.5rem;
+    padding: 10px 20px;
+    background-color: orangered;
+    color: white;
+    border-radius: 5px;
+    margin-right: 520px;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.creat-class:hover {
+    background-color: orange;
+    transition: 0.3s;
+}

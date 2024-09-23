@@ -19,15 +19,15 @@
     {% if messages %}
         {% for message in messages %}
             {% if message.tags == 'success' %}
-                <div class="alert alert-success pop">
+                <div class="alert alert-success pop font3">
                     <p class="message">{{ message }}</p>
                 </div>
             {% elif message.tags == 'error' %}
-                <div class="alert alert-danger pop">
+                <div class="alert alert-danger pop font3">
                     <p class="message">{{ message }}</p>
                 </div>
             {% else %}
-                <div class="alert alert-{{ message.tags }} pop">
+                <div class="alert alert-{{ message.tags }} pop font3">
                     <p class="message">{{ message }}</p>
                 </div>  
             {% endif %}
@@ -40,7 +40,7 @@
         <div class="right-form">
             <form method="post" action="{% url 'login' %}">
                 {% csrf_token %}
-                <h1>Login</h1>
+                <h1 class="font1">LOGIN</h1>
                 {% for field in form %}
                     <label for="{{ field.id_for_label }}">{{ field.label }}:</label>
                     {{ field }}
