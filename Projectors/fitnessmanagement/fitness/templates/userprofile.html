@@ -13,6 +13,11 @@ User Profile
         <div class="info font1">
             <h2>Username: <span class="font3">{{ user.username }}</span></h2>
             <h2>Full Name: <span class="font3">{{ user.first_name }} {{ user.last_name }}</span></h2>
+            <h2>Role: 
+                {% for group in user.groups.all %}
+                    <span class="font3">{{ group.name }}</span>
+                {% endfor %}
+            </h2>
             <h2>Email: <span class="font3">{{ user.email }}</span></h2>
             <h2>Password: ******** </h2>
             <a href="{% url 'edit_profile' %}" class="edit-btn" id="edit-btn">Edit</a>

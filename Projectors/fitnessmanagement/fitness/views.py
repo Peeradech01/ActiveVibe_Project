@@ -3,7 +3,6 @@ from django.http import HttpRequest
 from django.views import View
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
@@ -12,8 +11,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from .forms import LoginForm
-
-from .forms import LoginForm, RegisterForm, EditProfileForm
+from django.contrib.auth.models import Group
+from .forms import LoginForm, EditProfileForm, RegistrationForm
 
 
 class IndexView(View):
@@ -48,12 +47,24 @@ class LogoutFormView(View):
 
 class RegisterFormView(View):
     def get(self, request):
-        form = RegisterForm()
+        form = RegistrationForm()
         context = {'form':form}
         return render(request, 'register_form.html', context)
 
     def post(self, request):
-        return redirect('login')  
+        if request.method == 'POST':
+            form = RegistrationForm(request.POST)
+            if form.is_valid():
+                user = form.save()
+                role = form.cleaned_data['role']
+                group_name = role.capitalize() 
+                group, created = Group.objects.get_or_create(name=group_name)
+                user.groups.add(group)
+                login(request, user)
+                return redirect('login')
+        else:
+            form = RegistrationForm()
+        return render(request, 'register_form.html', {'form': form})
 
 class MembershipView(View):
     def get(self, request):

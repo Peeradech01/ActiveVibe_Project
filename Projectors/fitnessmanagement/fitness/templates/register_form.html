@@ -23,28 +23,12 @@
             <h1 class="font1">REGISTER</h1>
             {% for field in form %}
                 <label for="{{ field.id_for_label }}">{{ field.label }}:</label><br>
-                {% if field.name == 'first_name' %}
-                    <input type="text" id="{{ field.id_for_label }}" name="{{ field.html_name }}" placeholder="Enter your Firstname" autocomplete="off">
-                {% elif field.name == 'last_name' %}
-                    <input type="text" id="{{ field.id_for_label }}" name="{{ field.html_name }}" placeholder="Enter your LastName" autocomplete="off">
-                {% elif field.name == 'username' %}
-                    <input type="text" id="{{ field.id_for_label }}" name="{{ field.html_name }}" placeholder="Enter your user name" autocomplete="off">
-                {% elif field.name == 'email' %}
-                    <input type="email" id="{{ field.id_for_label }}" name="{{ field.html_name }}" placeholder="Enter your email" autocomplete="off">
-                {% elif field.name == 'password1' %}
-                    <input type="password" id="{{ field.id_for_label }}" name="{{ field.html_name }}" placeholder="Enter your password" autocomplete="off">
-                {% elif field.name == 'password2' %}
-                    <input type="password" id="{{ field.id_for_label }}" name="{{ field.html_name }}" placeholder="Confirm your password" autocomplete="off">
+                {% if field.name == 'role' %}
+                    {{ field }}
+                {% else %}
+                    {{ field }}
                 {% endif %}
             {% endfor %}
-            <div class="div-radio">
-                {% for radio in form.role %}
-                    <label for="{{ radio.id_for_label }}">
-                        {{ radio.tag }}
-                        {{ radio.choice_label }}
-                    </label>
-                {% endfor %}
-            </div>  
             <input type="submit" value="Sign Up">
         </form>
     </div>
