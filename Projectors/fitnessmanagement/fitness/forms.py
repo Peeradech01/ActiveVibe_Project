@@ -31,8 +31,8 @@ class EditProfileForm(UserChangeForm):
         fields = ['username', 'first_name', 'last_name', 'email']
         
         widgets = {
-            'username': forms.TextInput(attrs={'placeholder': 'Enter your username'}),
-            'first_name': forms.TextInput(attrs={'placeholder': 'Enter your first name'}),
-            'last_name': forms.TextInput(attrs={'placeholder': 'Enter your last name'}),
-            'email': forms.EmailInput(attrs={'placeholder': 'Enter your email'}),
+            'username': forms.TextInput(attrs={'class': 'edit-form', 'placeholder': 'Enter your username'}),
+            'first_name': forms.TextInput(attrs={'class': 'edit-form', 'placeholder': 'Enter your first name'}),
+            'last_name': forms.TextInput(attrs={'class': 'edit-form', 'placeholder': 'Enter your last name'}),
+            'email': forms.EmailInput(attrs={'class': 'edit-form', 'placeholder': 'Enter your email'}),
         }

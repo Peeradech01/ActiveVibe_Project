@@ -7,6 +7,7 @@ Edit Profile
 {% endblock %}
 
 {% block content %}
+<a style="margin: 50px; position: absolute; z-index: 1; padding: 15px 40px; background-color: orangered; text-decoration: none; color: white; font-size: 1.5rem; border-radius: 5px;" href="{% url 'userprofile' %}">Back</a>
 <div class="div-change-password">
         <h1>Edit Your Profile</h1>
         <form method="post" action="{% url 'edit_profile' %}">
