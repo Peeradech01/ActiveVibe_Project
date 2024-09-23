@@ -75,15 +75,10 @@ class UserProfileView(View):
     def get(self, request):
         return render(request, 'userprofile.html')
 
-
-
-
 class EditProfileView(View):
     def get(self, request):
         form = EditProfileForm()
         return render(request, 'edit_profile.html', {'form': form})
-
-
 
 # ChangePasswordForm
 class Change_PasswordView(View):
