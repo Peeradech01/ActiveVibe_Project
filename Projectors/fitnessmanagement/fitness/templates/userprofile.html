@@ -7,20 +7,13 @@ User Profile
 {% endblock %}
 
 {% block content %}
-    {% if messages %}
-        {% for message in messages %}
-            <div class="alert alert-success">
-                <p class="message">{{ message }}</p>
-            </div>
-        {% endfor %}
-    {% endif %}
     <div class="user-profile">
-        <h1 style=" text-align: center;">User Profile</h1>
+        <h1 class="font1" style=" text-align: center;">USER PROFILE</h1>
         <img style="border-radius: 50%; display: block; margin: 20px auto; width: 20%;" src="{% static 'icon-profile.jpg' %}" alt="">
-        <div class="info">
-            <h2>Username: <span>{{ user.username }}</span></h2>
-            <h2>Full Name: <span>{{ user.first_name }} {{ user.last_name }}</span></h2>
-            <h2>Email: <span>{{ user.email }}</span></h2>
+        <div class="info font1">
+            <h2>Username: <span class="font3">{{ user.username }}</span></h2>
+            <h2>Full Name: <span class="font3">{{ user.first_name }} {{ user.last_name }}</span></h2>
+            <h2>Email: <span class="font3">{{ user.email }}</span></h2>
             <h2>Password: ******** </h2>
             <a href="{% url 'edit_profile' %}" class="edit-btn" id="edit-btn">Edit</a>
             <a href="{% url 'change_password' %}" class="edit-btn" id="change-password-btn">Change Password</a>

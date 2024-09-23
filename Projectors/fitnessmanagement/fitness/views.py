@@ -71,6 +71,10 @@ class FitnessClassDetailView(View):
     def get(self, request):
         return render(request, 'class_detail.html')
     
+class EditFitnessClassView(View):
+    def get (self, request):
+        return render(request, 'edit_class.html')
+    
 class UserProfileView(View):
     def get(self, request):
         return render(request, 'userprofile.html')

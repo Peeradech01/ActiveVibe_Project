@@ -714,24 +714,22 @@ input::-webkit-inner-spin-button {
 }
 
 .class-detail {
-    padding: 100px;
+    display: block;
+    margin: 150px auto 0 auto;
+    padding: 50px 50px;
     backdrop-filter: blur(20px);
     color: white;
     width: 50%;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     border-radius: 10px;
     border: 1px solid orangered;
 }
 
 .class-detail h1 {
-    font-size: 5rem;
+    font-size: 2.5rem;
 }
 
 .class-detail p {
-    font-size: 3rem;
+    font-size: 2rem;
 }
 
 .edit-class {
@@ -739,7 +737,7 @@ input::-webkit-inner-spin-button {
     top: 0;
     right: 0;
     margin: 50px;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     padding: 15px 30px;
     background-color: orangered;
     color: white;
@@ -750,12 +748,18 @@ input::-webkit-inner-spin-button {
 
 .signup-btn {
     margin-top: 30px;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     padding: 15px 30px;
     background-color: orangered;
     color: white;
     border-radius: 10px;
     border: none;
+    transition: 0.3s;
+}
+
+.signup-btn:hover {
+    background-color: orange;
+    transition: 0.3s;
 }
 
 .creat-class {
@@ -772,4 +776,10 @@ input::-webkit-inner-spin-button {
 .creat-class:hover {
     background-color: orange;
     transition: 0.3s;
+}
+
+.input-detail {
+    padding: 10px;
+    font-size: 1.5rem;
+    border-radius: 5px;
 }
