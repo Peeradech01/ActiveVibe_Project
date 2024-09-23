@@ -91,7 +91,7 @@ class CreateFitnessClassView(View):
         return render(request, 'create_class.html')
     
 class UserProfileView(View):
-    def get(self, request):
+    def get(self, request, pk):
         return render(request, 'userprofile.html')
 
 class EditProfileView(View):
