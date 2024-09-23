@@ -22,15 +22,22 @@ class EditProfileForm(UserChangeForm):
         }
 
 class RegistrationForm(UserCreationForm):
-    first_name = forms.CharField(max_length=30, label='First Name')
-    last_name = forms.CharField(max_length=30, label='Last Name')
+    first_name = forms.CharField(max_length=30)
+    last_name = forms.CharField(max_length=30)
     email = forms.EmailField(label='Email')
     ROLE_CHOICES = [
         ('Customer', 'Customer'),
         ('Trainer', 'Trainer'),
     ]
-    role = forms.ChoiceField(choices=ROLE_CHOICES, widget=forms.RadioSelect, label='Role')
+    role = forms.ChoiceField(choices=ROLE_CHOICES, widget=forms.RadioSelect)
 
     class Meta:
         model = User
         fields = ['first_name', 'last_name', 'username', 'email', 'password1', 'password2', 'role']
+
+        label = {
+            'first_name': 'First Name',
+            'last_name': 'Last Name',
+            'email': 'Email',
+            'role': 'Role'
+        }
