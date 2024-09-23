@@ -1,0 +1,28 @@
+{% extends 'layout.html' %}
+
+{% load static %}
+
+{% block title %}
+Create Class
+{% endblock %}
+
+{% block content %}
+  <a class="back font3" href="{% url 'class' %}">Back</a>
+  <form method="post" action="">
+    {% csrf_token %}
+    <div class="class-detail">
+      <h1 class="font1" style="text-align: center; margin-bottom: 30px;">Create Class</h1>
+      <p>Class Name: <input class="input-detail" type="text" name="class_name"> </p>
+      <p>Category:
+        {% for category in categories %}
+          <input class="input-detail"  type="checkbox" name="category" value="{{ category }}" {% if category in class.category.all %}checked{% endif %}>{{ category }}
+        {% endfor %}
+      </p>
+      <p>Description:</p>
+      <textarea class="input-detail" style="width: 100%" name="description" cols="30" rows="5">{{ class.description }}</textarea><br><br>
+      <p>Start time: <input class="input-detail"  type="date" name="start_time" value="{{ class.start_time|date:'Y-m-dTH:i' }}"></p>
+      <p>Max capacity: <input class="input-detail" type="number" name="remaining_capacity" value="{{ class.remaining_capacity }}"></p>
+      <button class="signup-btn font3">Save</button>
+    </div>
+  </form>
+{% endblock %}

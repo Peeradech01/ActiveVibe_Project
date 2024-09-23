@@ -711,6 +711,12 @@ input::-webkit-inner-spin-button {
     color: white;
     font-size: 1.5rem;
     border-radius: 5px;
+    transition: 0.3s;
+}
+
+.back:hover {
+    background-color: orange;
+    transition: 0.3s;
 }
 
 .class-detail {
@@ -744,6 +750,12 @@ input::-webkit-inner-spin-button {
     border-radius: 10px;
     float: right;
     text-decoration: none;
+    transition: 0.3s;
+}
+
+.edit-class:hover {
+    background-color: orange;
+    transition: 0.3s;
 }
 
 .signup-btn {

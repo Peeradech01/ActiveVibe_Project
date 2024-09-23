@@ -12,6 +12,7 @@ urlpatterns = [
     path('membership/', MembershipView.as_view(), name='membership'),
     path('membership/membership_id/', MembershipFormView.as_view(), name='membership_form'),
     path('class/', FitnessClassView.as_view(), name='class'),
+    path('class/create_class/', CreateFitnessClassView.as_view(), name='create-class'),
     path('class/class_id/', FitnessClassDetailView.as_view(), name='class-detail'),
     path('class/class_id/edit/', EditFitnessClassView.as_view(), name='edit-class'),
 ]
