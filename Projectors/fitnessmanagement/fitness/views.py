@@ -93,7 +93,7 @@ class Change_PasswordView(View):
             update_session_auth_hash(request, user)
             print("save success")
             messages.success(request, 'Your password has been changed successfully.')
-            return redirect('change_password')
+            return redirect('userprofile')
         else:
             print("unsave")
             # messages.error(request, 'Please correct the error below.')
