@@ -98,6 +98,16 @@ class EditProfileView(View):
     def get(self, request):
         form = EditProfileForm()
         return render(request, 'edit_profile.html', {'form': form})
+    
+    def post(self, request):
+        if request.method == 'POST':
+            form = EditProfileForm(request.POST, instance=request.user)
+            if form.is_valid():
+                form.save()
+                return redirect('userprofile')
+        else:
+            form = EditProfileForm(instance=request.user)
+        return render(request, 'edit_profile.html', {'form': form})
 
 # ChangePasswordForm
 class Change_PasswordView(View):
