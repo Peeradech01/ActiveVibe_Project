@@ -7,10 +7,10 @@ Edit Profile
 {% endblock %}
 
 {% block content %}
-<a class="back font3" href="{% url 'userprofile' %}">Back</a>
+<a class="back font3" href="{% url 'userprofile' user.pk%}">Back</a>
 <div class="div-change-password">
         <h1 class="font1">EDIT YOUR PROFILE</h1>
-        <form method="post" action="{% url 'edit_profile' %}">
+        <form method="post" action="{% url 'edit_profile' user.pk %}">
             {% csrf_token %}
             {{ form }}
             <!-- {% for field in form %} -->

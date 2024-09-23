@@ -95,11 +95,11 @@ class UserProfileView(View):
         return render(request, 'userprofile.html')
 
 class EditProfileView(View):
-    def get(self, request):
+    def get(self, request, pk):
         form = EditProfileForm()
         return render(request, 'edit_profile.html', {'form': form})
     
-    def post(self, request):
+    def post(self, request, pk):
         if request.method == 'POST':
             form = EditProfileForm(request.POST, instance=request.user)
             if form.is_valid():
@@ -111,11 +111,11 @@ class EditProfileView(View):
 
 # ChangePasswordForm
 class Change_PasswordView(View):
-    def get(self, request):
+    def get(self, request, pk):
         form = PasswordChangeForm(user=request.user)
         return render(request, 'change_password.html', {'form': form})
 
-    def post(self, request):
+    def post(self, request, pk):
         form = PasswordChangeForm(user=request.user, data=request.POST)
         if form.is_valid():
             user = form.save()

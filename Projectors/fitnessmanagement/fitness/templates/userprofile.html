@@ -20,8 +20,8 @@ User Profile
             </h2>
             <h2>Email: <span class="font3">{{ user.email }}</span></h2>
             <h2>Password: ******** </h2>
-            <a href="{% url 'edit_profile' %}" class="edit-btn" id="edit-btn">Edit</a>
-            <a href="{% url 'change_password' %}" class="edit-btn" id="change-password-btn">Change Password</a>
+            <a href="{% url 'edit_profile' user.pk %}" class="edit-btn" id="edit-btn">Edit</a>
+            <a href="{% url 'change_password' user.pk %}" class="edit-btn" id="change-password-btn">Change Password</a>
         </div>  
     </div>
 {% endblock %}
