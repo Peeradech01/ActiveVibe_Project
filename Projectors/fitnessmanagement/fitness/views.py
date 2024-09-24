@@ -10,6 +10,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
+from fitness.models import *
 from .forms import LoginForm
 from django.contrib.auth.models import Group
 from .forms import LoginForm, EditProfileForm, RegistrationForm
@@ -66,10 +67,16 @@ class RegisterFormView(View):
             form = RegistrationForm()
         return render(request, 'register_form.html', {'form': form})
 
+
+
 class MembershipView(LoginRequiredMixin, View):
     def get(self, request):
-        return render(request, 'membership.html')
-    
+        member = Membership.objects.all()
+        context = {'member': member}
+        return render(request, 'membership.html', context)
+
+
+
 class MembershipFormView(LoginRequiredMixin, View):
     def get(self, request):
         return render(request, 'membership_form.html')
