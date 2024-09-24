@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block content %}
-  <a class="back font3" href="{% url 'class-detail' user.pk %}">Back</a>
+  <a class="back font3" href="{% url 'class-detail' %}">Back</a>
   <form method="post" action="">
     {% csrf_token %}
     <div class="class-detail">
