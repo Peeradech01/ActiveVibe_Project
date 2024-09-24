@@ -66,6 +66,46 @@
             left: 0;
             transition: 0.3s;
         }
+
+        .logout-confirm {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 50px;
+            font-size: 3rem;
+            border-radius: 10px;
+        }
+
+        .logout-confirm-yes {
+            background-color: red;
+            color: white;
+            font-size: 1.5rem;
+            padding: 10px 30px;
+            float: inline-start;
+            transition: 0.3s;
+        }
+
+        .logout-confirm-yes:hover {
+            background-color: crimson;
+            color: white;
+        }
+
+        .logout-confirm-no {
+            background-color: dodgerblue;
+            color: white;
+            font-size: 1.5rem;
+            padding: 10px 30px;
+            float: inline-end;
+            transition: 0.3s;
+        }
+
+        .logout-confirm-no:hover {
+            background-color: skyblue;
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -75,12 +115,41 @@
         <a href="{% url 'class' %}">Class</a>
         <a href="">About</a>
         {% if user.is_authenticated %}
-            <a class="split" href="{% url 'logout' %}">Logout</a>
+            <a class="split logout" data-url="{% url 'logout' %}">Logout</a>
             <a class="split" href="{% url 'userprofile' user.pk %}">{{ user.username }}</a>
-
         {% else %}
             <a class="split" href="{% url 'login' %}">Login</a>
         {% endif %}
     </nav>
+    
+    <!-- Add a confirmation popup -->
+    <div style="z-index: 1;" class="logout-confirm font1">
+        <p style="margin-bottom: 50px;">Are you sure you want to logout?</p>
+        <button class="btn logout-confirm-yes">Yes</button>
+        <button class="btn logout-confirm-no">No</button>
+    </div>
+    
+    <script>
+        const logoutLink = document.querySelector('.logout');
+        const logoutConfirm = document.querySelector('.logout-confirm');
+        const logoutConfirmYes = document.querySelector('.logout-confirm-yes');
+        const logoutConfirmNo = document.querySelector('.logout-confirm-no');
+        const body = document.body;
+
+        logoutLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            logoutConfirm.style.display = 'block';
+            body.style.overflowY = 'hidden';
+        });
+
+        logoutConfirmYes.addEventListener('click', () => {
+            window.location.href = logoutLink.getAttribute('data-url');
+        });
+
+        logoutConfirmNo.addEventListener('click', () => {
+            logoutConfirm.style.display = 'none';
+            body.style.overflowY = 'auto';
+    });
+    </script>
 </body>
 </html>

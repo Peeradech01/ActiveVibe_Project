@@ -6,25 +6,18 @@
 Membership
 {% endblock %}
 {% block content %}
-<div class="mem-box">
+<div class="mem-box font3">
     <div class="row justify-content-start">
         {% for i in member %}
         <div class="col-md-4 d-flex">
             <div class="card flex-fill">
-                <img src="{% static 'logo.png' %}" class="card-img-top" alt="Card 1 Image">
+                <img src="{% static 'logo.png' %}" class="card-img-top " alt="Card 1 Image">
                 <div class="card-body">
-                    <h1 class="card-title">
-                        {{ i.name }}
-                    </h1>
-                    <p class="card-text">
-                        {{ i.description }}
-                    </p>
-                    <p>
-                        <b>Membership price:</b> {{ i.price }}
-                    </p>
-                    <br>
-                    <a href="{% url 'membership_form' %}" class="btn-mem">Subscribed</a>
+                    <h1 class="font1">{{ i.name }}</h1>
+                    <p>{{ i.description }}</p>
+                    <p class="font3" style="float: right">Membership price: <b class="font2">{{ i.price }}</b></p>
                 </div>
+                <a href="{% url 'membership_form' %}" class="btn-mem">Subscribed</a>
             </div>
         </div>
         {% endfor %}
