@@ -3,7 +3,7 @@ from django.http import HttpRequest
 from django.views import View
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
@@ -66,35 +66,35 @@ class RegisterFormView(View):
             form = RegistrationForm()
         return render(request, 'register_form.html', {'form': form})
 
-class MembershipView(View):
+class MembershipView(LoginRequiredMixin, View):
     def get(self, request):
         return render(request, 'membership.html')
     
-class MembershipFormView(View):
+class MembershipFormView(LoginRequiredMixin, View):
     def get(self, request):
         return render(request, 'membership_form.html')
     
-class FitnessClassView(View):
+class FitnessClassView(LoginRequiredMixin, View):
     def get(self, request):
         return render(request, 'fitness_class.html')
     
-class FitnessClassDetailView(View):
+class FitnessClassDetailView(LoginRequiredMixin, View):
     def get(self, request):
         return render(request, 'class_detail.html')
     
-class EditFitnessClassView(View):
+class EditFitnessClassView(LoginRequiredMixin, View):
     def get (self, request):
         return render(request, 'edit_class.html')
 
-class CreateFitnessClassView(View):
+class CreateFitnessClassView(LoginRequiredMixin, View):
     def get (self, request):
         return render(request, 'create_class.html')
     
-class UserProfileView(View):
+class UserProfileView(LoginRequiredMixin, View):
     def get(self, request, pk):
         return render(request, 'userprofile.html')
 
-class EditProfileView(View):
+class EditProfileView(LoginRequiredMixin, View):
     def get(self, request, pk):
         form = EditProfileForm()
         return render(request, 'edit_profile.html', {'form': form})
@@ -110,7 +110,7 @@ class EditProfileView(View):
         return render(request, 'edit_profile.html', {'form': form})
 
 # ChangePasswordForm
-class Change_PasswordView(View):
+class Change_PasswordView(LoginRequiredMixin, View):
     def get(self, request, pk):
         form = PasswordChangeForm(user=request.user)
         return render(request, 'change_password.html', {'form': form})
@@ -122,7 +122,7 @@ class Change_PasswordView(View):
             update_session_auth_hash(request, user)
             print("save success")
             messages.success(request, 'Your password has been changed successfully.')
-            return redirect('userprofile')
+            return render(request, 'userprofile.html', {'pk':pk})
         else:
             print("unsave")
             # messages.error(request, 'Please correct the error below.')

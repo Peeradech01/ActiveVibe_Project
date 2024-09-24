@@ -55,7 +55,7 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "fitness_db2",
         "USER": "postgres",
-        "PASSWORD": "246810",
+        "PASSWORD": "0000",
         "HOST": "localhost",
         "PORT": "5432",
     }
@@ -96,3 +96,6 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+LOGIN_URL = "login"
