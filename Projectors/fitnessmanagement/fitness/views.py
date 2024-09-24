@@ -15,11 +15,12 @@ from .forms import LoginForm
 from django.contrib.auth.models import Group
 from .forms import LoginForm, EditProfileForm, RegistrationForm
 
-
+# Index page
 class IndexView(View):
     def get(self, request):
         return render(request, 'index.html')
 
+#Login form
 class LoginFormView(View):
     def get(self, request):
         form = LoginForm()
@@ -37,7 +38,8 @@ class LoginFormView(View):
         else:
             messages.error(request, 'There was an error. Please try again.')
             return redirect('login')
-            
+
+#Logout
 class LogoutFormView(View):
     def get(self, request):
         logout(request)
@@ -46,6 +48,7 @@ class LogoutFormView(View):
         storage.used = True  # clear the messages
         return redirect('login')
 
+#Register form
 class RegisterFormView(View):
     def get(self, request):
         form = RegistrationForm()
@@ -67,40 +70,44 @@ class RegisterFormView(View):
             form = RegistrationForm()
         return render(request, 'register_form.html', {'form': form})
 
-
-
+#Membership page
 class MembershipView(LoginRequiredMixin, View):
     def get(self, request):
         member = Membership.objects.all()
         context = {'member': member}
         return render(request, 'membership.html', context)
 
-
-
+#Membership form
 class MembershipFormView(LoginRequiredMixin, View):
     def get(self, request):
         return render(request, 'membership_form.html')
-    
+
+#Fitnes class page
 class FitnessClassView(LoginRequiredMixin, View):
     def get(self, request):
         return render(request, 'fitness_class.html')
     
+#Fitness class detail page
 class FitnessClassDetailView(LoginRequiredMixin, View):
     def get(self, request):
         return render(request, 'class_detail.html')
-    
+
+#Edit fitness class form
 class EditFitnessClassView(LoginRequiredMixin, View):
     def get (self, request):
         return render(request, 'edit_class.html')
 
+#Create fitness class form
 class CreateFitnessClassView(LoginRequiredMixin, View):
     def get (self, request):
         return render(request, 'create_class.html')
-    
+
+#Userprofile page
 class UserProfileView(LoginRequiredMixin, View):
     def get(self, request, pk):
         return render(request, 'userprofile.html')
 
+#Edit userprofile form
 class EditProfileView(LoginRequiredMixin, View):
     def get(self, request, pk):
         form = EditProfileForm()
@@ -116,7 +123,7 @@ class EditProfileView(LoginRequiredMixin, View):
             form = EditProfileForm(instance=request.user)
         return render(request, 'edit_profile.html', {'form': form})
 
-# ChangePasswordForm
+# Change password form
 class Change_PasswordView(LoginRequiredMixin, View):
     def get(self, request, pk):
         form = PasswordChangeForm(user=request.user)
@@ -132,6 +139,5 @@ class Change_PasswordView(LoginRequiredMixin, View):
             return render(request, 'userprofile.html', {'pk':pk})
         else:
             print("unsave")
-            # messages.error(request, 'Please correct the error below.')
             return render(request, 'change_password.html', {'form': form})
     
