@@ -104,7 +104,7 @@ class EditProfileView(View):
             form = EditProfileForm(request.POST, instance=request.user)
             if form.is_valid():
                 form.save()
-                return redirect('userprofile')
+                return render(request, 'userprofile.html', {'pk': pk})
         else:
             form = EditProfileForm(instance=request.user)
         return render(request, 'edit_profile.html', {'form': form})
