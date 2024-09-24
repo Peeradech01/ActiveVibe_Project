@@ -13,14 +13,7 @@
       <a class="edit-class font3" href="{% url 'edit-class' %}">Edit</a>
       <h1 style="margin-bottom: 30px;">Class Name:</h1>
       <p>Category:</p>
-      <p>Trainer:
-        <select class="select-cat font3" style="font-size: 1.5rem;">
-          <option value="">--- Select Trainer ---</option>
-          {% for trainer in trainers %}
-            <option value="{{ trainer.id }}">{{ trainer.name }}</option>
-          {% endfor %}
-        </select>
-      </p>
+      <p>Trainer:</p>
       <p>Description:</p>
       <p>Start time:</p>
       <p>End time:</p>
