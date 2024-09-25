@@ -577,7 +577,7 @@ input[type="tel"] {
     padding: 10px 20px;
     border-radius: 5px;
     appearance: none;
-    background-image: url('caret-down-outline.svg');
+    background-image: url('img/caret-down-outline.svg');
     background-repeat: no-repeat;
     background-position: right 10px center;
     background-size: 10%;
