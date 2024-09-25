@@ -27,7 +27,7 @@ class PersonalInfo(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     weight = models.FloatField(null=False, default=0)
     height = models.FloatField(null=False, default=0)
-    BMI = models.FloatField(null=False, default=0)
+    bmi = models.FloatField(null=False, default=0)
     phone = models.CharField(max_length=10, null=False)
     role = models.CharField(max_length=10, choices=ROLE_CHOICES, null=False)
 
@@ -44,12 +44,12 @@ class Schedules(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=50, null=False)
-    BMI = models.FloatField(null=False)
+    bmi = models.FloatField(null=False)
 
     def __str__(self):
         return self.name
 
-class Fitness_class(models.Model):
+class FitnessClass(models.Model):
     name = models.CharField(max_length=50, null=False)
     description = models.TextField(null=False)
     schedule = models.ForeignKey(Schedules, on_delete=models.CASCADE)
