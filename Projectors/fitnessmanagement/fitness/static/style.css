@@ -128,7 +128,6 @@ h1>span {
 }
 
 .card:hover {
-    transform: scale(1.02);
     box-shadow: 0 0 30px rgba(255, 255, 255, 1);
     transition: 0.5s;
 }
@@ -573,6 +572,33 @@ input[type="tel"] {
     background-size: 10%;
     padding-right: 50px;
 }
+
+.select-role {
+    margin: 0;
+    padding: 10px 20px;
+    border-radius: 5px;
+    appearance: none;
+    background-image: url('caret-down-outline.svg');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 10%;
+    padding-right: 50px;
+}
+
+.select-role option {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+  }
+  
+  .select-role option:hover {
+    background-color: #e9e9e9;
+    color: #333;
+  }
+  
+  .select-role option:selected {
+    background-color: #ccc;
+    color: #333;
+  }
 
 .card-class {
     width: 24%;

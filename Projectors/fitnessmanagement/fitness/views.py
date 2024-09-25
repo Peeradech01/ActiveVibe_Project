@@ -152,4 +152,16 @@ class ManagementView(LoginRequiredMixin, View):
 # Manage user page
 class ManageUserView(LoginRequiredMixin, View):
     def get(self, request):
-        return render(request, 'admin/manage_user.html')
+        groups = Group.objects.all()
+        user_list = User.objects.all().order_by('date_joined')
+        return render(request, 'admin/manage_user.html', {'user_list': user_list, 'groups': groups})
+    
+    def post(self, request):
+        selected_role = request.POST.get('role')
+        groups = Group.objects.all()
+        if selected_role:
+            user_list = User.objects.filter(groups__name=selected_role).order_by('date_joined')
+        else:
+            user_list = User.objects.all().order_by('date_joined')
+        count = User.objects.filter(groups__name=selected_role).count()
+        return render(request, 'admin/manage_user.html', {'user_list': user_list, 'groups': groups, 'selected_role': selected_role, 'count': count})
