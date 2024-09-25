@@ -140,4 +140,8 @@ class Change_PasswordView(LoginRequiredMixin, View):
         else:
             print("unsave")
             return render(request, 'change_password.html', {'form': form})
-    
+
+# Admin page
+class ManagementView(LoginRequiredMixin, View):
+    def get(self, request):
+        return render(request, 'management.html')
