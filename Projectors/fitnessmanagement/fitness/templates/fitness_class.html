@@ -8,16 +8,16 @@ Fitness Class
 <div class="class-box">
     <div class="search font3">
         <a href="{% url 'create-class' %}" class="creat-class">Create Class</a>
-        <form method="get" action="">
+        <form method="get" action="{% url 'class' %}">
             <input class="input-class" type="text" name="q" placeholder="Search for a class">
             <input class="input-class hover-butt" type="submit" value="Search">
         </form>
-        <form method="get"  action="">
-            <select class="select-cat" name="category" id="category">
+        <form id="categoryform" method="get"  action="{% url 'class' %}">
+            <select class="select-cat" name="category" id="category" required>
                 <option value="">Select Class Category </option>
             </select>
         </form>
-        <form method="get"  action="">
+        <form method="get"  action="{% url 'class' %}">
             <input class="input-bmi-class" type="number" name="height" id="height" placeholder="Enter your height.">
             <input class="input-bmi-class" type="number" name="weight" id="weight" placeholder="Enter your weight.">
             <input class="input-class hover-butt" type="submit" value="Calcute BMI">
@@ -53,4 +53,9 @@ Fitness Class
         </div>
     </div>
 </div>
+<script>
+    document.getElementById('category').addEventListener('change', function() {
+      document.getElementById('categoryform').submit();
+    });
+  </script>
 {% endblock %}
