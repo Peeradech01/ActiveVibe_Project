@@ -29,6 +29,7 @@
 
         .sidebar h1 {
             padding: 30px;
+            font-size: 3.5rem;
         }
 
         .sidebar ul {
@@ -51,6 +52,12 @@
             transition: 0.3s;
         }
 
+        .bth {
+            margin-top: 587px;
+            padding: 30px 50px;
+            font-size: 1.5rem;
+        }
+
         .active {
             background-color: orange;
             color: white;
@@ -65,8 +72,8 @@
             overflow-y: auto; /* Add scrollbar to content area */
         }
 
-        .content h1 {
-            padding-top: 50px;
+        .content-h1 {
+            padding-top: 90px;
         }
 
         .card {
@@ -127,14 +134,14 @@
                 <a class="nav-link" href="#">Manage Classes</a>
             </li>
         </ul>
-        <a class="nav-link" href="{% url 'index' %}" style="margin-top: 605px; padding: 30px 50px; font-size: 1.5rem;">Back to Home</a>
+        <a class="nav-link bth" href="{% url 'index' %}"><ion-icon name="arrow-back-outline"></ion-icon> Back to Home</a>
     </div>
-    <div class="content">
+    <div class="content font3">
         <nav>
             <a style="float: right; padding: 10px 20px; text-decoration: none;" class="log-btn" href="{% url 'logout' %}">Logout</a>
             <a style="float: right; padding: 10px 40px;">{{ user.username }}</a>
         </nav>
-        <h1 class="font1">Dashboard</h1>
+        <h1 class="content-h1 font1">Dashboard</h1>
         <div class="row font3">
             <div class="col-md-6">
                 <div class="card bg-light">
@@ -170,3 +177,6 @@
             </div>
         </div>
     </div>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+</body>

@@ -28,6 +28,7 @@
 
         .sidebar h1 {
             padding: 30px;
+            font-size: 3.5rem;
         }
 
         .sidebar ul {
@@ -50,6 +51,12 @@
             transition: 0.3s;
         }
 
+        .bth {
+            margin-top: 587px;
+            padding: 30px 50px;
+            font-size: 1.5rem;
+        }
+
         .active {
             background-color: orange;
             color: white;
@@ -64,8 +71,8 @@
             overflow-y: auto; /* Add scrollbar to content area */
         }
 
-        .content h1 {
-            padding-top: 10px;
+        .content-h1 {
+            padding-top: 90px;
         }
 
         .card {
@@ -106,7 +113,7 @@
         }
 
         .centered-div {
-            margin: 100px auto 30px auto;
+            margin: 30px auto;
             max-width: 100%; /* adjust the max-width to your liking */
             padding: 20px;
             background-color: #fff;
@@ -144,7 +151,7 @@
 </head>
 <body>
     <div class="sidebar font3">
-        <h1 class="font1" style="font-size: 3.5rem;">Active<span style="color: white;">Vibe®</span></h1>
+        <h1 class="font1">Active<span style="color: white;">Vibe®</span></h1>
         <ul class="nav flex-column">
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'manage' %}">Dashboard</a>
@@ -162,13 +169,14 @@
                 <a class="nav-link" href="#">Manage Classes</a>
             </li>
         </ul>
-        <a class="nav-link" href="{% url 'index' %}" style="margin-top: 587px; padding: 30px 50px; font-size: 1.5rem;">Back to Home</a>
+        <a class="nav-link bth" href="{% url 'index' %}"><ion-icon name="arrow-back-outline"></ion-icon> Back to Home</a>
     </div>
     <div class="content font3">
         <nav>
             <a style="float: right; padding: 10px 20px; text-decoration: none;" class="log-btn" href="{% url 'logout' %}">Logout</a>
             <a style="float: right; padding: 10px 40px;">{{ user.username }}</a>
         </nav>
+        <h1  class="content-h1 font1">User list</h1>
         <div class="centered-div">
             <h1 style="float: left" class="font1">Total: {{ user_list|length }}</h1>
             <form style="float: right;" id="groupform" method="post" action="{% url 'manage-user' %}">
@@ -227,5 +235,7 @@
         document.getElementById('role').addEventListener('change', function() {
           document.getElementById('groupform').submit();
         });
-      </script>
+    </script>
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
