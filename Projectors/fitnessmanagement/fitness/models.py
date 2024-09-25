@@ -13,7 +13,12 @@ class Membership(models.Model):
     def __str__(self):
         return self.name
     
-class Personal_info(models.Model):
+# class CustomerMembership(models.Model):
+#     user = models.ForeignKey(User, on_delete=models.CASCADE)
+#     membership = models.ForeignKey(Membership, on_delete=models.CASCADE)
+#     time_remaining = models.DateTimeField()
+
+class PersonalInfo(models.Model):
     ROLE_CHOICES = [
         ('customer', 'Customer'),
         ('trainer', 'Trainer'),
