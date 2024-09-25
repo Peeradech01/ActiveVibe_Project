@@ -18,14 +18,14 @@ from .forms import LoginForm, EditProfileForm, RegistrationForm
 # Index page
 class IndexView(View):
     def get(self, request):
-        return render(request, 'index.html')
+        return render(request, 'user/index.html')
 
 #Login form
 class LoginFormView(View):
     def get(self, request):
         form = LoginForm()
         context = {'form':form}
-        return render(request, 'login_form.html', context)
+        return render(request, 'authen/login_form.html', context)
 
     def post(self, request):
         username = request.POST['username']
@@ -33,8 +33,11 @@ class LoginFormView(View):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            messages.success(request, 'Login Success')
-            return redirect('index')
+            if user.is_staff:  # Check if user is staff
+                return redirect('manage')  # Redirect to management page
+            else:
+                messages.success(request, 'Login Success')
+                return redirect('index')
         else:
             messages.error(request, 'There was an error. Please try again.')
             return redirect('login')
@@ -53,7 +56,7 @@ class RegisterFormView(View):
     def get(self, request):
         form = RegistrationForm()
         context = {'form':form}
-        return render(request, 'register_form.html', context)
+        return render(request, 'authen/register_form.html', context)
 
     def post(self, request):
         if request.method == 'POST':
@@ -68,66 +71,66 @@ class RegisterFormView(View):
                 return redirect('login')
         else:
             form = RegistrationForm()
-        return render(request, 'register_form.html', {'form': form})
+        return render(request, 'authen/register_form.html', {'form': form})
 
 #Membership page
 class MembershipView(LoginRequiredMixin, View):
     def get(self, request):
         member = Membership.objects.all()
         context = {'member': member}
-        return render(request, 'membership.html', context)
+        return render(request, 'user/membership.html', context)
 
 #Membership form
 class MembershipFormView(LoginRequiredMixin, View):
     def get(self, request):
-        return render(request, 'membership_form.html')
+        return render(request, 'user/membership_form.html')
 
 #Fitnes class page
 class FitnessClassView(LoginRequiredMixin, View):
     def get(self, request):
-        return render(request, 'fitness_class.html')
+        return render(request, 'user/fitness_class.html')
     
 #Fitness class detail page
 class FitnessClassDetailView(LoginRequiredMixin, View):
     def get(self, request):
-        return render(request, 'class_detail.html')
+        return render(request, 'user/class_detail.html')
 
 #Edit fitness class form
 class EditFitnessClassView(LoginRequiredMixin, View):
     def get (self, request):
-        return render(request, 'edit_class.html')
+        return render(request, 'user/edit_class.html')
 
 #Create fitness class form
 class CreateFitnessClassView(LoginRequiredMixin, View):
     def get (self, request):
-        return render(request, 'create_class.html')
+        return render(request, 'user/create_class.html')
 
 #Userprofile page
 class UserProfileView(LoginRequiredMixin, View):
     def get(self, request, pk):
-        return render(request, 'userprofile.html')
+        return render(request, 'user/userprofile.html')
 
 #Edit userprofile form
 class EditProfileView(LoginRequiredMixin, View):
     def get(self, request, pk):
         form = EditProfileForm()
-        return render(request, 'edit_profile.html', {'form': form})
+        return render(request, 'user/edit_profile.html', {'form': form})
     
     def post(self, request, pk):
         if request.method == 'POST':
             form = EditProfileForm(request.POST, instance=request.user)
             if form.is_valid():
                 form.save()
-                return render(request, 'userprofile.html', {'pk': pk})
+                return render(request, 'user/userprofile.html', {'pk': pk})
         else:
             form = EditProfileForm(instance=request.user)
-        return render(request, 'edit_profile.html', {'form': form})
+        return render(request, 'user/edit_profile.html', {'form': form})
 
 # Change password form
 class Change_PasswordView(LoginRequiredMixin, View):
     def get(self, request, pk):
         form = PasswordChangeForm(user=request.user)
-        return render(request, 'change_password.html', {'form': form})
+        return render(request, 'user/change_password.html', {'form': form})
 
     def post(self, request, pk):
         form = PasswordChangeForm(user=request.user, data=request.POST)
@@ -136,12 +139,17 @@ class Change_PasswordView(LoginRequiredMixin, View):
             update_session_auth_hash(request, user)
             print("save success")
             messages.success(request, 'Your password has been changed successfully.')
-            return render(request, 'userprofile.html', {'pk':pk})
+            return render(request, 'user/userprofile.html', {'pk':pk})
         else:
             print("unsave")
-            return render(request, 'change_password.html', {'form': form})
+            return render(request, 'user/change_password.html', {'form': form})
 
 # Admin page
 class ManagementView(LoginRequiredMixin, View):
     def get(self, request):
-        return render(request, 'management.html')
+        return render(request, 'admin/management.html')
+    
+# Manage user page
+class ManageUserView(LoginRequiredMixin, View):
+    def get(self, request):
+        return render(request, 'admin/manage_user.html')

@@ -42,5 +42,8 @@ urlpatterns = [
     path('class/class_id/edit/', EditFitnessClassView.as_view(), name='edit-class'),
 
     # Admin
-    path('manage/', ManagementView.as_view(), name='manage')
+    path('manage/', ManagementView.as_view(), name='manage'),
+
+    # Manage user
+    path('manage/user/', ManageUserView.as_view(), name='manage-user')
 ]
