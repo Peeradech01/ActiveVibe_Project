@@ -1,9 +1,11 @@
-{% extends 'layout.html' %}
+{% extends 'user_layout.html' %}
 
 {% load static %}
+
 {% block title %}
 Fitness Class
 {% endblock %}
+
 {% block content %}
 <div class="class-box">
     <div class="search font3">
@@ -53,6 +55,9 @@ Fitness Class
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block script %}
 <script>
     document.getElementById('category').addEventListener('change', function() {
       document.getElementById('categoryform').submit();

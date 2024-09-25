@@ -10,7 +10,7 @@
 }
 
 body {
-    background-image: url("background_image.jpg");
+    background-image: url("img/background_image.jpg");
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
@@ -122,7 +122,6 @@ h1>span {
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 1);
     transition: 0.5s;
     -webkit-user-select: none;
 }
@@ -566,7 +565,7 @@ input[type="tel"] {
     padding: 10px 20px;
     border-radius: 5px;
     appearance: none;
-    background-image: url('caret-down-outline.svg');
+    background-image: url('img/caret-down-outline.svg');
     background-repeat: no-repeat;
     background-position: right 10px center;
     background-size: 10%;

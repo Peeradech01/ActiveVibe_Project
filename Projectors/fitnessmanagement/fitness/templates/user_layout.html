@@ -23,10 +23,11 @@
     {% block nav%}
       {% include 'nav.html' %}
     {% endblock%}
-      {% block content %}Content{% endblock %}
+    
+    {% block content %}Content{% endblock %}
+
+    {% block script %}
+    {% endblock %}
   </body>
 
-  {% block script %}
-  <script src="/"></script>
-  {% endblock %}
 </html>
