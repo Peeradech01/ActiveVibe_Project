@@ -40,4 +40,7 @@ urlpatterns = [
     
     # Edit fitness class page
     path('class/class_id/edit/', EditFitnessClassView.as_view(), name='edit-class'),
+
+    # Admin
+    path('manage/', ManagementView.as_view(), name='manage')
 ]
