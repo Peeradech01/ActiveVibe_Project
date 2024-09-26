@@ -248,3 +248,8 @@ class CreateCategoryView(LoginRequiredMixin, View):
     def get(self, request):
         return render(request, 'admin/create_category.html')
 
+# Manage edit category
+class EditCategoryView(LoginRequiredMixin, View):
+    def get(self, request):
+        return render(request, 'admin/edit_category.html')
+

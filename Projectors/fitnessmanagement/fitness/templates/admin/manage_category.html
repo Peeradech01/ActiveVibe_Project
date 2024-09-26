@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block title %}
-Manage membership
+Manage Category
 {% endblock %}
 
 {% block content %}
@@ -25,7 +25,7 @@ Manage membership
                     <td>{{ cat.name }}</td>
                     <td>{{ cat.bmi }}</td>
                     <td style="text-align: center;">
-                        <a href="" class="btn btn-warning">Edit</a>
+                        <a href="{% url 'edit-category' %}" class="btn btn-warning">Edit</a>
                         <a href="" class="btn btn-danger">Delete</a>
                     </td>
                 </tr>
