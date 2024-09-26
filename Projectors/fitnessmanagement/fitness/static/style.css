@@ -118,6 +118,7 @@ h1>span {
 }
 
 .card {
+    font-size: 1.5rem;
     margin: 30px;
     padding: 20px;
     border: 1px solid #ddd;
@@ -658,11 +659,19 @@ input::-webkit-inner-spin-button {
     left: 50%;
     transform: translate(-50%, -50%);
     backdrop-filter: blur(30px);
-    width: 30%;
+    width: 80%;
     padding: 30px;
     color: aliceblue;
     border-radius: 10px;
     border: 1px solid orangered;
+}
+
+.mybox {
+    height: 200;
+    display: flex; /* เพื่อให้สามารถจัดแนวเนื้อหาภายในได้ */
+    justify-content: center; /* จัดกึ่งกลางในแนวนอน */
+    align-items: center; /* จัดกึ่งกลางในแนวตั้ง */
+    border: 1px solid #ccc; /* เพื่อลองเห็นขอบของ div */
 }
 
 .info {
@@ -674,8 +683,12 @@ input::-webkit-inner-spin-button {
     margin-bottom: 30px;
 }
 
+.div-edit-btn {
+    margin: 50px 0px 20px 0px;
+}
+
 .edit-btn {
-    margin-right: 10px;
+    margin-left: 20px;
     font-size: 1.5rem;
     background-color: dodgerblue;
     color: white;

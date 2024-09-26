@@ -5,23 +5,56 @@
 {% block title %}
 User Profile
 {% endblock %}
-
+<style>
+    .custom-row {
+        /* max-width: 50%; */
+        margin: auto; 
+    }
+</style>
 {% block content %}
-    <div class="user-profile">
-        <h1 class="font1" style=" text-align: center;">USER PROFILE</h1>
-        <img style="border-radius: 50%; display: block; margin: 20px auto; width: 20%;" src="{% static 'img/icon-profile.jpg' %}" alt="">
-        <div class="info font1">
-            <h2>Username: <span class="font3">{{ user.username }}</span></h2>
-            <h2>Full Name: <span class="font3">{{ user.first_name }} {{ user.last_name }}</span></h2>
-            <h2>Role: 
-                {% for group in user.groups.all %}
-                    <span class="font3">{{ group.name }}</span>
-                {% endfor %}
-            </h2>
-            <h2>Email: <span class="font3">{{ user.email }}</span></h2>
-            <h2>Password: ******** </h2>
-            <a href="{% url 'edit_profile' user.pk %}" class="edit-btn" id="edit-btn">Edit</a>
-            <a href="{% url 'change_password' user.pk %}" class="edit-btn" id="change-password-btn">Change Password</a>
-        </div>  
+<div class="user-profile">
+    <div class="row">
+        <!-- Left Profile Section -->
+        <div class="col-md-5">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h1 class="card-title">User Profile</h1>
+                    <img style="border-radius: 50%; display: block; margin: 20px auto; width: 40%;" src="{% static 'img/icon-profile.jpg' %}" alt="">
+                    <h2 class="card-title">{{ user.username }}</h2>
+                </div>
+                <ul class="list-group list-group-flush text-left">
+                    <li class="list-group-item">Full Name: {{ user.first_name }} {{ user.last_name }}</li>
+                    <li class="list-group-item">Email: {{ user.email }}</li>
+                    <li class="list-group-item">Role: 
+                        {% for group in user.groups.all %}
+                            <span class="font3">{{ group.name }}</span>
+                        {% endfor %}
+                    </li>
+                    <li class="list-group-item">Password: ********</li>
+                </ul>
+                <div class="div-edit-btn">
+                    <a href="{% url 'edit_profile' user.pk %}" class="edit-btn" id="edit-btn">Edit</a>
+                    <a href="{% url 'change_password' user.pk %}" class="edit-btn" id="change-password-btn">Change Password</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Profile Form Section -->
+        <div class="col-md-7">
+            <div class="card mybox">
+                <h2>My Membership</h2>
+                <p>Basic Membership</p>
+                <h2>My Class</h2>
+                <ul class="list-group">
+                    <li class="list-group"> 1 </li>
+                    <li class="list-group"> 2 </li>
+                    <li class="list-group"> 3 </li>
+                </ul>
+            </div>
+        </div>
+
+        
     </div>
+</div>
+
 {% endblock %}
