@@ -13,7 +13,7 @@ from django import forms
 from fitness.models import *
 from .forms import LoginForm
 from django.contrib.auth.models import Group
-from .forms import LoginForm, EditProfileForm, RegistrationForm, CreateClassForm
+from .forms import LoginForm, EditProfileForm, RegistrationForm, CreateClassForm, RegistrationMemberForm
 
 # Index page
 class IndexView(View):
