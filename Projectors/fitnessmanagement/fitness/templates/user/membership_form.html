@@ -10,12 +10,18 @@ Membership Form
 <div class="mem">
     <div class="left-form img-form font1">
         <h1>Active<span>Vibe®</span></h1>
-        <img src="{%static 'badge.png'%}" alt="">
+        <img src="{%static 'img/badge.png'%}" alt="">
     </div>
     <div class="right-form form-mem">
         <h1 class="font1">Register Membership</h1>
-        <form>
-            <label for="first_name">First Name:</label><br>
+        <form method="post" action="{% url 'membership_form' %}">
+            {% csrf_token %}
+            {% for field in form %}
+                <label>{{ field.label }}:</label><br>                
+                {{ field }}
+            {% endfor %}
+            <br>
+            <!-- <label for="first_name">First Name:</label><br>
             <input type="text" id="first_name" name="first_name"><br>
 
             <label for="last_name">Last Name:</label><br>
@@ -45,7 +51,7 @@ Membership Form
                 <option value="1_year">1 Year</option>
             </select><br>
 
-            <p for="terms"><input type="checkbox" id="terms" name="terms"> I have read and accepted the <a href="#">Membership Terms and Conditions</a>, <a href="#">Privacy Policy</a>, <a href="#">Club Usage Rules</a> and <a href="#">Terms of Service</a>.</p>
+            <p for="terms"><input type="checkbox" id="terms" name="terms"> I have read and accepted the <a href="#">Membership Terms and Conditions</a>, <a href="#">Privacy Policy</a>, <a href="#">Club Usage Rules</a> and <a href="#">Terms of Service</a>.</p> -->
 
             <input type="submit" value="Submit">
         </form>

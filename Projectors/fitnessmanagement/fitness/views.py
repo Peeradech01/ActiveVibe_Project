@@ -13,7 +13,7 @@ from django import forms
 from fitness.models import *
 from .forms import LoginForm
 from django.contrib.auth.models import Group
-from .forms import LoginForm, EditProfileForm, RegistrationForm
+from .forms import LoginForm, EditProfileForm, RegistrationForm, RegistrationMemberForm
 
 # Index page
 class IndexView(View):
@@ -84,7 +84,17 @@ class MembershipView(LoginRequiredMixin, View):
 #Membership form
 class MembershipFormView(LoginRequiredMixin, View):
     def get(self, request):
+        form = RegistrationMemberForm()
+        context = {'form':form}
+        print('this method get')
+        return render(request, 'user/membership_form.html', context)
+    def post(self, request):
+        print("this method post")
+        form = RegistrationMemberForm(request.POST)
+        user = form.save()
+        print(user) 
         return render(request, 'user/membership_form.html')
+
 
 #Fitnes class page
 class FitnessClassView(LoginRequiredMixin, View):
@@ -197,3 +207,33 @@ class ManageMembershipView(LoginRequiredMixin, View):
                 membership.duration_display = f"{membership.duration} month"
         context = {'membership_list': membership_list}
         return render(request, 'admin/manage_membership.html', context)
+    
+# Manage category page
+class ManageCategoryView(LoginRequiredMixin, View):
+    def get(self, request):
+        category_list = Category.objects.all()
+        context = {'category_list':category_list}
+        return render(request, 'admin/manage_category.html', context)
+
+# Manage class page
+class ManageClassView(LoginRequiredMixin, View):
+    def get(self, request):
+        class_list = Category.objects.all()
+        context = {'category_list':class_list}
+        return render(request, 'admin/manage_class.html', context)
+    
+# Manage create membership
+class CreateMembershipView(LoginRequiredMixin, View):
+    def get(self, request):
+        return render(request, 'admin/create_membership.html')
+
+# Manage edit membership
+class EditMembershipView(LoginRequiredMixin, View):
+    def get(self, request):
+        return render(request, 'admin/edit_membership.html')
+
+# Manage create category
+class CreateCategoryView(LoginRequiredMixin, View):
+    def get(self, request):
+        return render(request, 'admin/create_category.html')
+

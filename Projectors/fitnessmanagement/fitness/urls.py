@@ -19,4 +19,9 @@ urlpatterns = [
     path('manage/user/', ManageUserView.as_view(), name='manage-user'), # Manage user
     path('manage/user/delete/id:<int:pk>/', DeleteUserView.as_view(), name='delete-user'), # Delete user
     path('manage/membership/', ManageMembershipView.as_view(), name='manage-membership'), # Manage membership
+    path('manage/category/', ManageCategoryView.as_view(), name='manage-category'), # Manage Category   
+    path('manage/class/', ManageClassView.as_view(), name='manage-class'), # Manage Class   
+    path('manage/create_membership/', CreateMembershipView.as_view(), name='create-membership'), # Manage create membership   
+    path('manage/edit_membership/', EditMembershipView.as_view(), name='edit-membership'), # Manage edit membership   
+    path('manage/create_category/', CreateCategoryView.as_view(), name='create-category'), # Manage create category   
 ]

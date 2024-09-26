@@ -55,7 +55,7 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "fitness_db2",
         "USER": "postgres",
-        "PASSWORD": "0000",
+        "PASSWORD": "246810",
         "HOST": "localhost",
         "PORT": "5432",
     }

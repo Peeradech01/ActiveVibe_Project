@@ -46,3 +46,22 @@ class RegistrationForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2', 'role']
+
+class RegistrationMemberForm(forms.ModelForm):
+    first_name = forms.CharField(max_length=30)
+    last_name = forms.CharField(max_length=30)
+    email = forms.EmailField()
+    phone = forms.CharField(max_length=10)
+    start_date = forms.DateTimeField(widget=forms.DateInput(attrs={'type':'date'}))
+    duration = forms.ChoiceField(choices=[
+        ('1_month', '1 Month'),
+        ('3_months', '3 Months'),
+        ('6_months', '6 Months'),
+        ('1_year', '1 Year')
+    ])
+
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'email', 'phone', 'start_date', 'duration']
+
+
