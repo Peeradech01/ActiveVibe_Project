@@ -8,21 +8,22 @@ Create Class
 
 {% block content %}
   <a class="back font3" href="{% url 'class' %}">Back</a>
-  <form method="post" action="">
+  <form method="post" action="{% url 'create-class' %}">
     {% csrf_token %}
     <div class="class-detail">
       <h1 class="font1" style="text-align: center; margin-bottom: 30px;">Create Class</h1>
-      <p>Class Name: <input class="input-detail" type="text" name="class_name"> </p>
-      <p>Category:
-        {% for category in categories %}
-          <input class="input-detail"  type="checkbox" name="category" value="{{ category }}" {% if category in class.category.all %}checked{% endif %}>{{ category }}
-        {% endfor %}
-      </p>
-      <p>Description:</p>
-      <textarea class="input-detail" style="width: 100%" name="description" cols="30" rows="5">{{ class.description }}</textarea><br><br>
-      <p>Start time: <input class="input-detail"  type="date" name="start_time" value="{{ class.start_time|date:'Y-m-dTH:i' }}"></p>
-      <p>End time: <input class="input-detail"  type="date" name="end_time" value="{{ class.end_time|date:'Y-m-dTH:i' }}"></p>
-      <p>Max capacity: <input class="input-detail" type="number" name="remaining_capacity" value="{{ class.remaining_capacity }}"></p>
+      {% for field in form %}
+        {% if field.name == 'category' %}
+          <p>Category:
+            {{ field }}
+          </p>
+        {% elif field.name == 'description' %}
+          <p>Description:</p>
+          {{ field }}
+        {% else %}
+          <p>{{ field.label }}: {{ field }}</p>
+        {% endif %}
+      {% endfor %}
       <button class="signup-btn font3">Save</button>
     </div>
   </form>

@@ -572,6 +572,18 @@ input[type="tel"] {
     padding-right: 50px;
 }
 
+.cat {
+    padding: 10px 20px;
+    border-radius: 5px;
+    appearance: none;
+    background-image: url('img/caret-down-outline.svg');
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 10%;
+    padding-right: 50px;
+    font-size: 1.5rem;
+}
+
 .select-role {
     margin: 0;
     padding: 10px 20px;
@@ -741,7 +753,7 @@ input::-webkit-inner-spin-button {
 
 .class-detail {
     display: block;
-    margin: 150px auto 0 auto;
+    margin: 50px auto;
     padding: 50px 50px;
     backdrop-filter: blur(20px);
     color: white;

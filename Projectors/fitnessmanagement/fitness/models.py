@@ -1,8 +1,6 @@
 from django.db import models
-from django.contrib.auth.models import User, Group
+from django.conf import settings
 from django.utils import timezone
-
-# Create your models here.
 
 class Membership(models.Model):
     name = models.CharField(max_length=50, null=False)
@@ -12,18 +10,17 @@ class Membership(models.Model):
 
     def __str__(self):
         return self.name
-    
+
 class CustomerMembership(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    customer = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     membership = models.ForeignKey(Membership, on_delete=models.CASCADE)
 
 class PersonalInfo(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    customer = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     weight = models.FloatField(null=False, default=0)
     height = models.FloatField(null=False, default=0)
     bmi = models.FloatField(null=False, default=0)
     phone = models.CharField(max_length=10, null=False)
-
 
 class Category(models.Model):
     name = models.CharField(max_length=50, null=False)
@@ -33,22 +30,14 @@ class Category(models.Model):
         return self.name
 
 class FitnessClass(models.Model):
-    user = models.ManyToManyField(User)
+    customer = models.ManyToManyField(settings.AUTH_USER_MODEL)
     name = models.CharField(max_length=50, null=False)
     description = models.TextField(null=False)
-    categories = models.ForeignKey(Category, on_delete=models.CASCADE, default=None) 
-    trainer = models.ForeignKey(Group, on_delete=models.CASCADE, null=False)
+    categories = models.ForeignKey(Category, on_delete=models.CASCADE) 
+    trainer = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=False, related_name='fitness_classes')
+    start_time = models.DateTimeField(null=False, blank=False, default=None)
+    end_time = models.DateTimeField(null=False, blank=False, default=None)
     max_capacity = models.IntegerField(null=False) 
 
     def __str__(self):
         return self.name
-
-class Schedules(models.Model):
-    STATUS_CHOICES = [
-        ('active', 'Active'),
-        ('completed', 'Completed'),
-    ]
-    fitnessclass = models.ForeignKey(FitnessClass, on_delete=models.CASCADE, default=None)
-    start_time = models.DateTimeField(null=False, blank=False)
-    end_time = models.DateTimeField(null=False, blank=False)
-    status = models.CharField(max_length=10, choices=STATUS_CHOICES, null=False, blank=False)

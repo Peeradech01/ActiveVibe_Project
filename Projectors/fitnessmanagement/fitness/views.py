@@ -13,7 +13,7 @@ from django import forms
 from fitness.models import *
 from .forms import LoginForm
 from django.contrib.auth.models import Group
-from .forms import LoginForm, EditProfileForm, RegistrationForm
+from .forms import LoginForm, EditProfileForm, RegistrationForm, CreateClassForm
 
 # Index page
 class IndexView(View):
@@ -55,25 +55,22 @@ class LogoutFormView(View):
 class RegisterFormView(View):
     def get(self, request):
         form = RegistrationForm()
-        context = {'form':form}
+        context = {'form': form}
         return render(request, 'authen/register_form.html', context)
 
     def post(self, request):
-        if request.method == 'POST':
-            form = RegistrationForm(request.POST)
-            if form.is_valid():
-                user = form.save()
-                role = form.cleaned_data['role']
-                group_name = role.capitalize() 
-                group, created = Group.objects.get_or_create(name=group_name)
-                user.groups.add(group)
-                login(request, user)
-                return redirect('login')
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            role = form.cleaned_data['role']
+            group_name = role.capitalize() 
+            group, created = Group.objects.get_or_create(name=group_name)
+            user.groups.add(group)
+            login(request, user)
+            return redirect('login')
         else:
-            form = RegistrationForm()
-            context = {'form':form}
-        return render(request, 'authen/register_form.html', context)
-
+            context = {'form': form}
+            return render(request, 'authen/register_form.html', context)
 #Membership page
 class MembershipView(LoginRequiredMixin, View):
     def get(self, request):
@@ -108,8 +105,22 @@ class EditFitnessClassView(LoginRequiredMixin, View):
 
 #Create fitness class form
 class CreateFitnessClassView(LoginRequiredMixin, View):
-    def get (self, request):
-        return render(request, 'user/create_class.html')
+    def get(self, request):
+        form = CreateClassForm()
+        context = {'form': form}
+        return render(request, 'user/create_class.html', context)
+
+    def post(self, request):
+        form = CreateClassForm(request.POST)
+        if form.is_valid():
+            trainer = request.user.pk
+            form.instance.trainer_id = trainer
+            form.save()
+            return redirect('class')
+        else:
+            context = {'form': form}
+            return render(request, 'user/create_class.html', context)
+
 
 #Userprofile page
 class UserProfileView(LoginRequiredMixin, View):
