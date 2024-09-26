@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.utils import timezone
 
 # Create your models here.
@@ -13,23 +13,16 @@ class Membership(models.Model):
     def __str__(self):
         return self.name
     
-# class CustomerMembership(models.Model):
-#     user = models.ForeignKey(User, on_delete=models.CASCADE)
-#     membership = models.ForeignKey(Membership, on_delete=models.CASCADE)
-#     time_remaining = models.DateTimeField()
+class CustomerMembership(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    membership = models.ForeignKey(Membership, on_delete=models.CASCADE)
 
 class PersonalInfo(models.Model):
-    ROLE_CHOICES = [
-        ('customer', 'Customer'),
-        ('trainer', 'Trainer'),
-        ('manager', 'Manager')
-    ]
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     weight = models.FloatField(null=False, default=0)
     height = models.FloatField(null=False, default=0)
     bmi = models.FloatField(null=False, default=0)
     phone = models.CharField(max_length=10, null=False)
-    role = models.CharField(max_length=10, choices=ROLE_CHOICES, null=False)
 
 class Schedules(models.Model):
     STATUS_CHOICES = [
@@ -50,11 +43,12 @@ class Category(models.Model):
         return self.name
 
 class FitnessClass(models.Model):
+    user = models.ManyToManyField(User)
     name = models.CharField(max_length=50, null=False)
     description = models.TextField(null=False)
     schedule = models.ForeignKey(Schedules, on_delete=models.CASCADE)
-    categories = models.ManyToManyField(Category) 
-    trainer = models.ForeignKey(User, on_delete=models.CASCADE, null=False)
+    categories = models.ForeignKey(Category, on_delete=models.CASCADE) 
+    trainer = models.ForeignKey(Group, on_delete=models.CASCADE, null=False)
     max_capacity = models.IntegerField(null=False) 
 
     def __str__(self):

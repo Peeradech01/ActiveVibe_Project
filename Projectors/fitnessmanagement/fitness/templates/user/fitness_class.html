@@ -27,31 +27,13 @@ Fitness Class
     </div>
     <div>
         <div class="card-row2">
-            <div class="card-class font3">
-                <h1 class="font1">Class name</h1>
-                <h2>Max capacity:</h2>
-                <a href="{% url 'class-detail' %}">View Class</a>
-            </div>
-            <div class="card-class">
-                <h1 class="font1">Class name</h1>
-                <h2>Max capacity:</h2>
-                <a href="{% url 'class-detail' %}">View Class</a>
-            </div>
-            <div class="card-class">
-                <h1 class="font1">Class name</h1>
-                <h2>Max capacity:</h2>
-                <a href="{% url 'class-detail' %}">View Class</a>
-            </div>
-            <div class="card-class">
-                <h1 class="font1">Class name</h1>
-                <h2>Max capacity:</h2>
-                <a href="{% url 'class-detail' %}">View Class</a>
-            </div>
-            <div class="card-class">
-                <h1 class="font1">Class name</h1>
-                <h2>Max capacity:</h2>
-                <a href="{% url 'class-detail' %}">View Class</a>
-            </div>
+            {% for class in fit_class %}
+                <div class="card-class font3">
+                    <h1 class="font1">{{ class.name }}</h1>
+                    <h2>Max capacity: {{ class.max_capacity }}</h2>
+                    <a href="{% url 'class-detail' class.pk %}">View Class</a>
+                </div>
+            {% endfor %}
         </div>
     </div>
 </div>
@@ -60,7 +42,7 @@ Fitness Class
 {% block script %}
 <script>
     document.getElementById('category').addEventListener('change', function() {
-      document.getElementById('categoryform').submit();
+        document.getElementById('categoryform').submit();
     });
-  </script>
+</script>
 {% endblock %}

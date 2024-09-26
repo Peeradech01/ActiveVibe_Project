@@ -12,10 +12,12 @@
     <div class="class-detail">
       <a class="edit-class font3" href="{% url 'edit-class' %}">Edit</a>
       <a class="delete-class font3" href="">Delete</a>
-      <h1 style="margin-bottom: 30px;">Class Name:</h1>
-      <p>Category:</p>
+      <h1 style="margin-bottom: 30px;">Class Name: {{ fit_classdetail.name }}</h1>
+      {% for cat in fit_classdetail.categories %}
+        <p>Category: {{ cat.name }}</p>
+      {% endfor %}
       <p>Trainer:</p>
-      <p>Description:</p>
+      <p>Description: {{ fit_classdetail.description }}</p>
       <p>Start time:</p>
       <p>End time:</p>
       <p>Remaining capacity:</p>

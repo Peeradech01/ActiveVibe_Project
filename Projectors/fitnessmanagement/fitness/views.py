@@ -71,13 +71,14 @@ class RegisterFormView(View):
                 return redirect('login')
         else:
             form = RegistrationForm()
-        return render(request, 'authen/register_form.html', {'form': form})
+            context = {'form':form}
+        return render(request, 'authen/register_form.html', context)
 
 #Membership page
 class MembershipView(LoginRequiredMixin, View):
     def get(self, request):
         member = Membership.objects.all()
-        context = {'member': member}
+        context = {'member':member}
         return render(request, 'user/membership.html', context)
 
 #Membership form
@@ -88,12 +89,17 @@ class MembershipFormView(LoginRequiredMixin, View):
 #Fitnes class page
 class FitnessClassView(LoginRequiredMixin, View):
     def get(self, request):
-        return render(request, 'user/fitness_class.html')
-    
+        fit_class = FitnessClass.objects.all()
+        context = {'fit_class':fit_class}
+        return render(request, 'user/fitness_class.html', context)
+
+
 #Fitness class detail page
 class FitnessClassDetailView(LoginRequiredMixin, View):
-    def get(self, request):
-        return render(request, 'user/class_detail.html')
+    def get(self, request, pk):
+        fit_classdetail = FitnessClass.objects.get(pk=pk)
+        context = {'fit_classdetail':fit_classdetail}
+        return render(request, 'user/class_detail.html', context)
 
 #Edit fitness class form
 class EditFitnessClassView(LoginRequiredMixin, View):
@@ -114,7 +120,8 @@ class UserProfileView(LoginRequiredMixin, View):
 class EditProfileView(LoginRequiredMixin, View):
     def get(self, request, pk):
         form = EditProfileForm()
-        return render(request, 'user/edit_profile.html', {'form': form})
+        context = {'form':form}
+        return render(request, 'user/edit_profile.html', context)
     
     def post(self, request, pk):
         if request.method == 'POST':
@@ -124,13 +131,15 @@ class EditProfileView(LoginRequiredMixin, View):
                 return render(request, 'user/userprofile.html', {'pk': pk})
         else:
             form = EditProfileForm(instance=request.user)
-        return render(request, 'user/edit_profile.html', {'form': form})
+            context = {'form': form}
+        return render(request, 'user/edit_profile.html', context)
 
 # Change password form
 class Change_PasswordView(LoginRequiredMixin, View):
     def get(self, request, pk):
         form = PasswordChangeForm(user=request.user)
-        return render(request, 'user/change_password.html', {'form': form})
+        context = {'form': form}
+        return render(request, 'user/change_password.html', context)
 
     def post(self, request, pk):
         form = PasswordChangeForm(user=request.user, data=request.POST)
@@ -142,7 +151,8 @@ class Change_PasswordView(LoginRequiredMixin, View):
             return render(request, 'user/userprofile.html', {'pk':pk})
         else:
             print("unsave")
-            return render(request, 'user/change_password.html', {'form': form})
+            context = {'form': form}
+            return render(request, 'user/change_password.html', context)
 
 # Admin page
 class ManagementView(LoginRequiredMixin, View):
@@ -154,7 +164,8 @@ class ManageUserView(LoginRequiredMixin, View):
     def get(self, request):
         groups = Group.objects.all()
         user_list = User.objects.all().order_by('date_joined')
-        return render(request, 'admin/manage_user.html', {'user_list': user_list, 'groups': groups})
+        context = {'user_list': user_list, 'groups': groups}
+        return render(request, 'admin/manage_user.html', context)
     
     def post(self, request):
         selected_role = request.POST.get('role')
@@ -164,7 +175,8 @@ class ManageUserView(LoginRequiredMixin, View):
         else:
             user_list = User.objects.all().order_by('date_joined')
         count = User.objects.filter(groups__name=selected_role).count()
-        return render(request, 'admin/manage_user.html', {'user_list': user_list, 'groups': groups, 'selected_role': selected_role, 'count': count})
+        context = {'user_list': user_list, 'groups': groups, 'selected_role': selected_role, 'count': count}
+        return render(request, 'admin/manage_user.html', context)
 
 #Delet user 
 class DeleteUserView(LoginRequiredMixin, View):
@@ -183,4 +195,5 @@ class ManageMembershipView(LoginRequiredMixin, View):
                 membership.duration_display = f"{membership.duration // 12} year"
             else:
                 membership.duration_display = f"{membership.duration} month"
-        return render(request, 'admin/manage_membership.html', {'membership_list': membership_list})
+        context = {'membership_list': membership_list}
+        return render(request, 'admin/manage_membership.html', context)
