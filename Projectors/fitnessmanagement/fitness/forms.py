@@ -2,6 +2,9 @@ from django import forms
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, AuthenticationForm
+from .models import *
+from django.forms.widgets import *
+from datetime import datetime, timedelta
 
 class LoginForm(AuthenticationForm):
     username = forms.CharField(max_length=65)
@@ -65,3 +68,18 @@ class RegistrationMemberForm(forms.ModelForm):
         fields = ['first_name', 'last_name', 'email', 'phone', 'start_date', 'duration']
 
 
+
+class CreateClassForm(forms.ModelForm):
+    categories = forms.ModelChoiceField(queryset=Category.objects.all(), widget=forms.Select(attrs={'class': 'cat'}))
+    start_time = forms.DateTimeField(initial=datetime.now(), widget=DateTimeInput(format='%Y-%m-%d %H:%M', attrs={'type': 'datetime-local', 'class': 'input-detail'}))
+    end_time = forms.DateTimeField(initial=datetime.now(), widget=DateTimeInput(format='%Y-%m-%d %H:%M', attrs={'type': 'datetime-local', 'class': 'input-detail'}))
+
+    class Meta:
+        model = FitnessClass
+        fields = ('name', 'categories', 'description', 'start_time', "end_time", 'max_capacity')
+
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'input-detail'}),
+            'description': forms.Textarea(attrs={'class': 'input-detail', 'style': 'width:100%;'}),
+            'max_capacity': forms.NumberInput(attrs={'class': 'input-detail'})
+        }
