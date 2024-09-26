@@ -45,5 +45,11 @@ urlpatterns = [
     path('manage/', ManagementView.as_view(), name='manage'),
 
     # Manage user
-    path('manage/user/', ManageUserView.as_view(), name='manage-user')
+    path('manage/user/', ManageUserView.as_view(), name='manage-user'),
+
+    # Delete user
+    path('manage/user/delete/id:<int:pk>/', DeleteUserView.as_view(), name='delete-user'),
+
+    # Manage membership
+    path('manage/membership/', ManageMembershipView.as_view(), name='manage-membership'),
 ]

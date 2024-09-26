@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block title %}
-Admin Page
+Manage user
 {% endblock %}
 
 {% block content %}
@@ -49,7 +49,7 @@ Admin Page
                             </td>
                             <td>{{ user.date_joined|date:"j M. Y, H:i" }}</td>
                             <td style="text-align: center;">
-                                <a href="" class="btn btn-danger btn-sm">Delete</a>
+                                <a href="{% url 'delete-user' user.pk %}" class="btn btn-danger btn-sm">Delete</a>
                             </td>
                         </tr>
                     {% endfor %}

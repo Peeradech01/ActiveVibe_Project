@@ -165,3 +165,22 @@ class ManageUserView(LoginRequiredMixin, View):
             user_list = User.objects.all().order_by('date_joined')
         count = User.objects.filter(groups__name=selected_role).count()
         return render(request, 'admin/manage_user.html', {'user_list': user_list, 'groups': groups, 'selected_role': selected_role, 'count': count})
+
+#Delet user 
+class DeleteUserView(LoginRequiredMixin, View):
+    def get(self, request, pk):
+        user = User.objects.get(pk=pk)
+        user.delete()
+        print("success")
+        return redirect('manage-user')
+    
+#Manage membership page
+class ManageMembershipView(LoginRequiredMixin, View):
+    def get(self, request):
+        membership_list = Membership.objects.all()
+        for membership in membership_list:
+            if membership.duration >= 12:
+                membership.duration_display = f"{membership.duration // 12} year"
+            else:
+                membership.duration_display = f"{membership.duration} month"
+        return render(request, 'admin/manage_membership.html', {'membership_list': membership_list})
