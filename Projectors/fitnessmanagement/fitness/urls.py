@@ -25,7 +25,9 @@ urlpatterns = [
     path('manage/category/', ManageCategoryView.as_view(), name='manage-category'), # Manage Category   
     path('manage/class/', ManageClassView.as_view(), name='manage-class'), # Manage Class   
     path('manage/create_membership/', CreateMembershipView.as_view(), name='create-membership'), # Manage create membership   
-    path('manage/edit_membership/', EditMembershipView.as_view(), name='edit-membership'), # Manage edit membership   
+    path('manage/edit_membership/<int:pk>/', EditMembershipView.as_view(), name='edit-membership'), # Manage edit membership   
+    path('manage/delete_membership/<int:pk>/', DeleteMembershipView.as_view(), name='delete-membership'), # Manage edit category   
     path('manage/create_category/', CreateCategoryView.as_view(), name='create-category'), # Manage create category   
-    path('manage/edit_category/', EditCategoryView.as_view(), name='edit-category'), # Manage edit category   
+    path('manage/edit_category/<int:pk>/', EditCategoryView.as_view(), name='edit-category'), # Manage edit category   
+    path('manage/delete_category/<int:pk>/', DeleteCategoryView.as_view(), name='delete-category'), # Manage edit category   
 ]

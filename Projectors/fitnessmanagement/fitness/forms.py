@@ -89,3 +89,9 @@ class AdminMembershipForm(forms.ModelForm):
     class Meta:
         model = Membership
         fields = ('name', 'description', 'duration', 'price')
+
+
+class AdminCategoryForm(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = ('name', 'bmi')

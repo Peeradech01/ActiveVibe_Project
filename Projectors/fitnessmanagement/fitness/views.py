@@ -13,7 +13,7 @@ from django import forms
 from fitness.models import *
 from .forms import LoginForm
 from django.contrib.auth.models import Group
-from .forms import LoginForm, EditProfileForm, RegistrationForm, ClassForm, RegistrationMemberForm, AdminMembershipForm
+from .forms import LoginForm, EditProfileForm, RegistrationForm, ClassForm, RegistrationMemberForm, AdminMembershipForm, AdminCategoryForm
 
 # Index page
 class IndexView(View):
@@ -276,16 +276,67 @@ class CreateMembershipView(LoginRequiredMixin, View):
 
 # Manage edit membership
 class EditMembershipView(LoginRequiredMixin, View):
-    def get(self, request):
-        return render(request, 'admin/edit_membership.html')
+    def get(self, request, pk):
+        membership = Membership.objects.get(pk=pk)
+        form = AdminMembershipForm(instance=membership)
+        context = {'form':form, 'membership':membership}
+        return render(request, 'admin/edit_membership.html', context)
+    
+    def post(self, request, pk):
+        membership = Membership.objects.get(pk=pk)
+        form = AdminMembershipForm(request.POST, instance=membership)
+        if form.is_valid():
+            form.save()
+            return redirect('manage-membership')
+        else:
+            context = {'form':form, 'membership':membership}
+            return render(request, 'admin/edit_membership.html', context)
+
+# Manage delete membership
+class DeleteMembershipView(LoginRequiredMixin, View):
+    def get(self, request, pk):
+        membership = Membership.objects.get(pk=pk)
+        membership.delete()
+        return redirect('manage-membership')
+
 
 # Manage create category
 class CreateCategoryView(LoginRequiredMixin, View):
     def get(self, request):
-        return render(request, 'admin/create_category.html')
+        form = AdminCategoryForm()
+        context = {'form':form}
+        return render(request, 'admin/create_category.html', context)
+    def post(self, request):
+        form = AdminCategoryForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('manage-category')
+        else:
+            context = {'form':form}
+            return render(request, 'admin/create_category.html', context)
 
 # Manage edit category
 class EditCategoryView(LoginRequiredMixin, View):
-    def get(self, request):
-        return render(request, 'admin/edit_category.html')
+    def get(self, request, pk):
+        category = Category.objects.get(pk=pk)
+        form = AdminCategoryForm(instance=category)
+        context = {'form':form, 'category':category}
+        return render(request, 'admin/edit_category.html', context)
+    def post(self, request, pk):
+        category = Category.objects.get(pk=pk)
+        form = AdminCategoryForm(request.POST, instance=category)
+        if form.is_valid():
+            form.save()
+            return redirect('manage-category')
+        else:
+            context = {'form':form, 'category':category}
+            return redirect(request, 'admin/edit_category.html', context)
+
+# Manage Delete category
+class DeleteCategoryView(LoginRequiredMixin, View):
+    def get(self, request, pk):
+        category = Category.objects.get(pk=pk)
+        category.delete()
+        return redirect('manage-category')
+    
 

@@ -25,8 +25,8 @@ Manage Category
                     <td>{{ cat.name }}</td>
                     <td>{{ cat.bmi }}</td>
                     <td style="text-align: center;">
-                        <a href="{% url 'edit-category' %}" class="btn btn-warning ms-4 ps-3 pe-3 p-2 font3" style="font-size: 20px;"><ion-icon name="create-outline"></ion-icon></a>
-                        <a href="" class="btn btn-danger ms-4 ps-3 pe-3 p-2 font3" style="font-size: 20px;"><ion-icon name="trash-outline"></ion-icon></a>
+                        <a href="{% url 'edit-category' cat.id %}" class="btn btn-warning ms-4 ps-3 pe-3 p-2 font3" style="font-size: 20px;"><ion-icon name="create-outline"></ion-icon></a>
+                        <a href="{% url 'delete-category' cat.id %}" class="btn btn-danger ms-4 ps-3 pe-3 p-2 font3" style="font-size: 20px;"><ion-icon name="trash-outline"></ion-icon></a>
                     </td>
                 </tr>
                 {% endfor %}
