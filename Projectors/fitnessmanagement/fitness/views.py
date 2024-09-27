@@ -249,8 +249,8 @@ class ManageCategoryView(LoginRequiredMixin, View):
 # Manage class page
 class ManageClassView(LoginRequiredMixin, View):
     def get(self, request):
-        class_list = Category.objects.all()
-        context = {'category_list':class_list}
+        class_list = FitnessClass.objects.all()
+        context = {'class_list':class_list}
         return render(request, 'admin/manage_class.html', context)
     
 # Manage create membership
