@@ -198,7 +198,12 @@ class Change_PasswordView(LoginRequiredMixin, View):
 # Admin page
 class ManagementView(LoginRequiredMixin, View):
     def get(self, request):
-        return render(request, 'admin/management.html')
+        category = Category.objects.all()
+        user = User.objects.all()
+        membership = Membership.objects.all()
+        classes = FitnessClass.objects.all()
+        context = {'category': category, 'user': user, 'membership': membership, 'classes': classes}
+        return render(request, 'admin/management.html', context)
     
 # Manage user page
 class ManageUserView(LoginRequiredMixin, View):

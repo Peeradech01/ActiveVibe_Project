@@ -13,7 +13,7 @@ Admin Page
             <div class="card bg-light">
                 <div class="card-body">
                     <h5 class="card-title">Total Users</h5>
-                    <p class="card-text">0</p>
+                    <p class="card-text">{{ user|length }}</p>
                 </div>
             </div>
         </div>
@@ -21,7 +21,7 @@ Admin Page
             <div class="card bg-light">
                 <div class="card-body">
                     <h5 class="card-title">Total Memberships</h5>
-                    <p class="card-text">0</p>
+                    <p class="card-text">{{ membership|length }}</p>
                 </div>
             </div>
         </div>
@@ -29,7 +29,7 @@ Admin Page
             <div class="card bg-light">
                 <div class="card-body">
                     <h5 class="card-title">Total Categories</h5>
-                    <p class="card-text">0</p>
+                    <p class="card-text">{{ category|length }}</p>
                 </div>
             </div>
         </div>
@@ -37,7 +37,7 @@ Admin Page
             <div class="card bg-light">
                 <div class="card-body">
                     <h5 class="card-title">Total Classes</h5>
-                    <p class="card-text">0</p>
+                    <p class="card-text">{{ classes|length }}</p>
                 </div>
             </div>
         </div>
