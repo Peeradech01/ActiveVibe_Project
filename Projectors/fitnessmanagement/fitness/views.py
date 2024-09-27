@@ -105,13 +105,27 @@ class FitnessClassView(LoginRequiredMixin, View):
 class FitnessClassDetailView(LoginRequiredMixin, View):
     def get(self, request, pk):
         fit_classdetail = FitnessClass.objects.get(pk=pk)
-        context = {'fit_classdetail':fit_classdetail}
+        trainer_name = User.objects.get(pk=fit_classdetail.trainer_id)
+        category_name = Category.objects.get(pk=fit_classdetail.categories_id)
+        context = {'fit_classdetail':fit_classdetail, 'trainer': trainer_name, 'category': category_name}
         return render(request, 'user/class_detail.html', context)
 
 #Edit fitness class form
 class EditFitnessClassView(LoginRequiredMixin, View):
-    def get (self, request):
-        return render(request, 'user/edit_class.html')
+    def get(self, request, pk):
+        fit_classdetail = FitnessClass.objects.get(pk=pk)
+        form = CreateClassForm(instance=fit_classdetail)
+        context = {'fit_classdetail':fit_classdetail,'form': form}
+        return render(request, 'user/edit_class.html', context)
+    
+    def post(self, request, pk):
+        form = CreateClassForm(request.POST, instance=FitnessClass.objects.get(pk=pk))
+        if form.is_valid:
+            form.save()
+            return redirect('class-detail', pk=pk)
+        else:
+            context = {'form': form}
+            return render(request, 'user/fitness_class.html', context)
 
 #Create fitness class form
 class CreateFitnessClassView(LoginRequiredMixin, View):
@@ -130,7 +144,13 @@ class CreateFitnessClassView(LoginRequiredMixin, View):
         else:
             context = {'form': form}
             return render(request, 'user/create_class.html', context)
-
+        
+#Delete fitnes sclass
+class DeleteFitnessClassView(LoginRequiredMixin, View):
+    def get(self, request, pk):
+        fit_classdetail = FitnessClass.objects.get(pk=pk)
+        fit_classdetail.delete()
+        return redirect('class')
 
 #Userprofile page
 class UserProfileView(LoginRequiredMixin, View):
@@ -199,7 +219,7 @@ class ManageUserView(LoginRequiredMixin, View):
         context = {'user_list': user_list, 'groups': groups, 'selected_role': selected_role, 'count': count}
         return render(request, 'admin/manage_user.html', context)
 
-#Delet user 
+# Delet user 
 class DeleteUserView(LoginRequiredMixin, View):
     def get(self, request, pk):
         user = User.objects.get(pk=pk)
@@ -207,7 +227,7 @@ class DeleteUserView(LoginRequiredMixin, View):
         print("success")
         return redirect('manage-user')
     
-#Manage membership page
+# Manage membership page
 class ManageMembershipView(LoginRequiredMixin, View):
     def get(self, request):
         membership_list = Membership.objects.all()

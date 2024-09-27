@@ -600,17 +600,17 @@ input[type="tel"] {
 .select-role option {
     padding: 10px;
     border-bottom: 1px solid #ccc;
-  }
-  
-  .select-role option:hover {
+}
+
+.select-role option:hover {
     background-color: #e9e9e9;
     color: #333;
-  }
-  
-  .select-role option:selected {
+}
+
+.select-role option:selected {
     background-color: #ccc;
     color: #333;
-  }
+}
 
 .card-class {
     width: 24%;
@@ -668,10 +668,14 @@ input::-webkit-inner-spin-button {
 
 .mybox {
     height: 200;
-    display: flex; /* เพื่อให้สามารถจัดแนวเนื้อหาภายในได้ */
-    justify-content: center; /* จัดกึ่งกลางในแนวนอน */
-    align-items: center; /* จัดกึ่งกลางในแนวตั้ง */
-    border: 1px solid #ccc; /* เพื่อลองเห็นขอบของ div */
+    display: flex;
+    /* เพื่อให้สามารถจัดแนวเนื้อหาภายในได้ */
+    justify-content: center;
+    /* จัดกึ่งกลางในแนวนอน */
+    align-items: center;
+    /* จัดกึ่งกลางในแนวตั้ง */
+    border: 1px solid #ccc;
+    /* เพื่อลองเห็นขอบของ div */
 }
 
 .info {
@@ -766,9 +770,9 @@ input::-webkit-inner-spin-button {
 
 .class-detail {
     display: block;
-    margin: 50px auto;
+    margin: 150px auto;
     padding: 50px 50px;
-    backdrop-filter: blur(20px);
+    backdrop-filter: blur(50px);
     color: white;
     width: 50%;
     border-radius: 10px;
@@ -790,7 +794,7 @@ input::-webkit-inner-spin-button {
     margin: 50px;
     font-size: 1.2rem;
     padding: 15px 30px;
-    background-color: dodgerblue;
+    background-color: #ffc107;
     color: white;
     border-radius: 10px;
     float: right;
@@ -799,7 +803,7 @@ input::-webkit-inner-spin-button {
 }
 
 .edit-class:hover {
-    background-color: skyblue;
+    background-color:orange;
     transition: 0.3s;
 }
 

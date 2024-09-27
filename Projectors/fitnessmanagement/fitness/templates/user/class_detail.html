@@ -3,24 +3,22 @@
 {% load static %}
 
 {% block title %}
-  {{ class.name }} - Fitness Class Detail
+  {{ fit_classdetail.name }} Class
 {% endblock %}
 
 {% block content %}
   <a class="back font3" href="{% url 'class' %}">Back</a>
   <form method="" action="">
     <div class="class-detail">
-      <a class="edit-class font3" href="{% url 'edit-class' %}">Edit</a>
-      <a class="delete-class font3" href="">Delete</a>
-      <h1 style="margin-bottom: 30px;">Class Name: {{ fit_classdetail.name }}</h1>
-      {% for cat in fit_classdetail.categories %}
-        <p>Category: {{ cat.name }}</p>
-      {% endfor %}
-      <p>Trainer:</p>
-      <p>Description: {{ fit_classdetail.description }}</p>
-      <p>Start time:</p>
-      <p>End time:</p>
-      <p>Remaining capacity:</p>
+      <a class="edit-class btn-warning font3" href="{% url 'edit-class' fit_classdetail.pk %}">Edit</a>
+      <a class="delete-class btn-danger font3" href="{% url 'delete-class' fit_classdetail.pk %}">Delete</a>
+      <h1 style="margin-bottom: 30px;"><b>Class Name:</b> {{ fit_classdetail.name }}</h1>
+      <p><b>Category:</b> {{ category.name }}</p>
+      <p><b>Trainer:</b> {{ trainer.first_name }} {{ trainer.last_name }}</p>
+      <p><b>Description:</b> {{ fit_classdetail.description }}</p>
+      <p><b>Start time:</b> {{fit_classdetail.start_time}}</p>
+      <p><b>End time:</b> {{fit_classdetail.end_time}}</p>
+      <p><b>Remaining capacity:</b> {{fit_classdetail.max_capacity}}</p>
       <button class="signup-btn font3">Sign Up for Class</button>
     </div>
   </form>
