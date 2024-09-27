@@ -69,7 +69,7 @@ class RegistrationMemberForm(forms.ModelForm):
 
 
 
-class CreateClassForm(forms.ModelForm):
+class ClassForm(forms.ModelForm):
     categories = forms.ModelChoiceField(queryset=Category.objects.all(), widget=forms.Select(attrs={'class': 'cat'}))
     start_time = forms.DateTimeField(initial=datetime.now(), widget=DateTimeInput(format='%Y-%m-%d %H:%M', attrs={'type': 'datetime-local', 'class': 'input-detail'}))
     end_time = forms.DateTimeField(initial=datetime.now(), widget=DateTimeInput(format='%Y-%m-%d %H:%M', attrs={'type': 'datetime-local', 'class': 'input-detail'}))
@@ -83,3 +83,9 @@ class CreateClassForm(forms.ModelForm):
             'description': forms.Textarea(attrs={'class': 'input-detail', 'style': 'width:100%;'}),
             'max_capacity': forms.NumberInput(attrs={'class': 'input-detail'})
         }
+
+
+class AdminMembershipForm(forms.ModelForm):
+    class Meta:
+        model = Membership
+        fields = ('name', 'description', 'duration', 'price')

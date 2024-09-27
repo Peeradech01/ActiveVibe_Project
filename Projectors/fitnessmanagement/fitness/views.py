@@ -13,7 +13,7 @@ from django import forms
 from fitness.models import *
 from .forms import LoginForm
 from django.contrib.auth.models import Group
-from .forms import LoginForm, EditProfileForm, RegistrationForm, CreateClassForm, RegistrationMemberForm
+from .forms import LoginForm, EditProfileForm, RegistrationForm, ClassForm, RegistrationMemberForm, AdminMembershipForm
 
 # Index page
 class IndexView(View):
@@ -114,12 +114,12 @@ class FitnessClassDetailView(LoginRequiredMixin, View):
 class EditFitnessClassView(LoginRequiredMixin, View):
     def get(self, request, pk):
         fit_classdetail = FitnessClass.objects.get(pk=pk)
-        form = CreateClassForm(instance=fit_classdetail)
+        form = ClassForm(instance=fit_classdetail)
         context = {'fit_classdetail':fit_classdetail,'form': form}
         return render(request, 'user/edit_class.html', context)
     
     def post(self, request, pk):
-        form = CreateClassForm(request.POST, instance=FitnessClass.objects.get(pk=pk))
+        form = ClassForm(request.POST, instance=FitnessClass.objects.get(pk=pk))
         if form.is_valid:
             form.save()
             return redirect('class-detail', pk=pk)
@@ -130,12 +130,12 @@ class EditFitnessClassView(LoginRequiredMixin, View):
 #Create fitness class form
 class CreateFitnessClassView(LoginRequiredMixin, View):
     def get(self, request):
-        form = CreateClassForm()
+        form = ClassForm()
         context = {'form': form}
         return render(request, 'user/create_class.html', context)
 
     def post(self, request):
-        form = CreateClassForm(request.POST)
+        form = ClassForm(request.POST)
         if form.is_valid():
             trainer = request.user.pk
             form.instance.trainer_id = trainer
@@ -261,7 +261,18 @@ class ManageClassView(LoginRequiredMixin, View):
 # Manage create membership
 class CreateMembershipView(LoginRequiredMixin, View):
     def get(self, request):
-        return render(request, 'admin/create_membership.html')
+        form = AdminMembershipForm()
+        context = {'form':form}
+        return render(request, 'admin/create_membership.html', context)
+    def post(self, request):
+        form = AdminMembershipForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('manage-membership')
+        else:
+            context = {'form': form}
+            return render(request, 'admin/create_membership.html', context)
+
 
 # Manage edit membership
 class EditMembershipView(LoginRequiredMixin, View):

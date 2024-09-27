@@ -9,7 +9,7 @@ Manage user
 {% block content %}
     <h1  class="content-h1 font1">User list</h1>
     <div class="centered-div">
-        <h2 style="float: left" class="font1">Total: {{ user_list|length }}</h2>
+        <h2 style="float: left" class="font1 mb-5">Total: {{ user_list|length }}</h2>
         <form style="float: right;" id="groupform" method="post" action="{% url 'manage-user' %}">
             {% csrf_token %}
             <select style="font-size: 1.2rem;" class="select-role" name="role" id="role" required>
@@ -49,7 +49,8 @@ Manage user
                             </td>
                             <td>{{ user.date_joined|date:"j M. Y, H:i" }}</td>
                             <td style="text-align: center;">
-                                <a href="{% url 'delete-user' user.pk %}" class="btn btn-danger btn-sm" style="font-size: 20px;"><ion-icon name="trash-outline"></ion-icon>  </a>
+                                <!-- delete -->
+                                <a href="{% url 'delete-user' user.pk %}" class="btn btn-danger btn-sm" style="font-size: 20px;"><ion-icon name="trash-outline"></ion-icon></a> 
                             </td>
                         </tr>
                     {% endfor %}
