@@ -107,7 +107,7 @@
     <div class="content font3">
         <nav>
             <a style="float: right; padding: 10px 20px; text-decoration: none;" class="log-btn" href="{% url 'logout' %}">Logout</a>
-            <a style="float: right; padding: 10px 40px;">{{ user.username }}</a>
+            <a style="float: right; padding: 10px 40px;">{{ request.user.username }}</a>
         </nav>
     {% block content %}{% endblock %}
     </div>
