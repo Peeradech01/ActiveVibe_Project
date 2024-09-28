@@ -7,7 +7,7 @@ Manage Category
 {% endblock %}
 
 {% block content %}
-    <h1  class="content-h1 font1">Category list <a href="{% url 'create-category' %}" class="btn btn-success ms-5 ps-4 pe-4 p-3 font3" style="font-size: 20px;">Create</a></h1>
+    <h1  class="content-h1 font1">Category list <a href="{% url 'create-category' %}" class="btn btn-success ms-5 ps-4 pe-4 p-3 font3" style="font-size: 1.2rem;">Create</a></h1>
     
     <div class="centered-div">
         <h2 style="float: left" class="font1 mb-5">Total: {{ category_list|length }}</h2>
@@ -25,8 +25,8 @@ Manage Category
                     <td>{{ cat.name }}</td>
                     <td>{{ cat.bmi }}</td>
                     <td style="text-align: center;">
-                        <a href="{% url 'edit-category' cat.id %}" class="btn btn-warning ms-4 ps-3 pe-3 p-2 font3" style="font-size: 20px;"><ion-icon name="create-outline"></ion-icon></a>
-                        <a href="{% url 'delete-category' cat.id %}" class="btn btn-danger ms-4 ps-3 pe-3 p-2 font3" style="font-size: 20px;"><ion-icon name="trash-outline"></ion-icon></a>
+                        <a href="{% url 'edit-category' cat.id %}" class="btn btn-warning ms-4 ps-3 pe-3 p-2 font3" style="font-size: 1.2rem;"><ion-icon name="create-outline"></ion-icon></a>
+                        <a href="{% url 'delete-category' cat.id %}" class="btn btn-danger ms-4 ps-3 pe-3 p-2 font3" style="font-size: 1.2rem;"><ion-icon name="trash-outline"></ion-icon></a>
                     </td>
                 </tr>
                 {% endfor %}

@@ -91,10 +91,10 @@ class AdminMembershipForm(forms.ModelForm):
         fields = ('name', 'description', 'duration', 'price')
 
         widgets = {
-            'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'name': forms.TextInput(attrs={'class': 'form-control', 'style': 'font-size: 1.5rem;'}),
             'description': forms.Textarea(attrs={'class': 'form-control', 'style': 'width:100%;'}),
-            'duration': forms.TextInput(attrs={'class': 'form-control'}),
-            'price': forms.NumberInput(attrs={'class': 'form-control'})
+            'duration': forms.NumberInput(attrs={'class': 'form-control', 'style': 'font-size: 1.5rem;'}),
+            'price': forms.NumberInput(attrs={'class': 'form-control', 'style': 'font-size: 1.5rem;'})
         }
 
 
@@ -104,6 +104,6 @@ class AdminCategoryForm(forms.ModelForm):
         fields = ('name', 'bmi')
 
         widgets = {
-            'name': forms.TextInput(attrs={'class': 'form-control'}),
-            'bmi': forms.NumberInput(attrs={'class': 'form-control'})
+            'name': forms.TextInput(attrs={'class': 'form-control', 'style': 'font-size: 1.5rem;'}),
+            'bmi': forms.NumberInput(attrs={'class': 'form-control', 'style': 'font-size: 1.5rem;'})
         }

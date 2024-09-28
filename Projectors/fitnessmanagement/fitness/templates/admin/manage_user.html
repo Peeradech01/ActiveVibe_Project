@@ -50,7 +50,7 @@ Manage user
                             <td>{{ user.date_joined|date:"j M. Y, H:i" }}</td>
                             <td style="text-align: center;">
                                 <!-- delete -->
-                                <a href="{% url 'delete-user' user.pk %}" class="btn btn-danger btn-sm" style="font-size: 20px;"><ion-icon name="trash-outline"></ion-icon></a> 
+                                <a href="{% url 'delete-user' user.pk %}" class="btn btn-danger btn-sm" style="font-size: 1.2rem;"><ion-icon name="trash-outline"></ion-icon></a> 
                             </td>
                         </tr>
                     {% endfor %}
