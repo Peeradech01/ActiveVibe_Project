@@ -150,6 +150,8 @@ class DeleteFitnessClassView(LoginRequiredMixin, View):
     def get(self, request, pk):
         fit_classdetail = FitnessClass.objects.get(pk=pk)
         fit_classdetail.delete()
+        if request.user.is_staff:
+            return redirect('manage-class')
         return redirect('class')
 
 #Userprofile page
