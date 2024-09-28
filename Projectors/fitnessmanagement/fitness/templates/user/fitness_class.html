@@ -10,16 +10,27 @@ Fitness Class
 <div class="class-box">
     <div class="search font3">
         <a href="{% url 'create-class' %}" class="creat-class">Create</a>
-        <form method="get" action="{% url 'class' %}">
-            <input class="input-class" type="text" name="q" placeholder="Search for a class">
+        <form method="post" action="{% url 'class' %}">
+            {% csrf_token %}
+            <input class="input-class" type="text" name="q" placeholder="Search for a class" list="class-suggestions" id="search-input">
+            <datalist id="class-suggestions">
+                {% for class in fit_class %}
+                    <option value="{{ class.name }}">{{ class.name }}</option>
+                {% endfor %}
+            </datalist>
             <input class="input-class hover-butt" type="submit" value="Search">
         </form>
-        <form id="categoryform" method="get"  action="{% url 'class' %}">
+        <form id="categoryform" method="post"  action="{% url 'class' %}">
+            {% csrf_token %}
             <select class="select-cat" name="category" id="category" required>
-                <option value="">Select Class Category </option>
+                <option value="">-- Select Categoy --</option>
+                {% for category in category_list %}
+                    <option value="{{ category.name }}" {% if category.name == select_category %}selected{% endif %}>{{ category.name }}</option>
+                {% endfor %}
             </select>
         </form>
-        <form method="get"  action="{% url 'class' %}">
+        <form method="post"  action="{% url 'class' %}">
+            {% csrf_token %}
             <input class="input-bmi-class" type="number" name="height" id="height" placeholder="Enter your height.">
             <input class="input-bmi-class" type="number" name="weight" id="weight" placeholder="Enter your weight.">
             <input class="input-class hover-butt" type="submit" value="Calcute BMI">
@@ -27,13 +38,17 @@ Fitness Class
     </div>
     <div>
         <div class="card-row2">
-            {% for class in fit_class %}
-                <div class="card-class font3">
-                    <h1 class="font1">{{ class.name }}</h1>
-                    <h2>Max capacity: {{ class.max_capacity }}</h2>
-                    <a href="{% url 'class-detail' class.pk %}">View Class</a>
-                </div>
-            {% endfor %}
+            {% if fit_class %}
+                {% for class in fit_class %}
+                    <div class="card-class font3">
+                        <h1 class="font1">{{ class.name }}</h1>
+                        <h2>Max capacity: {{ class.max_capacity }}</h2>
+                        <a href="{% url 'class-detail' class.pk %}">View Class</a>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <h1 style="margin: 0 auto; color: white;">No class provided.</h1>
+            {% endif %}
         </div>
     </div>
 </div>

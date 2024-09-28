@@ -458,6 +458,7 @@ input[type="tel"] {
     margin: 30px 50px;
     padding: 30px;
     backdrop-filter: blur(20px);
+    -webkit-user-select: none;
 }
 
 .card-row1 {
@@ -548,6 +549,7 @@ input[type="tel"] {
     font-size: 1.5rem;
     width: 100%;
     justify-content: right;
+    -webkit-user-select: none;
 }
 
 .input-class {
@@ -777,6 +779,7 @@ input::-webkit-inner-spin-button {
     width: 50%;
     border-radius: 10px;
     border: 1px solid orangered;
+    -webkit-user-select: none;
 }
 
 .class-detail h1 {
@@ -849,7 +852,7 @@ input::-webkit-inner-spin-button {
     background-color: orangered;
     color: white;
     border-radius: 5px;
-    margin-right: 520px;
+    margin-right: 560px;
     text-decoration: none;
     transition: 0.3s;
 }

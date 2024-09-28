@@ -92,14 +92,48 @@ class MembershipFormView(LoginRequiredMixin, View):
         print(user) 
         return render(request, 'user/membership_form.html')
 
-
-#Fitnes class page
+# Fitness class page
 class FitnessClassView(LoginRequiredMixin, View):
     def get(self, request):
         fit_class = FitnessClass.objects.all()
-        context = {'fit_class':fit_class}
+        categories = Category.objects.all()
+        context = {'fit_class': fit_class, 'category_list': categories}
         return render(request, 'user/fitness_class.html', context)
 
+    def post(self, request):
+        fit_class = FitnessClass.objects.all()
+        select_category = request.POST.get('category')
+        search_query = request.POST.get('q')
+        height = request.POST.get('height')
+        weight = request.POST.get('weight')
+        categories = Category.objects.all()
+        if height and weight:
+            bmi = float(weight) / (float(height) / 100) ** 2
+            if select_category:
+                category = Category.objects.get(name=select_category)
+                if search_query:
+                    fit_class = FitnessClass.objects.filter(categories__name=select_category, name__icontains=search_query, categories__bmi__lte=bmi)
+                else:
+                    fit_class = FitnessClass.objects.filter(categories__name=select_category, categories__bmi__lte=bmi)
+            else:
+                if search_query:
+                    fit_class = FitnessClass.objects.filter(name__icontains=search_query, categories__bmi__lte=bmi)
+                else:
+                    fit_class = FitnessClass.objects.filter(categories__bmi__lte=bmi)
+        elif select_category:
+            if search_query:
+                fit_class = FitnessClass.objects.filter(categories__name=select_category, name__icontains=search_query)
+            else:
+                fit_class = FitnessClass.objects.filter(categories__name=select_category)
+        else:
+            if search_query:
+                fit_class = FitnessClass.objects.filter(name__icontains=search_query)
+            else:
+                fit_class = FitnessClass.objects.all()
+        context = {'fit_class': fit_class, 'category_list': categories, 'select_category': select_category}
+        if height and weight:
+            context['bmi'] = bmi
+        return render(request, 'user/fitness_class.html', context)
 
 #Fitness class detail page
 class FitnessClassDetailView(LoginRequiredMixin, View):
