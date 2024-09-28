@@ -71,6 +71,7 @@ class RegisterFormView(View):
         else:
             context = {'form': form}
             return render(request, 'authen/register_form.html', context)
+        
 #Membership page
 class MembershipView(LoginRequiredMixin, View):
     def get(self, request):
