@@ -315,7 +315,6 @@ class CreateMembershipView(LoginRequiredMixin, View):
             context = {'form': form}
             return render(request, 'admin/create_membership.html', context)
 
-
 # Manage edit membership
 class EditMembershipView(LoginRequiredMixin, View):
     def get(self, request, pk):
@@ -340,7 +339,6 @@ class DeleteMembershipView(LoginRequiredMixin, View):
         membership = Membership.objects.get(pk=pk)
         membership.delete()
         return redirect('manage-membership')
-
 
 # Manage create category
 class CreateCategoryView(LoginRequiredMixin, View):
@@ -381,7 +379,6 @@ class DeleteCategoryView(LoginRequiredMixin, View):
         category.delete()
         return redirect('manage-category')
     
-
 # Manage Deletee class
 class DeleteClassView(LoginRequiredMixin, View):
     def get(self, request, pk):
