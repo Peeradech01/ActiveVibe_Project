@@ -90,8 +90,20 @@ class AdminMembershipForm(forms.ModelForm):
         model = Membership
         fields = ('name', 'description', 'duration', 'price')
 
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'style': 'width:100%;'}),
+            'duration': forms.TextInput(attrs={'class': 'form-control'}),
+            'price': forms.NumberInput(attrs={'class': 'form-control'})
+        }
+
 
 class AdminCategoryForm(forms.ModelForm):
     class Meta:
         model = Category
         fields = ('name', 'bmi')
+
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'bmi': forms.NumberInput(attrs={'class': 'form-control'})
+        }
