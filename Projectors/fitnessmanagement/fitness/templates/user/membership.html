@@ -17,7 +17,7 @@ Membership
                     <p>{{ i.description }}</p>
                     <p class="font3" style="float: right">Membership price: <b class="font2">{{ i.price }}</b></p>
                 </div>
-                <a href="{% url 'membership_form' %}" class="btn-mem">Subscribed</a>
+                <a href="{% url 'membership_form' i.pk %}" class="btn-mem">Subscribed</a>
             </div>
         </div>
         {% endfor %}

@@ -14,7 +14,7 @@ import random
 from fitness.models import *
 from .forms import LoginForm
 from django.contrib.auth.models import Group
-from .forms import LoginForm, EditProfileForm, RegistrationForm, ClassForm, RegistrationMemberForm, AdminMembershipForm, AdminCategoryForm
+from .forms import LoginForm, EditProfileForm, RegistrationForm, ClassForm, AdminMembershipForm, AdminCategoryForm, UserForm, PersonalForm
 
 # Index page
 class IndexView(View):
@@ -88,17 +88,66 @@ class MembershipView(LoginRequiredMixin, View):
 
 #Membership form
 class MembershipFormView(LoginRequiredMixin, View):
-    def get(self, request):
-        form = RegistrationMemberForm()
-        context = {'form':form}
+    def get(self, request, pk):
+        membership = Membership.objects.get(pk=pk)
+        form = UserForm()
+        personal_form = PersonalForm()    
+        context = {'form':form, 'personal_form':personal_form, 'pk':pk, 'membership':membership}
         print('this method get')
         return render(request, 'user/membership_form.html', context)
-    def post(self, request):
-        print("this method post")
-        form = RegistrationMemberForm(request.POST)
-        user = form.save()
-        print(user) 
-        return render(request, 'user/membership_form.html')
+    
+    def post(self, request, pk):
+        form = UserForm(request.POST, instance=request.user)
+        new_personal = False
+        try:
+            # update
+            personal_form = PersonalForm(request.POST, instance=request.user.personalinfo)
+            print('update customer')
+        except PersonalInfo.DoesNotExist:
+            # create
+            print('does not exit')
+            personal_form = PersonalForm(request.POST)
+            new_personal = True
+
+
+        if form.is_valid() and personal_form.is_valid():
+            user = form.save()
+
+            if new_personal:
+                # create
+                personal_info = personal_form.save(commit=False)
+                personal_info.user = user
+                personal_info.customer_id = request.user.id
+                personal_info.save()
+                print('new_personal')
+            else:
+                # update
+                personal_form.save()
+                print('update_personal')
+
+
+            # get membership
+            membership = Membership.objects.get(pk=pk)
+            
+            # if user เคยลง membership อยู่แล้ว 
+            try:
+                # Check if CustomerMembership exists using get()
+                customer_membership = CustomerMembership.objects.get(customer=user)
+                print(f'customer : {customer_membership}')
+
+                messages.error(request, "You already have a membership.")
+                return redirect('membership')  # Redirect or render template as needed
+            except CustomerMembership.DoesNotExist:
+                # Create new CustomerMembership if not exists
+                CustomerMembership.objects.create(
+                    customer=user,
+                    membership=membership
+                )
+                messages.success(request, "Membership created successfully.")
+                return redirect('membership')
+        else:
+            context = {'form': form, 'personal_form': personal_form, 'pk': pk}
+            return render(request, 'user/membership_form.html', context)
 
 # Fitness class page
 class FitnessClassView(LoginRequiredMixin, View):

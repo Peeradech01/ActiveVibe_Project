@@ -50,25 +50,6 @@ class RegistrationForm(UserCreationForm):
         model = User
         fields = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2', 'role']
 
-class RegistrationMemberForm(forms.ModelForm):
-    first_name = forms.CharField(max_length=30)
-    last_name = forms.CharField(max_length=30)
-    email = forms.EmailField()
-    phone = forms.CharField(max_length=10)
-    start_date = forms.DateTimeField(widget=forms.DateInput(attrs={'type':'date'}))
-    duration = forms.ChoiceField(choices=[
-        ('1_month', '1 Month'),
-        ('3_months', '3 Months'),
-        ('6_months', '6 Months'),
-        ('1_year', '1 Year')
-    ])
-
-    class Meta:
-        model = User
-        fields = ['first_name', 'last_name', 'email', 'phone', 'start_date', 'duration']
-
-
-
 class ClassForm(forms.ModelForm):
     categories = forms.ModelChoiceField(queryset=Category.objects.all(), widget=forms.Select(attrs={'class': 'cat'}))
     start_time = forms.DateTimeField(initial=datetime.now(), widget=DateTimeInput(format='%Y-%m-%d %H:%M', attrs={'type': 'datetime-local', 'class': 'input-detail'}))
@@ -88,7 +69,7 @@ class ClassForm(forms.ModelForm):
 class AdminMembershipForm(forms.ModelForm):
     class Meta:
         model = Membership
-        fields = ('name', 'description', 'duration', 'price')
+        fields = ['name', 'description', 'duration', 'price']
 
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control', 'style': 'font-size: 1.5rem;'}),
@@ -101,9 +82,44 @@ class AdminMembershipForm(forms.ModelForm):
 class AdminCategoryForm(forms.ModelForm):
     class Meta:
         model = Category
-        fields = ('name', 'bmi')
+        fields = ['name', 'bmi']
 
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control', 'style': 'font-size: 1.5rem;'}),
             'bmi': forms.NumberInput(attrs={'class': 'form-control', 'style': 'font-size: 1.5rem;'})
         }
+    
+# class RegistrationMemberForm(forms.ModelForm):
+#     first_name = forms.CharField(max_length=30)
+#     last_name = forms.CharField(max_length=30)
+#     email = forms.EmailField()
+#     start_date = forms.DateTimeField(widget=forms.DateInput(attrs={'type':'date'}))
+#     duration = forms.ChoiceField(choices=[
+#         ('1_month', '1 Month'),
+#         ('3_months', '3 Months'),
+#         ('6_months', '6 Months'),
+#         ('1_year', '1 Year')
+#     ])
+
+#     class Meta:
+#         model = User
+#         fields = ['first_name', 'last_name', 'email', 'start_date', 'duration']
+
+
+# model auth_user 
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'email'] 
+
+# model PersonalInfo
+class PersonalForm(forms.ModelForm):
+    duration = forms.ChoiceField(choices=[
+        ('1_month', '1 Month'),
+        ('3_months', '3 Months'),
+        ('6_months', '6 Months'),
+        ('1_year', '1 Year')
+    ])
+    class Meta:
+        model = PersonalInfo
+        fields = ['phone', 'duration']
