@@ -20,7 +20,10 @@ from .forms import LoginForm, EditProfileForm, RegistrationForm, ClassForm, Regi
 class IndexView(View):
     def get(self, request):
         fitness_classes = FitnessClass.objects.all()
-        random_classes = random.sample(list(fitness_classes), 3)
+        if len(fitness_classes) >= 3:
+            random_classes = random.sample(list(fitness_classes), 3)
+        else:
+            random_classes = list(fitness_classes)    
         context = {'random_classes': random_classes}
         return render(request, 'user/index.html', context)
 
