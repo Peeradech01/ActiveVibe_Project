@@ -140,7 +140,8 @@ h1>span {
     font-size: 1.5rem;
 }
 
-.card-body button {
+.card-body a {
+    text-decoration: none;
     padding: 10px 15px;
     border-radius: 10px;
     font-size: 1.5rem;
@@ -151,7 +152,7 @@ h1>span {
     border: 3px solid black;
 }
 
-.card-body button:hover {
+.card-body a:hover {
     background-color: orange;
     color: white;
     transition: 0.3s;

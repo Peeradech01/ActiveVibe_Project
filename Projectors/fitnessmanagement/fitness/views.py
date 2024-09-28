@@ -10,6 +10,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
+import random
 from fitness.models import *
 from .forms import LoginForm
 from django.contrib.auth.models import Group
@@ -18,7 +19,10 @@ from .forms import LoginForm, EditProfileForm, RegistrationForm, ClassForm, Regi
 # Index page
 class IndexView(View):
     def get(self, request):
-        return render(request, 'user/index.html')
+        fitness_classes = FitnessClass.objects.all()
+        random_classes = random.sample(list(fitness_classes), 3)
+        context = {'random_classes': random_classes}
+        return render(request, 'user/index.html', context)
 
 #Login form
 class LoginFormView(View):
@@ -140,9 +144,7 @@ class FitnessClassView(LoginRequiredMixin, View):
 class FitnessClassDetailView(LoginRequiredMixin, View):
     def get(self, request, pk):
         fit_classdetail = FitnessClass.objects.get(pk=pk)
-        trainer_name = User.objects.get(pk=fit_classdetail.trainer_id)
-        category_name = Category.objects.get(pk=fit_classdetail.categories_id)
-        context = {'fit_classdetail':fit_classdetail, 'trainer': trainer_name, 'category': category_name}
+        context = {'fit_classdetail':fit_classdetail}
         return render(request, 'user/class_detail.html', context)
 
 #Edit fitness class form

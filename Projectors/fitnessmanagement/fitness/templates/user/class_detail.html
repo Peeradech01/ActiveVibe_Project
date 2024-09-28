@@ -13,8 +13,8 @@
       <a class="edit-class btn-warning font3" href="{% url 'edit-class' fit_classdetail.pk %}">Edit</a>
       <a class="delete-class btn-danger font3" href="{% url 'delete-class' fit_classdetail.pk %}">Delete</a>
       <h1 style="margin-bottom: 30px;"><b>Class Name:</b> {{ fit_classdetail.name }}</h1>
-      <p><b>Category:</b> {{ category.name }}</p>
-      <p><b>Trainer:</b> {{ trainer.first_name }} {{ trainer.last_name }}</p>
+      <p><b>Category:</b> {{ fit_classdetail.categories.name }}</p>
+      <p><b>Trainer:</b> {{ fit_classdetail.trainer.first_name }} {{ fit_classdetail.trainer.last_name }}</p>
       <p><b>Description:</b> {{ fit_classdetail.description }}</p>
       <p><b>Start time:</b> {{fit_classdetail.start_time}}</p>
       <p><b>End time:</b> {{fit_classdetail.end_time}}</p>
