@@ -30,7 +30,7 @@ Manage Class
                     <td>{{ class.start_time }}</td>
                     <td>{{ class.end_time }}</td>
                     <td style="text-align: center;">
-                        <a href="" class="btn btn-danger" style="font-size: 20px;"><ion-icon name="trash-outline"></ion-icon></a>
+                        <a href="{% url 'delete-class' class.id %}" class="btn btn-danger" style="font-size: 20px;"><ion-icon name="trash-outline"></ion-icon></a>
                     </td>
                 </tr>
                 {% endfor %}

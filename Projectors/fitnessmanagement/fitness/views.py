@@ -340,3 +340,9 @@ class DeleteCategoryView(LoginRequiredMixin, View):
         return redirect('manage-category')
     
 
+# Manage Deletee class
+class DeleteClassView(LoginRequiredMixin, View):
+    def get(self, request, pk):
+        class_del = FitnessClass.objects.get(pk=pk)
+        class_del.delete()
+        return redirect('manage-class')
