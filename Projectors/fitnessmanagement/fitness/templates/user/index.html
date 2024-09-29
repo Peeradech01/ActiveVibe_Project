@@ -31,7 +31,7 @@
         <h1 class="word font1">Recommended Class</h1>
         {% for class in random_classes %}
         <div class="card">
-            <div class="card-body">
+            <div class="card-body" onclick="location.href='{% url 'class-detail' class.pk %}'">
                 <h2 class="font1">{{ class.name }}</h2>
                 <p><b>Category:</b> {{ class.categories.name }}</p>
                 <p><b>Trainer:</b> {{ class.trainer.first_name }} {{ class.trainer.last_name }}</p>

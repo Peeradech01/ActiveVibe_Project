@@ -129,6 +129,7 @@ h1>span {
 
 .card:hover {
     box-shadow: 0 0 30px rgba(255, 255, 255, 1);
+    transform: scale(1.02);
     transition: 0.5s;
 }
 
@@ -149,7 +150,6 @@ h1>span {
     background-color: orangered;
     color: white;
     transition: 0.3s;
-    border: 3px solid black;
 }
 
 .card-body a:hover {
@@ -280,12 +280,13 @@ input[type="password"] {
 .left-form {
     float: left;
     width: 50%;
+    margin-top: 100px;
 }
 
 .left-form h1 {
     color: orangered;
     font-size: 7rem;
-    padding: 50px;
+    padding: 30px 50px;
     text-shadow: -2px 2px 0 #000, 2px 2px 0 #000, 2px -2px 0 #000, -2px -2px 0 #000;
 }
 
@@ -331,7 +332,8 @@ input[type="password"] {
 
 .form-mem a {
     text-decoration: none;
-    color: orangered;
+    font-size: 1.7rem;
+    padding: 10px 20px;
 }
 
 .form-mem input[type="checkbox"] {
@@ -367,6 +369,7 @@ input[type="tel"] {
     padding: 10px 20px;
     font-size: 1.7rem;
     border-radius: 10px;
+    border: none;
 }
 
 .form-mem input[type="submit"]:hover {
@@ -454,12 +457,16 @@ input[type="tel"] {
 .card-row2 {
     display: flex;
     flex-wrap: wrap;
-    gap: 30px;
+    gap: 50px;
     justify-content: first baseline;
     margin: 30px 50px;
     padding: 30px;
     backdrop-filter: blur(20px);
     -webkit-user-select: none;
+}
+
+.card-row2 a {
+    text-decoration: none;
 }
 
 .card-row1 {
@@ -486,7 +493,6 @@ input[type="tel"] {
     border-radius: 10px;
     transition: 0.3s;
     font-size: 1.5rem;
-    border: 1px solid black;
     transition: 0.3s;
     color: white;
     background-color: orangered;
@@ -616,14 +622,21 @@ input[type="tel"] {
 }
 
 .card-class {
-    width: 24%;
+    width: 31.9%;
     background-color: #f0f0f0;
     padding: 50px;
     border-radius: 5px;
     height: auto;
+    transition: 0.3s;
 }
 
-.card-class a {
+.card-class:hover {
+    box-shadow: 0 0 20px rgba(255, 255, 255, 1);
+    transform: scale(1.03);
+    transition: 0.3s;
+}
+
+.view-btn {
     float: right;
     padding: 10px 20px;
     font-size: 1.3rem;
@@ -634,7 +647,7 @@ input[type="tel"] {
     text-decoration: none;
 }
 
-.card-class a:hover {
+.view-btn:hover {
     background-color: orange;
     color: white;
     transition: 0.3s;

@@ -12,25 +12,25 @@ User Profile
     }
 </style>
 {% block content %}
-<div class="user-profile">
+<div class="user-profile font3">
     <div class="row">
         <!-- Left Profile Section -->
         <div class="col-md-5">
             <div class="card text-center">
                 <div class="card-body">
-                    <h1 class="card-title">User Profile</h1>
+                    <h1 class="card-title font1">User Profile</h1>
                     <img style="border-radius: 50%; display: block; margin: 20px auto; width: 40%;" src="{% static 'img/icon-profile.jpg' %}" alt="">
                     <h2 class="card-title">{{ user.username }}</h2>
                 </div>
                 <ul class="list-group list-group-flush text-left">
-                    <li class="list-group-item">Full Name: {{ user.first_name }} {{ user.last_name }}</li>
-                    <li class="list-group-item">Email: {{ user.email }}</li>
-                    <li class="list-group-item">Role: 
+                    <li class="list-group-item"><b>Full Name:</b> {{ user.first_name }} {{ user.last_name }}</li>
+                    <li class="list-group-item"><b>Email:</b> {{ user.email }}</li>
+                    <li class="list-group-item"><b>Role:</b> 
                         {% for group in user.groups.all %}
                             <span class="font3">{{ group.name }}</span>
                         {% endfor %}
                     </li>
-                    <li class="list-group-item">Password: ********</li>
+                    <li class="list-group-item"><b>Password:</b> ********</li>
                 </ul>
                 <div class="div-edit-btn">
                     <a href="{% url 'edit_profile' user.pk %}" class="edit-btn" id="edit-btn">Edit</a>
@@ -42,9 +42,13 @@ User Profile
         <!-- Right Profile Form Section -->
         <div class="col-md-7">
             <div class="card mybox">
-                <h2>My Membership</h2>
-                <p>Basic Membership</p>
-                <h2>My Class</h2>
+                <h2 class="font1">My Membership</h2>
+                {% if membership %}
+                    <p>{{ membership.first.membership.name }}</p>
+                {% else %}
+                    <p>Haven't register membership.</p>
+                {% endif %}
+                <h2 class="font1">My Class</h2>
                 <ul class="list-group">
                     <li class="list-group"> 1 </li>
                     <li class="list-group"> 2 </li>

@@ -114,12 +114,6 @@ class UserForm(forms.ModelForm):
 
 # model PersonalInfo
 class PersonalForm(forms.ModelForm):
-    duration = forms.ChoiceField(choices=[
-        ('1_month', '1 Month'),
-        ('3_months', '3 Months'),
-        ('6_months', '6 Months'),
-        ('1_year', '1 Year')
-    ])
     class Meta:
         model = PersonalInfo
-        fields = ['phone', 'duration']
+        fields = ['phone']

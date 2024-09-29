@@ -8,6 +8,7 @@ Membership Form
 
 {% block content %}
 <div class="mem">
+    <a class="back font3" href="{% url 'membership'%}">Back</a>
     <div class="left-form img-form font1">
         <h1>Active<span>Vibe®</span></h1>
         <img src="{%static 'img/badge.png'%}" alt="">
@@ -18,8 +19,8 @@ Membership Form
             {% csrf_token %}
             
             <label>
-                {{membership.name}}
-            </label><br>
+                Membership: {{membership.name}}
+            </label><br><br>
             
             {% for field in form %}
                 <label>{{ field.label }}:</label><br>                
@@ -32,7 +33,9 @@ Membership Form
                 {{ field }}<br>
             {% endfor %}
 
-    
+            <label>
+                Duration: {{membership.duration_display}}
+            </label><br><br>
             <br>
             <input type="submit" value="Submit">
         </form>

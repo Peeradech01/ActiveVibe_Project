@@ -90,6 +90,10 @@ class MembershipView(LoginRequiredMixin, View):
 class MembershipFormView(LoginRequiredMixin, View):
     def get(self, request, pk):
         membership = Membership.objects.get(pk=pk)
+        if membership.duration >= 12:
+            membership.duration_display = f"{membership.duration // 12} year"
+        else:
+            membership.duration_display = f"{membership.duration} month"
         form = UserForm()
         personal_form = PersonalForm()    
         context = {'form':form, 'personal_form':personal_form, 'pk':pk, 'membership':membership}
@@ -124,7 +128,6 @@ class MembershipFormView(LoginRequiredMixin, View):
                 # update
                 personal_form.save()
                 print('update_personal')
-
 
             # get membership
             membership = Membership.objects.get(pk=pk)
@@ -243,10 +246,12 @@ class DeleteFitnessClassView(LoginRequiredMixin, View):
             return redirect('manage-class')
         return redirect('class')
 
-#Userprofile page
+# UserProfile page
 class UserProfileView(LoginRequiredMixin, View):
     def get(self, request, pk):
-        return render(request, 'user/userprofile.html')
+        membership = CustomerMembership.objects.filter(customer=pk)
+        context = {'membership': membership}
+        return render(request, 'user/userprofile.html', context)
 
 #Edit userprofile form
 class EditProfileView(LoginRequiredMixin, View):
