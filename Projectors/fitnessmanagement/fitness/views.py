@@ -203,6 +203,9 @@ class FitnessClassDetailView(LoginRequiredMixin, View):
         is_trainer = request.user.groups.filter(name="Trainer")
         context = {'fit_classdetail':fit_classdetail, 'is_trainer':is_trainer}
         return render(request, 'user/class_detail.html', context)
+    
+    def post(self, request, pk):
+        return redirect('class')
 
 #Edit fitness class form
 class EditFitnessClassView(LoginRequiredMixin, View):
