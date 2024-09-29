@@ -8,6 +8,21 @@ Membership
 {% block content %}
 <div class="mem-box font3">
     <div class="row justify-content-start">
+
+        {% if messages %}
+            <div>
+                {% for message in messages %}
+                    {% if 'membership_registration' in message.tags %}
+
+                    <div class="alert alert-success font3">
+                        <label style="font-size: 1.2rem;">{{ message }}</label>
+                    </div>
+                        
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endif %}
+
         {% for i in member %}
         <div class="col-md-4 d-flex">
             <div class="card flex-fill">

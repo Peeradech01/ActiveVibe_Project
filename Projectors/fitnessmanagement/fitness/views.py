@@ -138,15 +138,16 @@ class MembershipFormView(LoginRequiredMixin, View):
                 customer_membership = CustomerMembership.objects.get(customer=user)
                 print(f'customer : {customer_membership}')
 
-                messages.error(request, "You already have a membership.")
-                return redirect('membership')  # Redirect or render template as needed
+                messages.error(request, "You already have a membership.", extra_tags='membership_registration')
+                return redirect('membership_form', pk=pk) 
             except CustomerMembership.DoesNotExist:
                 # Create new CustomerMembership if not exists
                 CustomerMembership.objects.create(
                     customer=user,
                     membership=membership
                 )
-                messages.success(request, "Membership created successfully.")
+                # messages.success(request, "Membership created successfully.")
+                messages.success(request, "You registered membership successfully.", extra_tags='membership_registration')
                 return redirect('membership')
         else:
             context = {'form': form, 'personal_form': personal_form, 'pk': pk}
