@@ -14,6 +14,21 @@
       <a class="delete-class btn-danger font3" href="{% url 'delete-class' fit_classdetail.pk %}">Delete</a>
     {% endif %}
 
+    {% if messages %}
+      <div>
+          {% for message in messages %}
+              {% if 'class_registration' in message.tags %}
+
+              <div class="alert alert-danger font3">
+                <label style="font-size: 1.2rem;">{{ message }}</label>
+              </div>
+                  
+              {% endif %}
+          {% endfor %}
+      </div>
+    {% endif %}
+
+
     <form method="post" action="{% url 'class-detail' fit_classdetail.pk %}">
       {% csrf_token %}
       <h1 style="margin-bottom: 30px;"><b>Class Name:</b> {{ fit_classdetail.name }}</h1>

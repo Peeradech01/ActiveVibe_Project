@@ -8,6 +8,20 @@ Fitness Class
 
 {% block content %}
 <div class="class-box">
+    {% if messages %}
+        <div>
+            {% for message in messages %}
+                {% if 'class_registration_success' in message.tags %}
+
+                <div class="alert alert-success font3">
+                    <label style="font-size: 1.2rem;">{{ message }}</label>
+                </div>
+        
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
+
     <div class="search font3">
         {% if is_trainer %}
             <a href="{% url 'create-class' %}" class="creat-class">Create</a>

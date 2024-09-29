@@ -205,6 +205,15 @@ class FitnessClassDetailView(LoginRequiredMixin, View):
         return render(request, 'user/class_detail.html', context)
     
     def post(self, request, pk):
+        fit_class = FitnessClass.objects.get(pk=pk)
+        print(fit_class.customer.all())
+        print(request.user)
+        if request.user in fit_class.customer.all():
+            messages.error(request, "You have already registered for this class.", extra_tags='class_registration')
+            return redirect('class-detail', pk=pk)
+        else:
+            fit_class.customer.add(request.user)
+            messages.success(request, "Registration FitnessClass successful.", extra_tags='class_registration_success')
         return redirect('class')
 
 #Edit fitness class form
