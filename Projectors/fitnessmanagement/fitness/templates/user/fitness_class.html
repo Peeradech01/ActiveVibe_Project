@@ -9,7 +9,9 @@ Fitness Class
 {% block content %}
 <div class="class-box">
     <div class="search font3">
-        <a href="{% url 'create-class' %}" class="creat-class">Create</a>
+        {% if is_trainer %}
+            <a href="{% url 'create-class' %}" class="creat-class">Create</a>
+        {% endif %}
         <form method="post" action="{% url 'class' %}">
             {% csrf_token %}
             <input class="input-class" type="text" name="q" placeholder="Search for a class" list="class-suggestions" id="search-input">

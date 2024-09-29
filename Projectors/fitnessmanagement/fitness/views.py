@@ -157,7 +157,8 @@ class FitnessClassView(LoginRequiredMixin, View):
     def get(self, request):
         fit_class = FitnessClass.objects.all()
         categories = Category.objects.all()
-        context = {'fit_class': fit_class, 'category_list': categories}
+        is_trainer = request.user.groups.filter(name='Trainer').exists()
+        context = {'fit_class': fit_class, 'category_list': categories, 'is_trainer':is_trainer}
         return render(request, 'user/fitness_class.html', context)
 
     def post(self, request):
@@ -199,7 +200,8 @@ class FitnessClassView(LoginRequiredMixin, View):
 class FitnessClassDetailView(LoginRequiredMixin, View):
     def get(self, request, pk):
         fit_classdetail = FitnessClass.objects.get(pk=pk)
-        context = {'fit_classdetail':fit_classdetail}
+        is_trainer = request.user.groups.filter(name="Trainer")
+        context = {'fit_classdetail':fit_classdetail, 'is_trainer':is_trainer}
         return render(request, 'user/class_detail.html', context)
 
 #Edit fitness class form
