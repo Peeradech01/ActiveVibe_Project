@@ -265,7 +265,9 @@ class DeleteFitnessClassView(LoginRequiredMixin, View):
 class UserProfileView(LoginRequiredMixin, View):
     def get(self, request, pk):
         membership = CustomerMembership.objects.filter(customer=pk)
-        context = {'membership': membership}
+        customer_class = FitnessClass.objects.filter(customer=request.user)
+        print(customer_class)
+        context = {'membership': membership, 'customer_class': customer_class}
         return render(request, 'user/userprofile.html', context)
 
 #Edit userprofile form

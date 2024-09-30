@@ -49,15 +49,16 @@ User Profile
                     <p>Haven't register membership.</p>
                 {% endif %}
                 <h2 class="font1">My Class</h2>
-                <ul class="list-group">
-                    <li class="list-group"> 1 </li>
-                    <li class="list-group"> 2 </li>
-                    <li class="list-group"> 3 </li>
+                <ul>
+                    {% for class in customer_class %}
+                        <li  class="list-group">{{ class.name }} ({{ class.start_time }} - {{ class.end_time }})</li>
+                    {% empty %}
+                        <li class="list-group">You haven't registered for any classes yet.</li>
+                    {% endfor %}
                 </ul>
             </div>
         </div>
 
-        
     </div>
 </div>
 
