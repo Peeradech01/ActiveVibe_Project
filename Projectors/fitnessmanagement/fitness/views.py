@@ -166,22 +166,36 @@ class FitnessClassView(LoginRequiredMixin, View):
         fit_class = FitnessClass.objects.all()
         select_category = request.POST.get('category')
         search_query = request.POST.get('q')
-        height = request.POST.get('height')
-        weight = request.POST.get('weight')
+        height_info = request.POST.get('height')
+        weight_info = request.POST.get('weight')
         categories = Category.objects.all()
-        if height and weight:
-            bmi = float(weight) / (float(height) / 100) ** 2
+        if height_info and weight_info:
+            bmi_info = float(weight_info) / (float(height_info) / 100) ** 2
+            try:
+                # update
+                info_update = PersonalInfo.objects.get(customer=request.user.pk)
+                info_update.weight = weight_info
+                info_update.height = height_info
+                info_update.bmi = bmi_info
+                info_update.save()
+            except:
+                # create
+                PersonalInfo.objects.create(
+                    customer = request.user, 
+                    height = height_info, 
+                    weight = weight_info, bmi = bmi_info
+                    )
             if select_category:
                 category = Category.objects.get(name=select_category)
                 if search_query:
-                    fit_class = FitnessClass.objects.filter(categories__name=select_category, name__icontains=search_query, categories__bmi__lte=bmi)
+                    fit_class = FitnessClass.objects.filter(categories__name=select_category, name__icontains=search_query, categories__bmi__lte=bmi_info)
                 else:
-                    fit_class = FitnessClass.objects.filter(categories__name=select_category, categories__bmi__lte=bmi)
+                    fit_class = FitnessClass.objects.filter(categories__name=select_category, categories__bmi__lte=bmi_info)
             else:
                 if search_query:
-                    fit_class = FitnessClass.objects.filter(name__icontains=search_query, categories__bmi__lte=bmi)
+                    fit_class = FitnessClass.objects.filter(name__icontains=search_query, categories__bmi__lte=bmi_info)
                 else:
-                    fit_class = FitnessClass.objects.filter(categories__bmi__lte=bmi)
+                    fit_class = FitnessClass.objects.filter(categories__bmi__lte=bmi_info)
         elif select_category:
             if search_query:
                 fit_class = FitnessClass.objects.filter(categories__name=select_category, name__icontains=search_query)
@@ -193,8 +207,6 @@ class FitnessClassView(LoginRequiredMixin, View):
             else:
                 fit_class = FitnessClass.objects.all()
         context = {'fit_class': fit_class, 'category_list': categories, 'select_category': select_category}
-        if height and weight:
-            context['bmi'] = bmi
         return render(request, 'user/fitness_class.html', context)
 
 #Fitness class detail page

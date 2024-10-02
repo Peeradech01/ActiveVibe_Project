@@ -20,7 +20,7 @@ User Profile
                 <div class="card-body">
                     <h1 class="card-title font1">User Profile</h1>
                     <img style="border-radius: 50%; display: block; margin: 20px auto; width: 40%;" src="{% static 'img/icon-profile.jpg' %}" alt="">
-                    <h2 class="card-title">{{ user.username }}</h2>
+                    <h2 class="card-title"><b>User Name:</b> {{ user.username }}</h2>
                 </div>
                 <ul class="list-group list-group-flush text-left">
                     <li class="list-group-item"><b>Full Name:</b> {{ user.first_name }} {{ user.last_name }}</li>
