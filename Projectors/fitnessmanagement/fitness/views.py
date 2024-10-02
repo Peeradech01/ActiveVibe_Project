@@ -214,7 +214,8 @@ class FitnessClassDetailView(LoginRequiredMixin, View):
     def get(self, request, pk):
         fit_classdetail = FitnessClass.objects.get(pk=pk)
         is_trainer = request.user.groups.filter(name="Trainer")
-        context = {'fit_classdetail':fit_classdetail, 'is_trainer':is_trainer}
+        remaining = fit_classdetail.max_capacity - fit_classdetail.customer.count()
+        context = {'fit_classdetail':fit_classdetail, 'is_trainer':is_trainer, 'remaining':remaining}
         return render(request, 'user/class_detail.html', context)
     
     def post(self, request, pk):
