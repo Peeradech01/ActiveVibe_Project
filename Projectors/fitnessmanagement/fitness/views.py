@@ -245,10 +245,14 @@ class EditFitnessClassView(LoginRequiredMixin, PermissionRequiredMixin, View):
     permission_required = 'fitness.change_fitnessclass'
     def get(self, request, pk):
         fit_classdetail = FitnessClass.objects.get(pk=pk)
-        form = ClassForm(instance=fit_classdetail)
-        context = {'fit_classdetail':fit_classdetail,'form': form}
-        return render(request, 'user/edit_class.html', context)
-    
+        if fit_classdetail.trainer == request.user:
+            form = ClassForm(instance=fit_classdetail)
+            context = {'fit_classdetail':fit_classdetail,'form': form}
+            return render(request, 'user/edit_class.html', context)
+        else:
+            messages.error(request, "You don't have permission to edit this class.")
+            return redirect('forbidden')
+        
     def post(self, request, pk):
         form = ClassForm(request.POST, instance=FitnessClass.objects.get(pk=pk))
         if form.is_valid:
@@ -317,7 +321,6 @@ class EditProfileView(LoginRequiredMixin, View):
             context = {'form': form, 'profile_form': profile_form}
             return render(request, 'user/edit_profile.html', context)
         
-
 
 # Change password form
 class Change_PasswordView(LoginRequiredMixin, View):
@@ -487,3 +490,8 @@ class DeleteClassView(LoginRequiredMixin, View):
         class_del = FitnessClass.objects.get(pk=pk)
         class_del.delete()
         return redirect('manage-class')
+
+
+class ForbiddenView(View):
+    def get(self, request):
+        return render(request, '403.html')

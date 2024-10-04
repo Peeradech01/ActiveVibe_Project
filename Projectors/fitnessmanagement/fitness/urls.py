@@ -31,4 +31,7 @@ urlpatterns = [
     path('manage/edit_category/<int:pk>/', EditCategoryView.as_view(), name='edit-category'), # Manage edit category   
     path('manage/delete_category/<int:pk>/', DeleteCategoryView.as_view(), name='delete-category'), # Manage edit category   
     path('manage/delete_class/<int:pk>/', DeleteClassView.as_view(), name='admin-delete-class'), # Manage edit category   
+
+    # 403
+    path('forbidden/', ForbiddenView.as_view(), name='forbidden')
 ]
