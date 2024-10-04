@@ -10,8 +10,8 @@
   <a class="back font3" href="{% url 'class' %}">Back</a>
   <div class="class-detail">
     {% if is_trainer and request.user.id == fit_classdetail.trainer.id %}
-      <a class="edit-class btn-warning font3" href="{% url 'edit-class' fit_classdetail.pk %}">Edit</a>
-      <a class="delete-class btn-danger font3" href="{% url 'delete-class' fit_classdetail.pk %}">Delete</a>
+    <a class="delete-class btn-danger font3" href="{% url 'delete-class' fit_classdetail.pk %}">Delete</a>
+    <a class="edit-class btn-warning font3" href="{% url 'edit-class' fit_classdetail.pk %}">Edit</a>
     {% endif %}
 
     {% if messages %}

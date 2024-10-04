@@ -103,6 +103,7 @@ class MembershipFormView(LoginRequiredMixin, View):
     def post(self, request, pk):
         form = UserForm(request.POST, instance=request.user)
         new_personal = False
+    
         try:
             # update
             personal_form = PersonalForm(request.POST, instance=request.user.personalinfo)
@@ -150,7 +151,12 @@ class MembershipFormView(LoginRequiredMixin, View):
                 messages.success(request, "You registered membership successfully.", extra_tags='membership_registration')
                 return redirect('membership')
         else:
-            context = {'form': form, 'personal_form': personal_form, 'pk': pk}
+            membership = Membership.objects.get(pk=pk)
+            if membership.duration >= 12:
+                membership.duration_display = f"{membership.duration // 12} year"
+            else:
+                membership.duration_display = f"{membership.duration} month"
+            context = {'form': form, 'personal_form': personal_form, 'membership':membership, 'pk': pk}
             return render(request, 'user/membership_form.html', context)
 
 # Fitness class page
@@ -286,7 +292,7 @@ class UserProfileView(LoginRequiredMixin, View):
 #Edit userprofile form
 class EditProfileView(LoginRequiredMixin, View):
     def get(self, request, pk):
-        form = EditProfileForm()
+        form = EditProfileForm(instance=request.user)
         context = {'form':form}
         return render(request, 'user/edit_profile.html', context)
     

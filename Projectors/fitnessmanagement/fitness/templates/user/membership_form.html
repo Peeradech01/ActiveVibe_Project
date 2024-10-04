@@ -34,23 +34,45 @@ Membership Form
             {% csrf_token %}
             
             <label>
-                Membership: {{membership.name}}
+                <span style="font-weight: bold;">
+                    Membership: 
+                </span>
+                    {{membership.name}}
+                &nbsp;&nbsp;
+            </label>
+            <label>
+                <span style="font-weight: bold;">
+                    Duration: 
+                </span>
+                {{membership.duration_display}}
             </label><br><br>
             
             {% for field in form %}
-                <label>{{ field.label }}:</label><br>                
+                <label style="font-weight: bold;">{{ field.label }}:</label><br>                
                 {{ field }}<br>
+
+                {% if field.errors %}
+                    <label> {{ field.errors }} </label><br>
+                {% endif %}
+
+                
             {% endfor %}
+            
             
             
             {% for field in personal_form %}
-                <label>{{ field.label }}:</label><br>                
+                <label style="font-weight: bold;">{{ field.label }}:</label><br>                
                 {{ field }}<br>
+                {% if field.errors %}
+                        {% for error in field.errors %}
+                            <ul class="errorlist">
+                                <li>{{ error }}</li>
+                            </ul>
+                        {% endfor %}
+                {% endif %}
             {% endfor %}
 
-            <label>
-                Duration: {{membership.duration_display}}
-            </label><br><br>
+            
             <br>
             <input type="submit" value="Submit">
         </form>

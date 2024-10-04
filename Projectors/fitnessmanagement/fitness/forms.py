@@ -2,9 +2,11 @@ from django import forms
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, AuthenticationForm
+from django.core.validators import RegexValidator
 from .models import *
 from django.forms.widgets import *
 from datetime import datetime, timedelta
+from django.utils import timezone
 
 class LoginForm(AuthenticationForm):
     username = forms.CharField(max_length=65)
@@ -36,6 +38,7 @@ class EditProfileForm(UserChangeForm):
             raise ValidationError('Email already exists')
         return email
 
+# register
 class RegistrationForm(UserCreationForm):
     first_name = forms.CharField(max_length=30)
     last_name = forms.CharField(max_length=30)
@@ -50,6 +53,8 @@ class RegistrationForm(UserCreationForm):
         model = User
         fields = ['username', 'first_name', 'last_name', 'email', 'password1', 'password2', 'role']
 
+
+# class
 class ClassForm(forms.ModelForm):
     categories = forms.ModelChoiceField(queryset=Category.objects.all(), widget=forms.Select(attrs={'class': 'cat'}))
     start_time = forms.DateTimeField(initial=datetime.now(), widget=DateTimeInput(format='%Y-%m-%d %H:%M', attrs={'type': 'datetime-local', 'class': 'input-detail'}))
@@ -64,6 +69,30 @@ class ClassForm(forms.ModelForm):
             'description': forms.Textarea(attrs={'class': 'input-detail', 'style': 'width:100%;'}),
             'max_capacity': forms.NumberInput(attrs={'class': 'input-detail'})
         }
+    def clean_name(self):
+        name_form = self.cleaned_data['name']
+        if FitnessClass.objects.filter(name=name_form).exists() and name_form != self.instance.name:
+            raise forms.ValidationError("Name does exist already")
+        return name_form
+    def clean_max_capacity(self):
+        max_capacity = self.cleaned_data["max_capacity"]
+        if max_capacity <= 0:
+            raise forms.ValidationError("Max capacity must be positive integer")
+        return max_capacity
+    def clean(self):
+        cleaned_data = super().clean()
+        start_time = cleaned_data.get('start_time')
+        end_time = cleaned_data.get('end_time')
+        now = timezone.now()
+        if start_time and start_time < now:
+            self.add_error('start_time', 'Start time cannot be in the past.')
+        if end_time and end_time <= start_time:
+            self.add_error('end_time', 'End time must be after the start time.')
+        return cleaned_data
+
+
+
+
 
 # Admin create_edit membership
 class AdminMembershipForm(forms.ModelForm):
@@ -79,8 +108,7 @@ class AdminMembershipForm(forms.ModelForm):
         }
     def clean_name(self):
         name_form = self.cleaned_data['name']
-        member_id = self.instance.pk
-        if Membership.objects.filter(name=name_form).exclude(pk=member_id):
+        if Membership.objects.filter(name=name_form).exists() and name_form != self.instance.name:
             raise forms.ValidationError("Name does exist already")
         return name_form
     def clean_duration(self):
@@ -108,8 +136,7 @@ class AdminCategoryForm(forms.ModelForm):
 
     def clean_name(self):
         name_form = self.cleaned_data['name']
-        cat_id = self.instance.pk
-        if Category.objects.filter(name=name_form).exclude(pk=cat_id):
+        if Category.objects.filter(name=name_form).exists() and name_form != self.instance.name:
             raise forms.ValidationError("Name does exist already")
         return name_form
 
@@ -125,11 +152,29 @@ class AdminCategoryForm(forms.ModelForm):
 class UserForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'email'] 
+        fields = ['first_name', 'last_name', 'email']
+    
+    def clean_first_name(self):
+        first_name_form = self.cleaned_data['first_name']
+        if first_name_form != self.instance.first_name:
+            raise forms.ValidationError("First name not matched")
+        return first_name_form
+    def clean_last_name(self):
+        last_name_form = self.cleaned_data['last_name']
+        if last_name_form != self.instance.last_name:
+            raise forms.ValidationError("Last name not matched")
+        return last_name_form
+    
 
 # model PersonalInfo
 class PersonalForm(forms.ModelForm):
+    phone_validator = RegexValidator(
+        regex=r'^(0)[0-9]{9}$',
+        message="Phone number must be in format '0xxxxxxxxx'"
+    )
+
+    phone = forms.CharField(validators=[phone_validator])
+
     class Meta:
         model = PersonalInfo
         fields = ['phone']
-        

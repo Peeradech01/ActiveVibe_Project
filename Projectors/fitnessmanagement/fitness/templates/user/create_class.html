@@ -23,6 +23,9 @@ Create Class
         {% else %}
           <p>{{ field.label }}: {{ field }}</p>
         {% endif %}
+        {% if field.errors %}
+          <label> {{field.errors}} </label><br>
+        {% endif %}
       {% endfor %}
       <button class="signup-btn font3">Save</button>
     </div>
