@@ -5,37 +5,34 @@
 {% block title %}
 Membership
 {% endblock %}
+
 {% block content %}
-<div class="mem-box font3">
-    <div class="row justify-content-start">
+    <div class="card-row1 justify-content-start">
 
         {% if messages %}
-            <div>
+            <div class="col-12">
                 {% for message in messages %}
                     {% if 'membership_registration' in message.tags %}
-
-                    <div class="alert alert-success font3">
-                        <label style="font-size: 1.2rem;">{{ message }}</label>
-                    </div>
-                        
+                        <div class="alert alert-success">
+                            <label>{{ message }}</label>
+                        </div>
                     {% endif %}
                 {% endfor %}
             </div>
         {% endif %}
 
         {% for i in member %}
-        <div class="col-md-4 d-flex">
-            <div class="card flex-fill">
-                <img src="{% static 'img/logo.png' %}" class="card-img-top " alt="Card 1 Image">
+        <div class="col-md-4">
+            <div class="card m-5">
+                <img src="{% static 'img/logo.png' %}" class="card-img-top" alt="Card Image">
                 <div class="card-body">
                     <h1 class="font1">{{ i.name }}</h1>
                     <p>{{ i.description }}</p>
                     <p class="font3" style="float: right">Membership price: <b class="font2">{{ i.price }}</b></p>
                 </div>
-                <a href="{% url 'membership_form' i.pk %}" class="btn-mem">Subscribed</a>
+                    <a href="{% url 'membership_form' i.pk %}" class="btn-mem">Subscribed</a>
             </div>
         </div>
         {% endfor %}
     </div>
-</div>
 {% endblock %}
