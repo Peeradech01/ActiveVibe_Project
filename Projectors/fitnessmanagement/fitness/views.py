@@ -14,7 +14,7 @@ import random
 from fitness.models import *
 from .forms import LoginForm
 from django.contrib.auth.models import Group
-from .forms import LoginForm, EditProfileForm, RegistrationForm, ClassForm, AdminMembershipForm, AdminCategoryForm, UserForm, PersonalForm
+from .forms import LoginForm, EditProfileForm, RegistrationForm, ClassForm, AdminMembershipForm, AdminCategoryForm, UserForm, PersonalForm, ProfileImageForm
 
 # Index page
 class IndexView(View):
@@ -73,6 +73,10 @@ class RegisterFormView(View):
             group_name = role.capitalize() 
             group, created = Group.objects.get_or_create(name=group_name)
             user.groups.add(group)
+            PersonalInfo.objects.create(
+                customer=user,
+            )
+
             login(request, user)
             return redirect('login')
         else:
@@ -293,19 +297,26 @@ class UserProfileView(LoginRequiredMixin, View):
 class EditProfileView(LoginRequiredMixin, View):
     def get(self, request, pk):
         form = EditProfileForm(instance=request.user)
-        context = {'form':form}
+        profile_form = ProfileImageForm()
+        context = {'form':form, 'profile_form':profile_form}
         return render(request, 'user/edit_profile.html', context)
     
     def post(self, request, pk):
-        if request.method == 'POST':
-            form = EditProfileForm(request.POST, instance=request.user)
-            if form.is_valid():
-                form.save()
-                return render(request, 'user/userprofile.html', {'pk': pk})
+        personal_user = PersonalInfo.objects.get(customer=request.user.id) 
+
+        # อัปเดตข้อมูลใน profile_form
+        form = EditProfileForm(request.POST, request.FILES or None, instance=request.user)
+        profile_form = ProfileImageForm(request.POST or None, request.FILES or None, instance=personal_user)
+
+        if form.is_valid() and profile_form.is_valid():
+            form.save()  # บันทึกข้อมูลผู้ใช้
+            profile_form.save()  # บันทึกข้อมูล PersonalInfo
+            return render(request, 'user/userprofile.html', {'pk': pk})
         else:
-            form = EditProfileForm(instance=request.user)
-            context = {'form': form}
-        return render(request, 'user/edit_profile.html', context)
+            context = {'form': form, 'profile_form': profile_form}
+            return render(request, 'user/edit_profile.html', context)
+        
+
 
 # Change password form
 class Change_PasswordView(LoginRequiredMixin, View):

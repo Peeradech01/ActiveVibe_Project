@@ -22,6 +22,7 @@ class PersonalInfo(models.Model):
     height = models.FloatField(null=False, default=0)
     bmi = models.FloatField(null=False, default=0)
     phone = models.CharField(max_length=10, null=False)
+    profile_image = models.ImageField(default="default_profile.png", upload_to="profile_images/", null=True, blank=True)
 
 class Category(models.Model):
     name = models.CharField(max_length=50, null=False)

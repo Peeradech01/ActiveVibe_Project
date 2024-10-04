@@ -12,6 +12,17 @@ class LoginForm(AuthenticationForm):
     username = forms.CharField(max_length=65)
     password = forms.CharField(max_length=65, widget=forms.PasswordInput)
     
+# upload profile image
+class ProfileImageForm(forms.ModelForm):
+    class Meta:
+        model = PersonalInfo
+        fields = ['profile_image']
+
+        widgets = {
+            'profile_image': forms.FileInput(attrs={'class': 'edit-form'}),
+        }
+
+# edit profile
 class EditProfileForm(UserChangeForm):
     password = None
     
