@@ -19,6 +19,9 @@ Create Membership
                             {{ field }}<br>
                         </div>
                     </div>
+                    {% if field.errors %}
+                            <label> {{field.errors}} </label>
+                    {% endif %}
                 {% endfor %}
             </div>
             <div class="text-center">

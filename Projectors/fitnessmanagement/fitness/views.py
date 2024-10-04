@@ -454,7 +454,7 @@ class EditCategoryView(LoginRequiredMixin, View):
             return redirect('manage-category')
         else:
             context = {'form':form, 'category':category}
-            return redirect(request, 'admin/edit_category.html', context)
+            return render(request, 'admin/edit_category.html', context)
 
 # Manage Delete category
 class DeleteCategoryView(LoginRequiredMixin, View):

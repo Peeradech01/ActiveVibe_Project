@@ -65,7 +65,7 @@ class ClassForm(forms.ModelForm):
             'max_capacity': forms.NumberInput(attrs={'class': 'input-detail'})
         }
 
-
+# Admin create_edit membership
 class AdminMembershipForm(forms.ModelForm):
     class Meta:
         model = Membership
@@ -73,12 +73,29 @@ class AdminMembershipForm(forms.ModelForm):
 
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control', 'style': 'font-size: 1.5rem;'}),
-            'description': forms.Textarea(attrs={'class': 'form-control', 'style': 'width:100%;'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'style': 'width:100%; font-size: 1.5rem'}),
             'duration': forms.NumberInput(attrs={'class': 'form-control', 'style': 'font-size: 1.5rem;'}),
             'price': forms.NumberInput(attrs={'class': 'form-control', 'style': 'font-size: 1.5rem;'})
         }
+    def clean_name(self):
+        name_form = self.cleaned_data['name']
+        member_id = self.instance.pk
+        if Membership.objects.filter(name=name_form).exclude(pk=member_id):
+            raise forms.ValidationError("Name does exist already")
+        return name_form
+    def clean_duration(self):
+        duration = self.cleaned_data["duration"]
+        if duration <= 0:
+            raise forms.ValidationError("Duration must be positive integer")
+        return duration
+    def clean_price(self):
+        price = self.cleaned_data["price"]
+        if price <= 0:
+            raise forms.ValidationError("Price must be positive integer")
+        return price
 
 
+# Admin create_edit category
 class AdminCategoryForm(forms.ModelForm):
     class Meta:
         model = Category
@@ -88,22 +105,20 @@ class AdminCategoryForm(forms.ModelForm):
             'name': forms.TextInput(attrs={'class': 'form-control', 'style': 'font-size: 1.5rem;'}),
             'bmi': forms.NumberInput(attrs={'class': 'form-control', 'style': 'font-size: 1.5rem;'})
         }
-    
-# class RegistrationMemberForm(forms.ModelForm):
-#     first_name = forms.CharField(max_length=30)
-#     last_name = forms.CharField(max_length=30)
-#     email = forms.EmailField()
-#     start_date = forms.DateTimeField(widget=forms.DateInput(attrs={'type':'date'}))
-#     duration = forms.ChoiceField(choices=[
-#         ('1_month', '1 Month'),
-#         ('3_months', '3 Months'),
-#         ('6_months', '6 Months'),
-#         ('1_year', '1 Year')
-#     ])
 
-#     class Meta:
-#         model = User
-#         fields = ['first_name', 'last_name', 'email', 'start_date', 'duration']
+    def clean_name(self):
+        name_form = self.cleaned_data['name']
+        cat_id = self.instance.pk
+        if Category.objects.filter(name=name_form).exclude(pk=cat_id):
+            raise forms.ValidationError("Name does exist already")
+        return name_form
+
+
+    def clean_bmi(self):
+        bmi = self.cleaned_data['bmi']
+        if bmi <= 0:
+            raise forms.ValidationError("BMI must be positive integer")
+        return bmi
 
 
 # model auth_user 
@@ -117,3 +132,4 @@ class PersonalForm(forms.ModelForm):
     class Meta:
         model = PersonalInfo
         fields = ['phone']
+        
