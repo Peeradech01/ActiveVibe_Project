@@ -102,9 +102,6 @@ class ClassForm(forms.ModelForm):
         return cleaned_data
 
 
-
-
-
 # Admin create_edit membership
 class AdminMembershipForm(forms.ModelForm):
     class Meta:

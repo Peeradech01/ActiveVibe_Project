@@ -12,8 +12,8 @@ Edit Profile
     <h1 class="font1">EDIT YOUR PROFILE</h1>
     <form method="post" action="{% url 'edit_profile' user.pk %}" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ form }}
         {{ profile_form }}
+        {{ form }}
         <input type="submit" value="Save">
     </form>
 </div>

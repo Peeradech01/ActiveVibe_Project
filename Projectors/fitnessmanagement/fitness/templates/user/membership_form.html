@@ -9,7 +9,7 @@ Membership Form
 {% block content %}
 <div class="mem">
     <a class="back font3" href="{% url 'membership'%}">Back</a>
-    <div class="left-form img-form font1">
+    <div class="left-form img-form font1" style="margin-top: 120px;">
         <h1>Active<span>Vibe®</span></h1>
         <img src="{%static 'img/badge.png'%}" alt="">
     </div>
@@ -57,7 +57,6 @@ Membership Form
 
                 
             {% endfor %}
-            
             
             
             {% for field in personal_form %}

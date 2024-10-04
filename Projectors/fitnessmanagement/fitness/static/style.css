@@ -292,7 +292,7 @@ input[type="password"] {
 .left-form {
     float: left;
     width: 50%;
-    margin: 120px auto 0 auto;  
+    margin: 0 auto;  
 }
 
 .left-form h1 {

@@ -241,7 +241,8 @@ class FitnessClassDetailView(LoginRequiredMixin, View):
         return redirect('class')
 
 #Edit fitness class form
-class EditFitnessClassView(LoginRequiredMixin, View):
+class EditFitnessClassView(LoginRequiredMixin, PermissionRequiredMixin, View):
+    permission_required = 'fitness.change_fitnessclass'
     def get(self, request, pk):
         fit_classdetail = FitnessClass.objects.get(pk=pk)
         form = ClassForm(instance=fit_classdetail)
