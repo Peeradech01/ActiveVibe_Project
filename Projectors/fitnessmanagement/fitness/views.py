@@ -107,37 +107,21 @@ class MembershipFormView(LoginRequiredMixin, View):
     def post(self, request, pk):
         form = UserForm(request.POST, instance=request.user)
         new_personal = False
-    
-        try:
-            # update
-            personal_form = PersonalForm(request.POST, instance=request.user.personalinfo)
-            print('update customer')
-        except PersonalInfo.DoesNotExist:
-            # create
-            print('does not exit')
-            personal_form = PersonalForm(request.POST)
-            new_personal = True
 
+        personal_form = PersonalForm(request.POST, instance=request.user.personalinfo)
+        print('update customer')
+
+        membership = Membership.objects.get(pk=pk)
 
         if form.is_valid() and personal_form.is_valid():
             user = form.save()
 
-            if new_personal:
-                # create
-                personal_info = personal_form.save(commit=False)
-                personal_info.user = user
-                personal_info.customer_id = request.user.id
-                personal_info.save()
-                print('new_personal')
-            else:
-                # update
-                personal_form.save()
-                print('update_personal')
+            personal_form.save()
+            print('update_personal')
 
             # get membership
-            membership = Membership.objects.get(pk=pk)
             
-            # if user เคยลง membership อยู่แล้ว 
+            # customer เคยลง membership อยู่แล้ว 
             try:
                 # Check if CustomerMembership exists using get()
                 customer_membership = CustomerMembership.objects.get(customer=user)
@@ -145,8 +129,10 @@ class MembershipFormView(LoginRequiredMixin, View):
 
                 messages.error(request, "You already have a membership.", extra_tags='membership_registration')
                 return redirect('membership_form', pk=pk) 
+            
+            # customer ยังไม่เคยลง membership
             except CustomerMembership.DoesNotExist:
-                # Create new CustomerMembership if not exists
+                # Create new CustomerMembership 
                 CustomerMembership.objects.create(
                     customer=user,
                     membership=membership
@@ -155,7 +141,6 @@ class MembershipFormView(LoginRequiredMixin, View):
                 messages.success(request, "You registered membership successfully.", extra_tags='membership_registration')
                 return redirect('membership')
         else:
-            membership = Membership.objects.get(pk=pk)
             if membership.duration >= 12:
                 membership.duration_display = f"{membership.duration // 12} year"
             else:
@@ -310,12 +295,13 @@ class EditProfileView(LoginRequiredMixin, View):
         personal_user = PersonalInfo.objects.get(customer=request.user.id) 
 
         # อัปเดตข้อมูลใน profile_form
-        form = EditProfileForm(request.POST, request.FILES or None, instance=request.user)
-        profile_form = ProfileImageForm(request.POST or None, request.FILES or None, instance=personal_user)
+        form = EditProfileForm(request.POST, request.FILES, instance=request.user)
+        profile_form = ProfileImageForm(request.POST, request.FILES, instance=personal_user)
 
         if form.is_valid() and profile_form.is_valid():
             form.save()  # บันทึกข้อมูลผู้ใช้
             profile_form.save()  # บันทึกข้อมูล PersonalInfo
+            messages.success(request, 'Profile Updated Successfully', extra_tags="updateprofile")
             return render(request, 'user/userprofile.html', {'pk': pk})
         else:
             context = {'form': form, 'profile_form': profile_form}
@@ -335,7 +321,7 @@ class Change_PasswordView(LoginRequiredMixin, View):
             user = form.save()
             update_session_auth_hash(request, user)
             print("save success")
-            messages.success(request, 'Your password has been changed successfully.')
+            messages.success(request, 'Your password has been changed successfully.', extra_tags="changepassword")
             return render(request, 'user/userprofile.html', {'pk':pk})
         else:
             print("unsave")

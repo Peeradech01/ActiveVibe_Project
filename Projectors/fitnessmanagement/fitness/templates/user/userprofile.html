@@ -13,6 +13,23 @@ User Profile
 </style>
 {% block content %}
 <div class="user-profile font3">
+
+    {% if messages %}
+        <div>
+            {% for message in messages %}
+                {% if 'changepassword' in message.tags %}
+                <div class="alert alert-success font3">
+                    <label style="font-size: 1.2rem;">{{ message }}</label>
+                </div>
+                {% elif 'updateprofile' in message.tags %}
+                <div class="alert alert-success font3">
+                    <label style="font-size: 1.2rem;">{{ message }}</label>
+                </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+    {% endif %}
+
     <div class="row">
         <!-- Left Profile Section -->
         <div class="col-md-5">
@@ -40,6 +57,8 @@ User Profile
             </div>
         </div>
 
+
+
         <!-- Right Profile Form Section -->
         <div class="col-md-7">
             <div class="card mybox">
@@ -61,6 +80,7 @@ User Profile
         </div>
 
     </div>
+
 </div>
 
 {% endblock %}
