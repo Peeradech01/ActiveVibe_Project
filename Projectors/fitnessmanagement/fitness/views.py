@@ -234,9 +234,6 @@ class EditFitnessClassView(LoginRequiredMixin, PermissionRequiredMixin, View):
             form = ClassForm(instance=fit_classdetail)
             context = {'fit_classdetail':fit_classdetail,'form': form}
             return render(request, 'user/edit_class.html', context)
-        else:
-            messages.error(request, "You don't have permission to edit this class.")
-            return redirect('forbidden')
         
     def post(self, request, pk):
         form = ClassForm(request.POST, instance=FitnessClass.objects.get(pk=pk))
@@ -248,7 +245,8 @@ class EditFitnessClassView(LoginRequiredMixin, PermissionRequiredMixin, View):
             return render(request, 'user/fitness_class.html', context)
 
 #Create fitness class form
-class CreateFitnessClassView(LoginRequiredMixin, View):
+class CreateFitnessClassView(LoginRequiredMixin, PermissionRequiredMixin, View):
+    permission_required = 'fitness.add_fitnessclass'
     def get(self, request):
         form = ClassForm()
         context = {'form': form}
@@ -266,13 +264,15 @@ class CreateFitnessClassView(LoginRequiredMixin, View):
             return render(request, 'user/create_class.html', context)
         
 #Delete fitnes sclass
-class DeleteFitnessClassView(LoginRequiredMixin, View):
+class DeleteFitnessClassView(LoginRequiredMixin, PermissionRequiredMixin, View):
+    permission_required = 'fitness.delete_fitnessclass'
     def get(self, request, pk):
         fit_classdetail = FitnessClass.objects.get(pk=pk)
-        fit_classdetail.delete()
+        if fit_classdetail.trainer == request.user:
+            fit_classdetail.delete()
+            return redirect('class')
         if request.user.is_staff:
             return redirect('manage-class')
-        return redirect('class')
 
 # UserProfile page
 class UserProfileView(LoginRequiredMixin, View):
@@ -331,13 +331,15 @@ class Change_PasswordView(LoginRequiredMixin, View):
 # Admin page
 class ManagementView(LoginRequiredMixin, View):
     def get(self, request):
-        category = Category.objects.all()
-        user = User.objects.all()
-        membership = Membership.objects.all()
-        classes = FitnessClass.objects.all()
-        context = {'category': category, 'user': user, 'membership': membership, 'classes': classes}
-        return render(request, 'admin/management.html', context)
-    
+        if request.user.is_staff:
+            category = Category.objects.all()
+            user = User.objects.all()
+            membership = Membership.objects.all()
+            classes = FitnessClass.objects.all()
+            context = {'category': category, 'user': user, 'membership': membership, 'classes': classes}
+            return render(request, 'admin/management.html', context)
+        else:
+            return ForbiddenView.as_view()(request)
 # Manage user page
 class ManageUserView(LoginRequiredMixin, View):
     def get(self, request):
