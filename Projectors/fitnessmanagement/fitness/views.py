@@ -225,25 +225,6 @@ class FitnessClassDetailView(LoginRequiredMixin, View):
             messages.success(request, "Registration FitnessClass successful.", extra_tags='class_registration_success')
         return redirect('class')
 
-#Edit fitness class form
-class EditFitnessClassView(LoginRequiredMixin, PermissionRequiredMixin, View):
-    permission_required = 'fitness.change_fitnessclass'
-    def get(self, request, pk):
-        fit_classdetail = FitnessClass.objects.get(pk=pk)
-        if fit_classdetail.trainer == request.user:
-            form = ClassForm(instance=fit_classdetail)
-            context = {'fit_classdetail':fit_classdetail,'form': form}
-            return render(request, 'user/edit_class.html', context)
-        
-    def post(self, request, pk):
-        form = ClassForm(request.POST, instance=FitnessClass.objects.get(pk=pk))
-        if form.is_valid:
-            form.save()
-            return redirect('class-detail', pk=pk)
-        else:
-            context = {'form': form}
-            return render(request, 'user/fitness_class.html', context)
-
 #Create fitness class form
 class CreateFitnessClassView(LoginRequiredMixin, PermissionRequiredMixin, View):
     permission_required = 'fitness.add_fitnessclass'
@@ -262,6 +243,29 @@ class CreateFitnessClassView(LoginRequiredMixin, PermissionRequiredMixin, View):
         else:
             context = {'form': form}
             return render(request, 'user/create_class.html', context)
+
+#Edit fitness class form
+class EditFitnessClassView(LoginRequiredMixin, PermissionRequiredMixin, View):
+    permission_required = 'fitness.change_fitnessclass'
+    def get(self, request, pk):
+        fit_classdetail = FitnessClass.objects.get(pk=pk)
+        if fit_classdetail.trainer == request.user:
+            form = ClassForm(instance=fit_classdetail)
+            context = {'fit_classdetail':fit_classdetail,'form': form}
+            return render(request, 'user/edit_class.html', context)
+        
+    def post(self, request, pk):
+        fit_classdetail = FitnessClass.objects.get(pk=pk)
+        form = ClassForm(request.POST, instance=fit_classdetail)
+        if form.is_valid():
+            form.save()
+            return redirect('class-detail', pk=pk)
+        else:
+            print('incorrect')
+            context = {'fit_classdetail': fit_classdetail, 'form': form}
+            return render(request, 'user/edit_class.html', context)
+
+
         
 #Delete fitnes sclass
 class DeleteFitnessClassView(LoginRequiredMixin, PermissionRequiredMixin, View):
