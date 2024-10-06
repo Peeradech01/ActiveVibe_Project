@@ -56,12 +56,15 @@ Fitness Class
         <div class="card-row2">
             {% if fit_class %}
                 {% for class in fit_class %}
-                    <div class="card-class font3" onclick="location.href='{% url 'class-detail' class.pk %}'">
-                            <h1 class="font1">{{ class.name }}</h1>
-                            <h2>Category: {{ class.categories.name}}</h2>
-                            <h2>Max capacity: {{ class.max_capacity }}</h2>
+                    <div class="card-class font3">
+                        <h1 class="font1">{{ class.name }}</h1>
+                        <h2>Category: {{ class.categories.name}}</h2>
+                        <h2>Max capacity: {{ class.max_capacity }}</h2>
+                        {% if class.end_time < current_datetime %}
+                            <a class="view-btn">Ended</a>
+                        {% else %}
                             <a class="view-btn" href="{% url 'class-detail' class.pk %}">View Class</a>
-                        </a>
+                        {% endif %}
                     </div>
                 {% endfor %}
             {% else %}

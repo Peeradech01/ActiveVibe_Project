@@ -11,6 +11,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
 import random
+from datetime import datetime
 from fitness.models import *
 from .forms import LoginForm
 from django.contrib.auth.models import Group
@@ -75,7 +76,7 @@ class RegisterFormView(View):
             user = form.save()
             role = form.cleaned_data['role']
             group_name = role.capitalize() 
-            group, created = Group.objects.get_or_create(name=group_name)
+            group = Group.objects.get(name=group_name)
             user.groups.add(group)
             PersonalInfo.objects.create(
                 customer=user,
@@ -153,10 +154,11 @@ class MembershipFormView(LoginRequiredMixin, View):
 # Fitness class page
 class FitnessClassView(LoginRequiredMixin, View):
     def get(self, request):
+        current_datetime = timezone.now()
         fit_class = FitnessClass.objects.all()
         categories = Category.objects.all()
         is_trainer = request.user.groups.filter(name='Trainer').exists()
-        context = {'fit_class': fit_class, 'category_list': categories, 'is_trainer':is_trainer}
+        context = {'fit_class': fit_class, 'category_list': categories, 'is_trainer':is_trainer, 'current_datetime': current_datetime}
         return render(request, 'user/fitness_class.html', context)
 
     def post(self, request):
@@ -214,6 +216,8 @@ class FitnessClassDetailView(LoginRequiredMixin, View):
         fit_classdetail = FitnessClass.objects.get(pk=pk)
         is_trainer = request.user.groups.filter(name="Trainer")
         remaining = fit_classdetail.max_capacity - fit_classdetail.customer.count()
+        if fit_classdetail.end_time < timezone.now():
+            return HttpResponseForbidden()
         context = {'fit_classdetail':fit_classdetail, 'is_trainer':is_trainer, 'remaining':remaining}
         return render(request, 'user/class_detail.html', context)
     
@@ -287,10 +291,10 @@ class DeleteFitnessClassView(LoginRequiredMixin, PermissionRequiredMixin, View):
 # UserProfile page
 class UserProfileView(LoginRequiredMixin, View):
     def get(self, request, pk):
+        current_datetime = timezone.now()
         membership = CustomerMembership.objects.filter(customer=pk)
         customer_class = FitnessClass.objects.filter(customer=request.user)
-        print(customer_class)
-        context = {'membership': membership, 'customer_class': customer_class}
+        context = {'membership': membership, 'customer_class': customer_class, 'current_datetime': current_datetime}
         return render(request, 'user/userprofile.html', context)
 
 

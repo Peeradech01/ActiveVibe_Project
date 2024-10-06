@@ -61,14 +61,20 @@ User Profile
             <div class="card mybox">
                 <h2 class="font1">My Membership</h2>
                 {% if membership %}
-                    <p>{{ membership.first.membership.name }}</p>
+                    <p>{{ membership.first.membership.name }} Membership.</p>
                 {% else %}
                     <p>Haven't register membership.</p>
                 {% endif %}
                 <h2 class="font1">My Class</h2>
                 <ul>
                     {% for class in customer_class %}
-                        <li  class="list-group">{{ class.name }} ({{ class.start_time }} - {{ class.end_time }})</li>
+                        {% if class.end_time < current_datetime %}
+                            <li class="list-group">{{ class.name }} ({{ class.start_time }} - {{ class.end_time }}) - ( Ended ) </li>
+                        {% elif class.start_time > current_datetime and class.end_time > current_datetime %}
+                            <li class="list-group">{{ class.name }} ({{ class.start_time }} - {{ class.end_time }}) - ( Not started )</li>
+                        {% else %}
+                            <li class="list-group">{{ class.name }} ({{ class.start_time }} - {{ class.end_time }}) - ( Ongoing )</li>
+                        {% endif %}
                     {% empty %}
                         <li class="list-group">You haven't registered for any classes yet.</li>
                     {% endfor %}
