@@ -17,21 +17,19 @@ urlpatterns = [
     path('class/edit/<int:pk>/', EditFitnessClassView.as_view(), name='edit-class'), # Edit fitness class page
     path('class/delete/<int:pk>/', DeleteFitnessClassView.as_view(), name='delete-class'), # Edit fitness class page
 
-    # Admin
+
     path('manage/', ManagementView.as_view(), name='manage'), # Admin
     path('manage/user/', ManageUserView.as_view(), name='manage-user'), # Manage user
     path('manage/user/delete/<int:pk>/', DeleteUserView.as_view(), name='delete-user'), # Delete user
     path('manage/membership/', ManageMembershipView.as_view(), name='manage-membership'), # Manage membership
-    path('manage/category/', ManageCategoryView.as_view(), name='manage-category'), # Manage Category   
-    path('manage/class/', ManageClassView.as_view(), name='manage-class'), # Manage Class   
     path('manage/create_membership/', CreateMembershipView.as_view(), name='create-membership'), # Manage create membership   
     path('manage/edit_membership/<int:pk>/', EditMembershipView.as_view(), name='edit-membership'), # Manage edit membership   
-    path('manage/delete_membership/<int:pk>/', DeleteMembershipView.as_view(), name='delete-membership'), # Manage edit category   
+    path('manage/delete_membership/<int:pk>/', DeleteMembershipView.as_view(), name='delete-membership'), # Manage delete membership 
+    path('manage/category/', ManageCategoryView.as_view(), name='manage-category'), # Manage Category   
     path('manage/create_category/', CreateCategoryView.as_view(), name='create-category'), # Manage create category   
     path('manage/edit_category/<int:pk>/', EditCategoryView.as_view(), name='edit-category'), # Manage edit category   
-    path('manage/delete_category/<int:pk>/', DeleteCategoryView.as_view(), name='delete-category'), # Manage edit category   
+    path('manage/delete_category/<int:pk>/', DeleteCategoryView.as_view(), name='delete-category'), # Manage edit category  
+    path('manage/class/', ManageClassView.as_view(), name='manage-class'), # Manage Class    
     path('manage/delete_class/<int:pk>/', DeleteClassView.as_view(), name='admin-delete-class'), # Manage edit category   
 
-    # 403
-    path('forbidden/', ForbiddenView.as_view(), name='forbidden')
 ]

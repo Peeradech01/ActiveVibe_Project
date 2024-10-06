@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpRequest
+from django.http import HttpRequest, HttpResponseForbidden
 from django.views import View
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -16,6 +16,7 @@ from .forms import LoginForm
 from django.contrib.auth.models import Group
 from .forms import LoginForm, EditProfileForm, RegistrationForm, ClassForm, AdminMembershipForm, AdminCategoryForm, UserForm, PersonalForm, ProfileImageForm
 
+
 # Index page
 class IndexView(View):
     def get(self, request):
@@ -26,6 +27,7 @@ class IndexView(View):
             random_classes = list(fitness_classes)    
         context = {'random_classes': random_classes}
         return render(request, 'user/index.html', context)
+
 
 #Login form
 class LoginFormView(View):
@@ -49,6 +51,7 @@ class LoginFormView(View):
             messages.error(request, 'There was an error. Please try again.')
             return redirect('login')
 
+
 #Logout
 class LogoutFormView(View):
     def get(self, request):
@@ -57,6 +60,7 @@ class LogoutFormView(View):
         storage = messages.get_messages(request)
         storage.used = True  # clear the messages
         return redirect('login')
+
 
 #Register form
 class RegisterFormView(View):
@@ -83,12 +87,14 @@ class RegisterFormView(View):
             context = {'form': form}
             return render(request, 'authen/register_form.html', context)
         
+
 #Membership page
 class MembershipView(LoginRequiredMixin, View):
     def get(self, request):
         member = Membership.objects.all()
         context = {'member':member}
         return render(request, 'user/membership.html', context)
+
 
 #Membership form
 class MembershipFormView(LoginRequiredMixin, View):
@@ -107,20 +113,15 @@ class MembershipFormView(LoginRequiredMixin, View):
     def post(self, request, pk):
         form = UserForm(request.POST, instance=request.user)
         new_personal = False
-
         personal_form = PersonalForm(request.POST, instance=request.user.personalinfo)
         print('update customer')
-
         membership = Membership.objects.get(pk=pk)
-
         if form.is_valid() and personal_form.is_valid():
             user = form.save()
-
             personal_form.save()
             print('update_personal')
 
             # get membership
-            
             # customer เคยลง membership อยู่แล้ว 
             try:
                 # Check if CustomerMembership exists using get()
@@ -148,6 +149,7 @@ class MembershipFormView(LoginRequiredMixin, View):
             context = {'form': form, 'personal_form': personal_form, 'membership':membership, 'pk': pk}
             return render(request, 'user/membership_form.html', context)
 
+
 # Fitness class page
 class FitnessClassView(LoginRequiredMixin, View):
     def get(self, request):
@@ -164,6 +166,7 @@ class FitnessClassView(LoginRequiredMixin, View):
         height_info = request.POST.get('height')
         weight_info = request.POST.get('weight')
         categories = Category.objects.all()
+        # filter class
         if height_info and weight_info:
             bmi_info = float(weight_info) / (float(height_info) / 100) ** 2
             try:
@@ -204,6 +207,7 @@ class FitnessClassView(LoginRequiredMixin, View):
         context = {'fit_class': fit_class, 'category_list': categories, 'select_category': select_category}
         return render(request, 'user/fitness_class.html', context)
 
+
 #Fitness class detail page
 class FitnessClassDetailView(LoginRequiredMixin, View):
     def get(self, request, pk):
@@ -225,6 +229,7 @@ class FitnessClassDetailView(LoginRequiredMixin, View):
             messages.success(request, "Registration FitnessClass successful.", extra_tags='class_registration_success')
         return redirect('class')
 
+
 #Create fitness class form
 class CreateFitnessClassView(LoginRequiredMixin, PermissionRequiredMixin, View):
     permission_required = 'fitness.add_fitnessclass'
@@ -243,6 +248,7 @@ class CreateFitnessClassView(LoginRequiredMixin, PermissionRequiredMixin, View):
         else:
             context = {'form': form}
             return render(request, 'user/create_class.html', context)
+
 
 #Edit fitness class form
 class EditFitnessClassView(LoginRequiredMixin, PermissionRequiredMixin, View):
@@ -266,7 +272,6 @@ class EditFitnessClassView(LoginRequiredMixin, PermissionRequiredMixin, View):
             return render(request, 'user/edit_class.html', context)
 
 
-        
 #Delete fitnes sclass
 class DeleteFitnessClassView(LoginRequiredMixin, PermissionRequiredMixin, View):
     permission_required = 'fitness.delete_fitnessclass'
@@ -278,6 +283,7 @@ class DeleteFitnessClassView(LoginRequiredMixin, PermissionRequiredMixin, View):
         if request.user.is_staff:
             return redirect('manage-class')
 
+
 # UserProfile page
 class UserProfileView(LoginRequiredMixin, View):
     def get(self, request, pk):
@@ -286,6 +292,7 @@ class UserProfileView(LoginRequiredMixin, View):
         print(customer_class)
         context = {'membership': membership, 'customer_class': customer_class}
         return render(request, 'user/userprofile.html', context)
+
 
 #Edit userprofile form
 class EditProfileView(LoginRequiredMixin, View):
@@ -332,6 +339,7 @@ class Change_PasswordView(LoginRequiredMixin, View):
             context = {'form': form}
             return render(request, 'user/change_password.html', context)
 
+
 # Admin page
 class ManagementView(LoginRequiredMixin, View):
     def get(self, request):
@@ -343,15 +351,19 @@ class ManagementView(LoginRequiredMixin, View):
             context = {'category': category, 'user': user, 'membership': membership, 'classes': classes}
             return render(request, 'admin/management.html', context)
         else:
-            return ForbiddenView.as_view()(request)
+            return HttpResponseForbidden()
+
 # Manage user page
 class ManageUserView(LoginRequiredMixin, View):
     def get(self, request):
-        groups = Group.objects.all()
-        user_list = User.objects.all().order_by('date_joined')
-        context = {'user_list': user_list, 'groups': groups}
-        return render(request, 'admin/manage_user.html', context)
-    
+        if request.user.is_staff:
+            groups = Group.objects.all()
+            user_list = User.objects.all().order_by('date_joined')
+            context = {'user_list': user_list, 'groups': groups}
+            return render(request, 'admin/manage_user.html', context)
+        else:
+            return HttpResponseForbidden()
+        
     def post(self, request):
         selected_role = request.POST.get('role')
         groups = Group.objects.all()
@@ -363,46 +375,65 @@ class ManageUserView(LoginRequiredMixin, View):
         context = {'user_list': user_list, 'groups': groups, 'selected_role': selected_role, 'count': count}
         return render(request, 'admin/manage_user.html', context)
 
+
 # Delet user 
 class DeleteUserView(LoginRequiredMixin, View):
     def get(self, request, pk):
-        user = User.objects.get(pk=pk)
-        user.delete()
-        print("success")
-        return redirect('manage-user')
+        if request.user.is_staff:
+            user = User.objects.get(pk=pk)
+            user.delete()
+            print("success")
+            return redirect('manage-user')
+        else:
+            return HttpResponseForbidden()
     
+
 # Manage membership page
 class ManageMembershipView(LoginRequiredMixin, View):
     def get(self, request):
-        membership_list = Membership.objects.all()
-        for membership in membership_list:
-            if membership.duration >= 12:
-                membership.duration_display = f"{membership.duration // 12} year"
-            else:
-                membership.duration_display = f"{membership.duration} month"
-        context = {'membership_list': membership_list}
-        return render(request, 'admin/manage_membership.html', context)
+        if request.user.is_staff:
+            membership_list = Membership.objects.all()
+            for membership in membership_list:
+                if membership.duration >= 12:
+                    membership.duration_display = f"{membership.duration // 12} year"
+                else:
+                    membership.duration_display = f"{membership.duration} month"
+            context = {'membership_list': membership_list}
+            return render(request, 'admin/manage_membership.html', context)
+        else:
+            return HttpResponseForbidden()
     
+
 # Manage category page
 class ManageCategoryView(LoginRequiredMixin, View):
     def get(self, request):
-        category_list = Category.objects.all()
-        context = {'category_list':category_list}
-        return render(request, 'admin/manage_category.html', context)
+        if request.user.is_staff:
+            category_list = Category.objects.all()
+            context = {'category_list':category_list}
+            return render(request, 'admin/manage_category.html', context)
+        else:
+            return HttpResponseForbidden()
+
 
 # Manage class page
 class ManageClassView(LoginRequiredMixin, View):
     def get(self, request):
-        class_list = FitnessClass.objects.all()
-        context = {'class_list':class_list}
-        return render(request, 'admin/manage_class.html', context)
+        if request.user.is_staff:
+            class_list = FitnessClass.objects.all()
+            context = {'class_list':class_list}
+            return render(request, 'admin/manage_class.html', context)
+        else:
+            return HttpResponseForbidden()
     
+
 # Manage create membership
-class CreateMembershipView(LoginRequiredMixin, View):
+class CreateMembershipView(LoginRequiredMixin, PermissionRequiredMixin, View):
+    permission_required = 'fitness.add_membership'
     def get(self, request):
         form = AdminMembershipForm()
         context = {'form':form}
         return render(request, 'admin/create_membership.html', context)
+    
     def post(self, request):
         form = AdminMembershipForm(request.POST)
         if form.is_valid():
@@ -412,8 +443,10 @@ class CreateMembershipView(LoginRequiredMixin, View):
             context = {'form': form}
             return render(request, 'admin/create_membership.html', context)
 
+
 # Manage edit membership
-class EditMembershipView(LoginRequiredMixin, View):
+class EditMembershipView(LoginRequiredMixin, PermissionRequiredMixin, View):
+    permission_required = 'fitness.change_membership'
     def get(self, request, pk):
         membership = Membership.objects.get(pk=pk)
         form = AdminMembershipForm(instance=membership)
@@ -430,15 +463,19 @@ class EditMembershipView(LoginRequiredMixin, View):
             context = {'form':form, 'membership':membership}
             return render(request, 'admin/edit_membership.html', context)
 
+
 # Manage delete membership
-class DeleteMembershipView(LoginRequiredMixin, View):
+class DeleteMembershipView(LoginRequiredMixin, PermissionRequiredMixin, View):
+    permission_required = 'fitness.delete_membership'
     def get(self, request, pk):
         membership = Membership.objects.get(pk=pk)
         membership.delete()
         return redirect('manage-membership')
 
+
 # Manage create category
-class CreateCategoryView(LoginRequiredMixin, View):
+class CreateCategoryView(LoginRequiredMixin, PermissionRequiredMixin, View):
+    permission_required = 'fitness.add_category'
     def get(self, request):
         form = AdminCategoryForm()
         context = {'form':form}
@@ -452,8 +489,10 @@ class CreateCategoryView(LoginRequiredMixin, View):
             context = {'form':form}
             return render(request, 'admin/create_category.html', context)
 
+
 # Manage edit category
-class EditCategoryView(LoginRequiredMixin, View):
+class EditCategoryView(LoginRequiredMixin, PermissionRequiredMixin, View):
+    permission_required = 'fitness.change_category'
     def get(self, request, pk):
         category = Category.objects.get(pk=pk)
         form = AdminCategoryForm(instance=category)
@@ -469,21 +508,20 @@ class EditCategoryView(LoginRequiredMixin, View):
             context = {'form':form, 'category':category}
             return render(request, 'admin/edit_category.html', context)
 
+
 # Manage Delete category
-class DeleteCategoryView(LoginRequiredMixin, View):
+class DeleteCategoryView(LoginRequiredMixin, PermissionRequiredMixin, View):
+    permission_required = 'fitness.delete_category'
     def get(self, request, pk):
         category = Category.objects.get(pk=pk)
         category.delete()
         return redirect('manage-category')
     
+
 # Manage Deletee class
-class DeleteClassView(LoginRequiredMixin, View):
+class DeleteClassView(LoginRequiredMixin, PermissionRequiredMixin, View):
+    permission_required = 'fitness.delete_fitnessclass'
     def get(self, request, pk):
         class_del = FitnessClass.objects.get(pk=pk)
         class_del.delete()
         return redirect('manage-class')
-
-
-class ForbiddenView(View):
-    def get(self, request):
-        return render(request, '403.html')
