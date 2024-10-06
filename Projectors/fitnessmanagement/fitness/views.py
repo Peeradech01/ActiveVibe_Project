@@ -40,8 +40,8 @@ class LoginFormView(View):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            if user.is_staff:  # Check if user is staff
-                return redirect('manage')  # Redirect to management page
+            if user.is_staff:
+                return redirect('manage')
             else:
                 messages.success(request, 'Login Success')
                 return redirect('index')
@@ -302,7 +302,7 @@ class EditProfileView(LoginRequiredMixin, View):
             form.save()  # บันทึกข้อมูลผู้ใช้
             profile_form.save()  # บันทึกข้อมูล PersonalInfo
             messages.success(request, 'Profile Updated Successfully', extra_tags="updateprofile")
-            return render(request, 'user/userprofile.html', {'pk': pk})
+            return redirect('userprofile', pk=pk)
         else:
             context = {'form': form, 'profile_form': profile_form}
             return render(request, 'user/edit_profile.html', context)
@@ -322,7 +322,7 @@ class Change_PasswordView(LoginRequiredMixin, View):
             update_session_auth_hash(request, user)
             print("save success")
             messages.success(request, 'Your password has been changed successfully.', extra_tags="changepassword")
-            return render(request, 'user/userprofile.html', {'pk':pk})
+            return redirect('userprofile', pk=pk)
         else:
             print("unsave")
             context = {'form': form}
