@@ -38,8 +38,23 @@
       <p><b>Start time:</b> {{fit_classdetail.start_time}}</p>
       <p><b>End time:</b> {{fit_classdetail.end_time}}</p>
       <p><b>Remaining capacity:</b> {{ remaining }}</p>
-      <input type="submit" value="Sign Up for Class" class="signup-btn font3">
+
+      {% if not is_trainer and not request.user.is_staff %}
+        <input type="submit" value="Sign Up for Class" class="signup-btn font3">
+      {% endif %}
     </form>
 
   </div>
+
+  <!-- แสดงคนที่ลงเรียน fitnessclass สำหรับ trainer -->
+    {% if is_trainer and request.user.id == fit_classdetail.trainer.id %}
+      <div class="class-detail">
+        <p><b>FitnessClass Participants</b></p>
+        {% for customer in class_participants %}
+          <p>
+            <b> {{ forloop.counter }}. </b> {{ customer.first_name }} {{ customer.last_name }}
+          </p>
+        {% endfor %}
+      </div>
+    {% endif %}
 {% endblock %}

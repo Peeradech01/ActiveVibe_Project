@@ -214,11 +214,12 @@ class FitnessClassView(LoginRequiredMixin, View):
 class FitnessClassDetailView(LoginRequiredMixin, View):
     def get(self, request, pk):
         fit_classdetail = FitnessClass.objects.get(pk=pk)
+        class_participants = fit_classdetail.customer.all()
         is_trainer = request.user.groups.filter(name="Trainer")
         remaining = fit_classdetail.max_capacity - fit_classdetail.customer.count()
         if fit_classdetail.end_time < timezone.now():
             return HttpResponseForbidden()
-        context = {'fit_classdetail':fit_classdetail, 'is_trainer':is_trainer, 'remaining':remaining}
+        context = {'fit_classdetail':fit_classdetail, 'is_trainer':is_trainer, 'remaining':remaining, 'class_participants':class_participants}
         return render(request, 'user/class_detail.html', context)
     
     def post(self, request, pk):
