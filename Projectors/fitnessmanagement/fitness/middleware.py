@@ -17,5 +17,8 @@ class CustomMiddleware:
         elif response.status_code == 403:
             return render(request, 'exceptions/403.html', status=403)
         
+        elif response.status_code == 500:
+            return render(request, 'exceptions/500.html', status=500)
+        
         # Otherwise, return the original response
         return response
