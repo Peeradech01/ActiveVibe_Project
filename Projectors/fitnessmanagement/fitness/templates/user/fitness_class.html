@@ -24,7 +24,7 @@ Fitness Class
 
     <div class="search font3">
         {% if is_trainer %}
-            <a href="{% url 'create-class' %}" class="creat-class">Create</a>
+            <a href="{% url 'create-class' %}" class="creat-class btn btn-success ms-5 ps-4 pe-4 p-3 font3" style="font-size: 1.5rem;">Create</a>
         {% endif %}
         <form method="post" action="{% url 'class' %}">
             {% csrf_token %}

@@ -56,7 +56,7 @@ User Profile
             </div>
         </div>
 
-        <!-- Right Profile Form Section -->
+        <!-- Right Profile Section -->
         <div class="col-md-7">
             <div class="card mybox">
                 <h2 class="font1">My Membership</h2>
@@ -67,17 +67,35 @@ User Profile
                 {% endif %}
                 <h2 class="font1">My Class</h2>
                 <ul>
-                    {% for class in customer_class %}
-                        {% if class.end_time < current_datetime %}
-                            <li class="list-group">{{ class.name }} ({{ class.start_time }} - {{ class.end_time }}) - ( Ended ) </li>
-                        {% elif class.start_time > current_datetime and class.end_time > current_datetime %}
-                            <li class="list-group">{{ class.name }} ({{ class.start_time }} - {{ class.end_time }}) - ( Not started )</li>
-                        {% else %}
-                            <li class="list-group">{{ class.name }} ({{ class.start_time }} - {{ class.end_time }}) - ( Ongoing )</li>
-                        {% endif %}
-                    {% empty %}
-                        <li class="list-group">You haven't registered for any classes yet.</li>
-                    {% endfor %}
+                    {% if request.user.groups.first.name == "Customer" %}
+                        {% for class in customer_class %}
+                            {% if class.end_time < current_datetime %}
+                                <li class="list-group">{{ class.name }} ({{ class.start_time }} - {{ class.end_time }}) - ( Ended ) </li>
+                            {% elif class.start_time > current_datetime and class.end_time > current_datetime %}
+                                <li class="list-group">{{ class.name }} ({{ class.start_time }} - {{ class.end_time }}) - ( Not started )</li>
+                            {% else %}
+                                <li class="list-group">{{ class.name }} ({{ class.start_time }} - {{ class.end_time }}) - ( Ongoing )</li>
+                            {% endif %}
+                        {% empty %}
+                            <li class="list-group">You haven't registered for any classes yet.</li>
+                        {% endfor %}
+
+                    {% elif request.user.groups.first.name == "Trainer" %}
+                        {% for class in trainer_class %}
+                            {% if class.end_time < current_datetime %}
+                                <li class="list-group">{{ class.name }} ({{ class.start_time }} - {{ class.end_time }}) - ( Ended ) </li>
+                            {% elif class.start_time > current_datetime and class.end_time > current_datetime %}
+                                <li class="list-group">{{ class.name }} ({{ class.start_time }} - {{ class.end_time }}) - ( Not started )</li>
+                            {% else %}
+                                <li class="list-group">{{ class.name }} ({{ class.start_time }} - {{ class.end_time }}) - ( Ongoing )</li>
+                            {% endif %}
+                        {% empty %}
+                            <li class="list-group">You haven't registered for any classes yet.</li>
+                        {% endfor %}
+
+                    {% endif %}
+
+
                 </ul>
             </div>
         </div>

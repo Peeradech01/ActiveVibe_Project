@@ -295,7 +295,8 @@ class UserProfileView(LoginRequiredMixin, View):
         current_datetime = timezone.now()
         membership = CustomerMembership.objects.filter(customer=pk)
         customer_class = FitnessClass.objects.filter(customer=request.user)
-        context = {'membership': membership, 'customer_class': customer_class, 'current_datetime': current_datetime}
+        trainer_class = FitnessClass.objects.filter(trainer_id=request.user)
+        context = {'membership': membership, 'customer_class': customer_class, 'current_datetime': current_datetime, 'trainer_class': trainer_class}
         return render(request, 'user/userprofile.html', context)
 
 
