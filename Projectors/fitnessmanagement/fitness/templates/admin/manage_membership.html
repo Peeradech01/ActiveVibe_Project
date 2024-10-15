@@ -17,6 +17,7 @@ Manage Membership
                     <th>Description</th>
                     <th>Duration</th>
                     <th>Price</th>
+                    <th>Total Customer</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -27,6 +28,8 @@ Manage Membership
                     <td>{{ membership.description }}</td>
                     <td>{{ membership.duration_display }}</td>
                     <td>{{ membership.price }} ฿</td>
+                    <td>{{ membership.total_customers }}</td>
+
                     <td style="text-align: center;">
                         <a href="{% url 'edit-membership' membership.id %}" class="btn btn-warning ps-3 pe-3 p-2 font3" style="font-size: 1.2rem;"><ion-icon name="create-outline"></ion-icon></a>
                         <a href="{% url 'delete-membership' membership.id %}" class="btn btn-danger ms-4 ps-3 pe-3 p-2 font3" style="font-size: 1.2rem;"><ion-icon name="trash-outline"></ion-icon></a>

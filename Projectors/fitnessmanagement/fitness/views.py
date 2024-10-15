@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import HttpRequest, HttpResponseForbidden
+from django.http import HttpResponseForbidden
 from django.views import View
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -8,10 +8,8 @@ from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
-from django import forms
+from django.db.models import Count
 import random
-from datetime import datetime
 from fitness.models import *
 from .forms import LoginForm
 from django.contrib.auth.models import Group
@@ -59,7 +57,7 @@ class LogoutFormView(View):
         logout(request)
         messages.success(request, 'Logout Success')
         storage = messages.get_messages(request)
-        storage.used = True  # clear the messages
+        storage.used = True  
         return redirect('login')
 
 
@@ -122,10 +120,8 @@ class MembershipFormView(LoginRequiredMixin, View):
             personal_form.save()
             print('update_personal')
 
-            # get membership
             # customer เคยลง membership อยู่แล้ว 
             try:
-                # Check if CustomerMembership exists using get()
                 customer_membership = CustomerMembership.objects.get(customer=user)
                 print(f'customer : {customer_membership}')
 
@@ -134,12 +130,10 @@ class MembershipFormView(LoginRequiredMixin, View):
             
             # customer ยังไม่เคยลง membership
             except CustomerMembership.DoesNotExist:
-                # Create new CustomerMembership 
                 CustomerMembership.objects.create(
                     customer=user,
                     membership=membership
                 )
-                # messages.success(request, "Membership created successfully.")
                 messages.success(request, "You registered membership successfully.", extra_tags='membership_registration')
                 return redirect('membership')
         else:
@@ -398,7 +392,7 @@ class DeleteUserView(LoginRequiredMixin, View):
 class ManageMembershipView(LoginRequiredMixin, View):
     def get(self, request):
         if request.user.is_staff:
-            membership_list = Membership.objects.all()
+            membership_list = Membership.objects.annotate(total_customers=Count('customermembership'))
             for membership in membership_list:
                 if membership.duration >= 12:
                     membership.duration_display = f"{membership.duration // 12} year"

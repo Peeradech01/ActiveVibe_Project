@@ -2,7 +2,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'style.css' %}" />
@@ -12,13 +12,13 @@
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <title>{% block title %}Title{% endblock %}</title>
     <style>
-      .content {
+    .content {
             margin-left: 350px;
             padding: 30px;
             background-color: #fff;
             border-left: 1px solid #ddd;
             height: 100vh;
-            overflow-y: auto; /* Add scrollbar to content area */
+            overflow-y: auto; 
         }
 
         .content-h1 {
@@ -26,19 +26,19 @@
         }
 
         .card {
-            margin-bottom: 20px; /* Add some space between cards */
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow to the cards */
+            margin-bottom: 20px; 
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
         .card-body {
-            padding: 20px; /* Add some padding to card body */
+            padding: 20px; 
         }
         .card-title {
-            font-weight: bold; /* Make card title bold */
-            margin-bottom: 10px; /* Add some space between title and text */
+            font-weight: bold; 
+            margin-bottom: 10px; 
         }
         .card-text {
-            font-size: 24px; /* Increase font size of card text */
-            font-weight: bold; /* Make card text bold */
+            font-size: 24px; 
+            font-weight: bold;
         }
 
         nav {
@@ -72,7 +72,7 @@
             border-radius: 10px;
         }
 
-        /* admin created membership */
+        
         .create-div {
             display: flex;
             flex-direction: column;
@@ -111,21 +111,21 @@
         }
 
     </style>
-  </head>
-  <body>
-    {% block nav%}
-      {% include 'sidebar.html' %}
-    {% endblock%}
+</head>
+    <body>
+        {% block nav%}
+            {% include 'sidebar.html' %}
+        {% endblock%}
 
-    <div class="content font3">
-        <nav>
-            <a style="float: right; padding: 10px 20px; text-decoration: none;" class="log-btn" href="{% url 'logout' %}">Logout</a>
-            <a style="float: right; padding: 10px 40px;">{{ request.user.username }}</a>
-        </nav>
-    {% block content %}{% endblock %}
-    </div>
+        <div class="content font3">
+            <nav>
+                <a style="float: right; padding: 10px 20px; text-decoration: none;" class="log-btn" href="{% url 'logout' %}">Logout</a>
+                <a style="float: right; padding: 10px 40px;">{{ request.user.username }}</a>
+            </nav>
+        {% block content %}{% endblock %}
+        </div>
 
-    {% block script %}
-    {% endblock %}
-  </body>
+        {% block script %}
+        {% endblock %}
+    </body>
 </html>
