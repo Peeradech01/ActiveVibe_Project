@@ -5,17 +5,41 @@
 {% block title %}
 Edit Profile
 {% endblock %}
-
 {% block content %}
-<a class="back font3" href="{% url 'userprofile' user.pk%}">Back</a>
+<a class="back font3" href="{% url 'userprofile' user.pk %}">Back</a>
 <div class="div-change-password">
     <h1 class="font1">EDIT YOUR PROFILE</h1>
     <form method="post" action="{% url 'edit_profile' user.pk %}" enctype="multipart/form-data">
         {% csrf_token %}
-        {{ profile_form }}
-        {{ form }}
-        <input type="submit" value="Save">
+        
+        {% for field in form %}
+            <label style="font-weight: bold;">{{ field.label }}:</label><br>                
+            {{ field }}<br>
+            {% if field.errors %}
+                {% for error in field.errors %}
+                    <ul class="errorlist">
+                        <li>{{ error }}</li>
+                    </ul>
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+
+        {% for field in profile_form %}
+            <label style="font-weight: bold;">{{ field.label }}:</label><br>                
+            {{ field }}<br>
+            {% if field.errors %}
+                {% for error in field.errors %}
+                    <ul class="errorlist">
+                        <li>{{ error }}</li>
+                    </ul>
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+        
+        <br>
+        <div class="form-group">
+            <input type="submit" value="Save">
+        </div>
     </form>
 </div>
 {% endblock %}
-

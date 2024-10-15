@@ -14,13 +14,21 @@ class LoginForm(AuthenticationForm):
     
 # upload profile image
 class ProfileImageForm(forms.ModelForm):
+    phone_validator = RegexValidator(
+        regex=r'^(0)[0-9]{9}$',
+        message="Phone number must be in format '0xxxxxxxxx'"
+    )
+    phone = forms.CharField(validators=[phone_validator], widget=forms.TextInput(attrs={'class': 'edit-form'}))
     class Meta:
         model = PersonalInfo
-        fields = ['profile_image']
+        fields = ['phone', 'profile_image']
 
         widgets = {
             'profile_image': forms.FileInput(attrs={'class': 'edit-form'}),
         }
+
+
+
 
 # edit profile
 class EditProfileForm(UserChangeForm):

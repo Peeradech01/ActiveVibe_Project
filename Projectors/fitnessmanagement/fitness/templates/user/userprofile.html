@@ -41,6 +41,7 @@ User Profile
                 <ul class="list-group list-group-flush text-left">
                     <li class="list-group-item"><b>Full Name:</b> {{ user.first_name }} {{ user.last_name }}</li>
                     <li class="list-group-item"><b>Email:</b> {{ user.email }}</li>
+                    <li class="list-group-item"><b>Phone:</b> {{ user.personalinfo.phone }}</li>
                     <li class="list-group-item"><b>Role:</b> 
                         {% for group in user.groups.all %}
                             <span class="font3">{{ group.name }}</span>

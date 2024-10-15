@@ -298,8 +298,9 @@ class UserProfileView(LoginRequiredMixin, View):
 #Edit userprofile form
 class EditProfileView(LoginRequiredMixin, View):
     def get(self, request, pk):
+        personal_info = PersonalInfo.objects.get(customer=request.user)
+        profile_form = ProfileImageForm(instance=personal_info)
         form = EditProfileForm(instance=request.user)
-        profile_form = ProfileImageForm()
         context = {'form':form, 'profile_form':profile_form}
         return render(request, 'user/edit_profile.html', context)
     
