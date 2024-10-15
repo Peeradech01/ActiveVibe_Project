@@ -156,6 +156,7 @@ class FitnessClassView(LoginRequiredMixin, View):
         return render(request, 'user/fitness_class.html', context)
 
     def post(self, request):
+        current_datetime = timezone.now()
         fit_class = FitnessClass.objects.all()
         select_category = request.POST.get('category')
         search_query = request.POST.get('q')
@@ -200,7 +201,7 @@ class FitnessClassView(LoginRequiredMixin, View):
                 fit_class = FitnessClass.objects.filter(name__icontains=search_query)
             else:
                 fit_class = FitnessClass.objects.all()
-        context = {'fit_class': fit_class, 'category_list': categories, 'select_category': select_category}
+        context = {'fit_class': fit_class, 'category_list': categories, 'select_category': select_category, 'current_datetime': current_datetime}
         return render(request, 'user/fitness_class.html', context)
 
 
