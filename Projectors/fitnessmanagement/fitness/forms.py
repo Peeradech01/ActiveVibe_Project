@@ -191,6 +191,12 @@ class UserForm(forms.ModelForm):
         if last_name_form != self.instance.last_name:
             raise forms.ValidationError("Last name not matched")
         return last_name_form
+    
+    def clean_email(self):
+        email_form = self.cleaned_data['email']
+        if email_form != self.instance.email:
+            raise forms.ValidationError("Email not matched")
+        return email_form
 
 
 # model PersonalInfo
@@ -205,3 +211,9 @@ class PersonalForm(forms.ModelForm):
     class Meta:
         model = PersonalInfo
         fields = ['phone']
+    
+    def clean_phone(self):
+        phone_form = self.cleaned_data['phone']
+        if phone_form != self.instance.phone:
+            raise forms.ValidationError("Phone not matched")
+        return phone_form

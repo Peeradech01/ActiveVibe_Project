@@ -105,3 +105,12 @@ LOGIN_URL = "login"
 # upload image
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+# send_mail
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587 
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'suapeeradech@gmail.com'  # อีเมลผู้ส่ง
+EMAIL_HOST_PASSWORD = 'exzfhutcapdtvutm'

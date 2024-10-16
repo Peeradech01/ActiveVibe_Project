@@ -14,6 +14,9 @@ from fitness.models import *
 from .forms import LoginForm
 from django.contrib.auth.models import Group
 from .forms import LoginForm, EditProfileForm, RegistrationForm, ClassForm, AdminMembershipForm, AdminCategoryForm, UserForm, PersonalForm, ProfileImageForm
+from django.core.mail import send_mail
+from django.conf import settings
+
 
 
 # Index page
@@ -105,18 +108,15 @@ class MembershipFormView(LoginRequiredMixin, View):
         form = UserForm()
         personal_form = PersonalForm()    
         context = {'form':form, 'personal_form':personal_form, 'pk':pk, 'membership':membership}
-        print('this method get')
         return render(request, 'user/membership_form.html', context)
     
     def post(self, request, pk):
         form = UserForm(request.POST, instance=request.user)
         personal_form = PersonalForm(request.POST, instance=request.user.personalinfo)
-        print('update customer')
         membership = Membership.objects.get(pk=pk)
         if form.is_valid() and personal_form.is_valid():
             user = form.save()
             personal_form.save()
-            print('update_personal')
 
             # customer เคยลง membership อยู่แล้ว 
             try:
@@ -132,6 +132,22 @@ class MembershipFormView(LoginRequiredMixin, View):
                     customer=user,
                     membership=membership
                 )
+                
+                # ส่งอีเมลถ้าสมัคร Membership 
+                subject = 'Membership Registration Confirmation'
+                message = f"Dear {user.first_name},\n\nThank you for registering for the {membership.name} membership."
+                form_email = settings.EMAIL_HOST_USER
+                to_email = [user.email]
+
+                send_mail(
+                    subject,
+                    message,
+                    form_email,
+                    to_email,
+                    fail_silently=True
+                )
+
+
                 messages.success(request, "You registered membership successfully.", extra_tags='membership_registration')
                 return redirect('membership')
         else:
