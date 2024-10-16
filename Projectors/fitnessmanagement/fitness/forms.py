@@ -211,9 +211,3 @@ class PersonalForm(forms.ModelForm):
     class Meta:
         model = PersonalInfo
         fields = ['phone']
-    
-    def clean_phone(self):
-        phone_form = self.cleaned_data['phone']
-        if phone_form != self.instance.phone:
-            raise forms.ValidationError("Phone not matched")
-        return phone_form
