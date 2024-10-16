@@ -43,14 +43,21 @@ Manage user
                             {% endif %}
                             <td>{{ user.email }}</td>
                             <td>
-                                {% for group in user.groups.all %}
-                                    {{ group.name }}{% if not forloop.last %}, {% endif %}
-                                {% endfor %}
+                                {% if user.is_staff %}
+                                    Manager
+                                {% else %}
+                                    {% for group in user.groups.all %}
+                                        {{ group.name }}{% if not forloop.last %}, {% endif %}
+                                    {% endfor %}
+                                {% endif %}
+                                
                             </td>
                             <td>{{ user.date_joined|date:"j M. Y, H:i" }}</td>
                             <td style="text-align: center;">
-                                <!-- delete -->
-                                <a href="{% url 'delete-user' user.pk %}" class="btn btn-danger btn-sm" style="font-size: 1.2rem;"><ion-icon name="trash-outline"></ion-icon></a> 
+                                {% if not user.is_staff %}                                    
+                                    <!-- delete -->
+                                    <a href="{% url 'delete-user' user.pk %}" class="btn btn-danger btn-sm" style="font-size: 1.2rem;"><ion-icon name="trash-outline"></ion-icon></a> 
+                                {% endif %}
                             </td>
                         </tr>
                     {% endfor %}
