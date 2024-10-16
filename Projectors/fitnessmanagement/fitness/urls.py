@@ -18,6 +18,7 @@ urlpatterns = [
     path('class/delete/<int:pk>/', DeleteFitnessClassView.as_view(), name='delete-class'), # Edit fitness class page
 
 
+    # ///////////// ADMIN /////////////
     path('manage/', ManagementView.as_view(), name='manage'), # Admin
     path('manage/user/', ManageUserView.as_view(), name='manage-user'), # Manage user
     path('manage/user/delete/<int:pk>/', DeleteUserView.as_view(), name='delete-user'), # Delete user

@@ -28,7 +28,7 @@ class IndexView(View):
         return render(request, 'user/index.html', context)
 
 
-#Login form
+#  Login Form
 class LoginFormView(View):
     def get(self, request):
         form = LoginForm()
@@ -51,7 +51,7 @@ class LoginFormView(View):
             return redirect('login')
 
 
-#Logout
+# Logout
 class LogoutFormView(View):
     def get(self, request):
         logout(request)
@@ -61,7 +61,7 @@ class LogoutFormView(View):
         return redirect('login')
 
 
-#Register form
+# Register form
 class RegisterFormView(View):
     def get(self, request):
         form = RegistrationForm()
@@ -79,15 +79,14 @@ class RegisterFormView(View):
             PersonalInfo.objects.create(
                 customer=user,
             )
-
             login(request, user)
             return redirect('login')
         else:
             context = {'form': form}
             return render(request, 'authen/register_form.html', context)
-        
 
-#Membership page
+
+# Membership page
 class MembershipView(LoginRequiredMixin, View):
     def get(self, request):
         member = Membership.objects.all()
@@ -95,7 +94,7 @@ class MembershipView(LoginRequiredMixin, View):
         return render(request, 'user/membership.html', context)
 
 
-#Membership form
+# Membership form
 class MembershipFormView(LoginRequiredMixin, View):
     def get(self, request, pk):
         membership = Membership.objects.get(pk=pk)
@@ -111,7 +110,6 @@ class MembershipFormView(LoginRequiredMixin, View):
     
     def post(self, request, pk):
         form = UserForm(request.POST, instance=request.user)
-        new_personal = False
         personal_form = PersonalForm(request.POST, instance=request.user.personalinfo)
         print('update customer')
         membership = Membership.objects.get(pk=pk)
@@ -205,7 +203,7 @@ class FitnessClassView(LoginRequiredMixin, View):
         return render(request, 'user/fitness_class.html', context)
 
 
-#Fitness class detail page
+# Fitness class detail page
 class FitnessClassDetailView(LoginRequiredMixin, View):
     def get(self, request, pk):
         fit_classdetail = FitnessClass.objects.get(pk=pk)
@@ -230,7 +228,7 @@ class FitnessClassDetailView(LoginRequiredMixin, View):
         return redirect('class')
 
 
-#Create fitness class form
+# Create fitness class form
 class CreateFitnessClassView(LoginRequiredMixin, PermissionRequiredMixin, View):
     permission_required = 'fitness.add_fitnessclass'
     def get(self, request):
@@ -250,7 +248,7 @@ class CreateFitnessClassView(LoginRequiredMixin, PermissionRequiredMixin, View):
             return render(request, 'user/create_class.html', context)
 
 
-#Edit fitness class form
+# Edit fitness class form
 class EditFitnessClassView(LoginRequiredMixin, PermissionRequiredMixin, View):
     permission_required = 'fitness.change_fitnessclass'
     def get(self, request, pk):
@@ -272,7 +270,7 @@ class EditFitnessClassView(LoginRequiredMixin, PermissionRequiredMixin, View):
             return render(request, 'user/edit_class.html', context)
 
 
-#Delete fitnes sclass
+# Delete fitnes sclass
 class DeleteFitnessClassView(LoginRequiredMixin, PermissionRequiredMixin, View):
     permission_required = 'fitness.delete_fitnessclass'
     def get(self, request, pk):
@@ -295,7 +293,7 @@ class UserProfileView(LoginRequiredMixin, View):
         return render(request, 'user/userprofile.html', context)
 
 
-#Edit userprofile form
+# Edit userprofile form
 class EditProfileView(LoginRequiredMixin, View):
     def get(self, request, pk):
         personal_info = PersonalInfo.objects.get(customer=request.user)
@@ -312,7 +310,7 @@ class EditProfileView(LoginRequiredMixin, View):
         profile_form = ProfileImageForm(request.POST, request.FILES, instance=personal_user)
 
         if form.is_valid() and profile_form.is_valid():
-            form.save()  # บันทึกข้อมูลผู้ใช้
+            form.save()  # บันทึกข้อมูล User
             profile_form.save()  # บันทึกข้อมูล PersonalInfo
             messages.success(request, 'Profile Updated Successfully', extra_tags="updateprofile")
             return redirect('userprofile', pk=pk)
@@ -341,6 +339,8 @@ class Change_PasswordView(LoginRequiredMixin, View):
             context = {'form': form}
             return render(request, 'user/change_password.html', context)
 
+
+# /////////////// ADMIN  /////////////////
 
 # Admin page
 class ManagementView(LoginRequiredMixin, View):
@@ -388,7 +388,7 @@ class DeleteUserView(LoginRequiredMixin, View):
             return redirect('manage-user')
         else:
             return HttpResponseForbidden()
-    
+
 
 # Manage membership page
 class ManageMembershipView(LoginRequiredMixin, View):
@@ -518,7 +518,7 @@ class DeleteCategoryView(LoginRequiredMixin, PermissionRequiredMixin, View):
         category = Category.objects.get(pk=pk)
         category.delete()
         return redirect('manage-category')
-    
+
 
 # Manage Deletee class
 class DeleteClassView(LoginRequiredMixin, PermissionRequiredMixin, View):
