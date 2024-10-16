@@ -45,11 +45,11 @@ Fitness Class
                 {% endfor %}
             </select>
         </form>
-        <form method="post"  action="{% url 'class' %}">
+        <form method="post" action="{% url 'class' %}" id="bmi-form">
             {% csrf_token %}
-            <input class="input-bmi-class" type="number" name="height" id="height" placeholder="Enter your height.">
-            <input class="input-bmi-class" type="number" name="weight" id="weight" placeholder="Enter your weight.">
-            <input class="input-class hover-butt" type="submit" value="Calcute BMI">
+            <input class="input-bmi-class" type="number" name="height" id="height" placeholder="Enter your height." required>
+            <input class="input-bmi-class" type="number" name="weight" id="weight" placeholder="Enter your weight." required>
+            <input class="input-class hover-butt" type="submit" value="Calculate BMI">
         </form>
     </div>
     <div>
@@ -79,6 +79,16 @@ Fitness Class
 <script>
     document.getElementById('category').addEventListener('change', function() {
         document.getElementById('categoryform').submit();
+    });
+
+    document.getElementById('bmi-form').addEventListener('submit', function(event) {
+        const height = parseFloat(document.getElementById('height').value);
+        const weight = parseFloat(document.getElementById('weight').value);
+        
+        if (height < 0 || weight < 0) {
+            alert("Height and weight must be positive numbers.");
+            event.preventDefault(); // Prevent form submission
+        }
     });
 </script>
 {% endblock %}
